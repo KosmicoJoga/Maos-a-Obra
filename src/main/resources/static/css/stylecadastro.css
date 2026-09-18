@@ -1,0 +1,94 @@
+.conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 30px;
+}
+
+.texto {
+    display: flex;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+
+.form-cadastrar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-cadastrar div {
+    gap: 15px;
+}
+
+.cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin: 0;
+}
+
+label {
+    gap: 5px;
+}
+.cadastro input{
+    background-color:#001531;
+    color:#ffb000;
+}
+.nome,
+.email,
+.idade,
+.ConfirmaEmail,
+.senha,.tipoPrestador {
+    gap: 5px;
+    display:flex;
+    align-items: center;
+}
+
+select {
+    background-color:#001531;
+    color:#ffb000;
+}
+
+.nome > span,
+.idade > span,
+.email > span,
+.ConfirmaEmail > span,
+.senha > span ,
+.tipoPrestador>span{
+    width: 130px;
+    text-align: right;
+}
+
+.jatemconta{
+    display: flex;
+    align-items: center;
+}
+#texto-conta{
+    color: gray;
+}
+    #link-entrar a, #link-entrar a:visited {
+
+        text-decoration: underline;
+        color: #ffb000;
+    }
+.btn-enviar {
+    border-radius: 25px;
+    background-color: green;
+    width: 50%;
+    align-items: center;
+    color: white;
+    height: 50px;
+}

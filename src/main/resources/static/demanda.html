@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos à obra</title>
+    <link rel="stylesheet" href="css/geral.css">
+    <link rel="stylesheet" href="css/styledemanda.css">
+    <link rel="icon" type="image/png" href="images/Logo_TCC.png">
+</head>
+<body>
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/Botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+<div class="pagina">
+    <header class="header">
+        <div class="logo">
+            <img src="/images/Logo_titulo_horizontal.png" alt="logo">
+        </div>
+    </header>
+    <main class="conteudo">
+        <div class="texto">
+            <h1>anunciar demanda</h1>
+        </div>
+        <br> <br> <br> <br> <br> <br>
+        <div class="demanda">
+            <div class="tipoDeServiço">
+                <span>Tipo:</span>
+
+            <select id="tipo" name="tipo">
+                <option value="eletricista">Eletricista</option>
+                <option value="faxineiro">Faxineiro</option>
+                <option value="encanador">Encanador</option>
+            </select>
+            </div>
+            <br>
+            <div class="local">
+                <span>Local:</span>
+                <input type="text" id="Local" name="Local">
+            </div>
+            <br>
+            <div class="descricao">
+                <span>  Descrição:</span>
+                <input type="text" id="Descricao" name="Descricao">
+            </div>
+            <br>
+            <div class="orcamento">
+                <span>  Orçamento:</span>
+                <input type="text" id="Orcamento" name="Orcamento">
+            </div>
+            <br>
+            <button class="btn-demanda" onclick="history.back()">
+                anunciar demanda
+            </button>
+        </div>
+    </main>
+</div>
+<aside class="sidebar-direita">
+
+</aside>
+</body>
+</html>

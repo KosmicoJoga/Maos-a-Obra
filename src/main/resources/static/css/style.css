@@ -1,0 +1,409 @@
+
+/* BOTÕES DO HEADER */
+
+.acoes {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.acoes a {
+    height: 50px;
+    min-width: 150px;
+
+    text-decoration: none;
+    color: #ffb000;
+
+    background-color: #002650;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    font-size: 20px;
+}
+
+.acoes a img {
+    width: 35px;
+    height: 35px;
+
+    object-fit: contain;
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.conteudo {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 50px 30px;
+}
+
+
+/* =========================
+   PESQUISA
+========================= */
+
+.pesquisa {
+    width: min(730px, 90%);
+
+    height: 62px;
+
+    background-color: #002650;
+
+    border-radius: 35px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    margin-bottom: 40px;
+}
+
+
+/* BOTÃO FILTRO */
+
+.btn-filtro {
+    width: 55px;
+    height: 55px;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-filtro img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+
+/* CAMPO */
+
+.campo-pesquisa {
+    flex: 1;
+
+    height: 48px;
+
+    background-color: #001b3d;
+
+    border: none;
+    border-radius: 25px;
+
+    outline: none;
+
+    padding: 0 25px;
+
+    color: #ffb000;
+
+    font-size: 20px;
+}
+
+.campo-pesquisa::placeholder {
+    color: #9b7100;
+}
+
+
+/* LUPA */
+
+.btn-pesquisar {
+    width: 60px;
+    height: 55px;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-pesquisar img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+
+/* =========================
+   LISTA DE TRABALHADORES
+========================= */
+
+.lista-trabalhadores {
+    width: min(630px, 90%);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 28px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card-trabalhador {
+    width: 100%;
+    min-height: 210px;
+
+    background-color: #001d41;
+
+    border-radius: 65px;
+
+    padding: 28px 30px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+/* =========================
+   FOTO
+========================= */
+
+.foto-trabalhador {
+    width: 157px;
+    height: 157px;
+
+    flex-shrink: 0;
+
+    background-color: #ddd;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.foto-trabalhador img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+.informacoes-trabalhador {
+    flex: 1;
+    min-height: 150px;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr auto;
+
+    column-gap: 20px;
+}
+
+
+/* NOME E SERVIÇO */
+
+.dados-trabalhador {
+    grid-column: 1;
+    grid-row: 1;
+
+    padding-top: 5px;
+}
+
+.dados-trabalhador h2 {
+    color: #ffb000;
+
+    font-size: 23px;
+    font-weight: normal;
+
+    margin-bottom: 12px;
+}
+
+.dados-trabalhador p {
+    color: #ffb000;
+
+    font-size: 22px;
+}
+
+
+/* =========================
+   AVALIAÇÃO
+========================= */
+
+.avaliacao {
+    grid-column: 2;
+    grid-row: 1;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 24px;
+    color: white;
+}
+
+.estrela {
+    color: #ffbd00;
+
+    font-size: 40px;
+
+    line-height: 1;
+}
+
+
+/* =========================
+   BOTÃO VER PERFIL
+========================= */
+
+.btn-perfil {
+    grid-column: 1 / 3;
+    grid-row: 2;
+
+    width: 295px;
+    height: 64px;
+
+    justify-self: center;
+
+    background-color: #00731e;
+
+    border-radius: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 25px;
+
+    transition: 0.2s;
+}
+
+.btn-perfil:hover {
+    background-color: #008d26;
+
+    transform: scale(1.02);
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 900px) {
+
+    .sidebar-direita,
+    .sidebar-esquerda {
+        width: 100px;
+    }
+
+    .pagina {
+        width: calc(100% - 100px);
+    }
+
+    .header {
+        padding-right: 15px;
+    }
+
+    .logo img {
+        max-width: 350px;
+    }
+
+    .acoes {
+        gap: 8px;
+    }
+
+    .acoes a {
+        min-width: 110px;
+        font-size: 16px;
+    }
+
+    .acoes a img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .sidebar-direita,
+    .sidebar-esquerda {
+        display: none;
+    }
+
+    .pagina {
+        width: 100%;
+    }
+
+    .header {
+        height: auto;
+        min-height: 70px;
+
+        flex-wrap: wrap;
+
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .logo {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .logo img {
+        max-width: 300px;
+    }
+
+    .acoes {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .card-trabalhador {
+        border-radius: 40px;
+
+        padding: 20px;
+
+        flex-direction: column;
+    }
+
+    .informacoes-trabalhador {
+        width: 100%;
+    }
+
+    .avaliacao {
+        font-size: 20px;
+    }
+
+    .btn-perfil {
+        width: 100%;
+    }
+}

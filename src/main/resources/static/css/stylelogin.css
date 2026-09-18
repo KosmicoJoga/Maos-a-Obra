@@ -1,0 +1,69 @@
+.texto {
+    display: flex;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+.conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 30px;
+}
+
+.form-logar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-logar div {
+    gap: 15px;
+}
+
+
+.entrar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+.entrar input{
+    background-color:#001531;
+    color:#ffb000;
+}
+.email,
+.senha {
+    gap: 5px;
+    display:flex;
+    align-items: center;
+}
+.email > span,
+.senha> span {
+    width: 130px;
+    text-align: right;
+}
+.naotemconta{
+    display: flex;
+    align-items: center;
+}
+#texto-conta{
+    color: gray;
+}
+#link-criar a, #link-criar a:visited {
+
+    text-decoration: underline;
+    color: #ffb000;
+}
+.btn-enviar {
+    border-radius: 25px;
+    background-color: green;
+    width: 50%;
+    align-items: center;
+    color: white;
+    height: 50px;
+}

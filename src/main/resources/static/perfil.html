@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mãos à obra</title>
+
+    <link rel="stylesheet" href="css/geral.css">
+    <link rel="stylesheet" href="css/styleperfil.css">
+
+    <link rel="icon" type="image/png" href="images/Logo_TCC.png">
+</head>
+
+<body>
+
+<!-- BARRA LATERAL ESQUERDA-->
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/Botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+
+
+<!-- ÁREA PRINCIPAL -->
+<div class="pagina">
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+        </div>
+
+        <!-- AÇÕES DO USUÁRIO -->
+        <div class="acoes">
+
+            <a href="/cadastro.html" class="btn-cadastrar">
+                <img src="images/usuario.png" alt="">
+                <span>Cadastrar</span>
+            </a>
+
+            <a href="/login.html" class="btn-entrar">
+                <img src="images/formulario.png" alt="">
+                <span>Entrar</span>
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+        <!-- INFORMAÇÕES PRINCIPAIS DO PERFIL -->
+        <section class="perfil">
+
+            <div class="foto-perfil">
+                <img src="images/foto_perfil.png" alt="Foto do perfil">
+            </div>
+
+            <div class="dados-perfil">
+
+                <div class="nome-idade">
+                    <h1 class="nome-perfil">*nome completo*</h1>
+                    <p class="idade-perfil">*idade*</p>
+                </div>
+
+                <p class="tipo-servico">*tipo de serviço*</p>
+
+                <div class="avaliacao-servico">
+                    <span>★</span>
+                    <span>4,7 (67 avaliações)</span>
+                </div>
+
+                <p class="localizacao">
+                    📍 Sapucaia do Sul - RS
+                </p>
+
+            </div>
+
+            <div class="status">
+                <p>*status (on/offline)</p>
+                <small>*membro desde 20xx*</small>
+
+                <button class="botao-verde" onclick="window.location.href='solicitar.html'">SOLICITAR SERVICO</button>
+            </div>
+
+        </section>
+
+        <!-- ABAS DO PERFIL -->
+        <nav class="abas-perfil">
+            <a href="#">Informações</a>
+            <a href="#">Mídia</a>
+            <a href="#">Avaliações</a>
+            <a href="#">Histórico de Pedidos</a>
+            <a href="#">Certificados</a>
+        </nav>
+
+        <!-- CONTEÚDO DA ABA "INFORMAÇÕES"-->
+        <section class="informacoes">
+            <h2>SOBRE MIM</h2>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.</p>
+
+            <div class="detalhes">
+                <div class="card-detalhes">
+                    <section>
+                        <h2>Serviços Oferecidos</h2>
+
+                        <ul>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <div class="card-detalhes">
+                    <section>
+                        <h2>Experiência</h2>
+
+                        <ul>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <div class="card-detalhes">
+                    <section>
+                        <h2>Horários disponíveis</h2>
+
+                        <ul>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                        </ul>
+                    </section>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita">
+
+</aside>
+
+</body>
+</html>

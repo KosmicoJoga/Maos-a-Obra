@@ -1,0 +1,48 @@
+.texto {
+    display: flex;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+.conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 30px;
+}
+.demanda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+.demanda input{
+    background-color:#001531;
+    color:#ffb000;
+}
+.descricao,
+.local,
+.orcamento{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.descricao > span,
+.local > span,
+.orcamento > span {
+    width: 130px;
+    text-align: right;
+}
+.btn-solicita {
+    border-radius: 25px;
+    background-color: green;
+    width: 75%;
+    align-items: center;
+    color: white;
+    height: 50px;
+    font-size:15px;
+}

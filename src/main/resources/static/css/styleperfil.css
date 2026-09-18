@@ -1,0 +1,161 @@
+.acoes {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.acoes a {
+    height: 50px;
+    width: fit-content;
+
+    text-decoration: none;
+    color: #ffb000;
+
+    background-color: #002650;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+
+    gap: 10px;
+
+    font-size: 20px;
+}
+
+.acoes img {
+    width: 35px;
+    height: 35px;
+
+    object-fit: contain;
+}
+
+.conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.perfil {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: #001531;
+}
+
+.foto-perfil {
+    width: fit-content;
+    margin: 20px;
+}
+
+.foto-perfil img{
+    display: block;
+    width: 200px;
+    border-radius: 20%;
+}
+
+.dados-perfil {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.nome-idade {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.localizacao {
+    margin-top: 80px;
+}
+
+.status {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    align-items: end;
+}
+
+.status p, small {
+    font-size: large;
+}
+
+.status .botao-verde {
+    margin-top: 110px;
+}
+.botao-verde {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    box-sizing: border-box;
+}
+
+.abas-perfil {
+    background-color: #002657;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+}
+
+.abas-perfil a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.informacoes {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+}
+
+.detalhes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: white solid 1px;
+    margin-top: 50px;
+}
+
+.card-detalhes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.card-detalhes h2{
+    margin-bottom: 20px;
+}
+
+.card-detalhes li{
+    list-style: none;
+}
+
+
+
+
+
+
+
+
+
+
+
