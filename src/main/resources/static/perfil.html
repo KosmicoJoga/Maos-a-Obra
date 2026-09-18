@@ -94,15 +94,16 @@
 
         <!-- ABAS DO PERFIL -->
         <nav class="abas-perfil">
-            <a href="#">Informações</a>
-            <a href="#">Mídia</a>
-            <a href="#">Avaliações</a>
-            <a href="#">Histórico de Pedidos</a>
-            <a href="#">Certificados</a>
+            <span onclick=MostradadosInformacoes()>Informações</span>
+            <span onclick="abaatual='mídias'">Mídias</span>
+            <span onclick="abaatual='avaliações'">Avaliações</span>
+            <span onclick="abaatual='histórico de pedidos'">Histórico de pedidos</span>
+            <span onclick=MostradadosCertificados()>Certificados</span>
         </nav>
 
-        <!-- CONTEÚDO DA ABA "INFORMAÇÕES"-->
-        <section class="informacoes">
+
+        <section class="informacoes"  id="informacoes"style="display: none;">
+
             <h2>SOBRE MIM</h2>
 
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
@@ -123,40 +124,78 @@
                         </ul>
                     </section>
                 </div>
-
-                <div class="card-detalhes">
-                    <section>
-                        <h2>Experiência</h2>
-
-                        <ul>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                        </ul>
-                    </section>
-                </div>
-
-                <div class="card-detalhes">
-                    <section>
-                        <h2>Horários disponíveis</h2>
-
-                        <ul>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                        </ul>
-                    </section>
-                </div>
-
             </div>
+            <div class="card-detalhes">
+                <section>
+                    <h2>Experiência</h2>
+
+                    <ul>
+                        <li>Lorem ipsum</li>
+                        <li>Lorem ipsum</li>
+                        <li>Lorem ipsum</li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="card-detalhes">
+                <section>
+                    <h2>Horários disponíveis</h2>
+
+                    <ul>
+                        <li>Lorem ipsum</li>
+                        <li>Lorem ipsum</li>
+                        <li>Lorem ipsum</li>
+                    </ul>
+                </section>
+            </div>
+
 
         </section>
 
+        <section class="certificados" id="certificados" style="display: none">
+            Avante, Riverinos!
+            Com a bandeira de glória nas mãos
+            Lutemos com ardor
+            Pela vitória do tricolor
+            Levemos a nossa sede
+            Que é orgulho do nosso torrão
+            A taça conquistada
+            Com heroísmo e sem paixão
+
+            A nossa meta certa a seguir
+            É defender o Piauí
+            Com o nome do tricolor
+            Em qualquer lugar
+            Gritando gol!
+            E ainda proporcionarmos
+            Um meio social
+            Sem igual.
+        </section>
     </main>
 
 </div>
 
-<!-- BARRA LATERAL DIREITA -->
+<script>
+
+
+    const informacoes=document.getElementById("informacoes");
+    const certificados=document.getElementById("certificados");
+    informacoes.style.display="block";
+    function MostradadosInformacoes(){
+        certificados.style.display="none";
+        informacoes.style.display="block";
+    }
+
+    function MostradadosCertificados(){
+        certificados.style.display="block";
+        informacoes.style.display="none"
+    }
+
+
+
+
+
+</script>
 <aside class="sidebar-direita">
 
 </aside>

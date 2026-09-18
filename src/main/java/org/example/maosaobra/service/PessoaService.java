@@ -13,7 +13,7 @@ public class PessoaService {
     private final PessoaRepository pessoaRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public PessoaService(PessoaRepository pessoaRepository,  PasswordEncoder passwordEncoder) {
+    public PessoaService(PessoaRepository pessoaRepository, PasswordEncoder passwordEncoder) {
         this.pessoaRepository = pessoaRepository;
         this.passwordEncoder = passwordEncoder;
     }
