@@ -19,6 +19,7 @@ public class PessoaService {
     }
 
     public Pessoa salvar(Pessoa pessoa){
+        pessoa.setSenha(passwordEncoder.encode(pessoa.getSenha()));
         return this.pessoaRepository.save(pessoa);
     }
 

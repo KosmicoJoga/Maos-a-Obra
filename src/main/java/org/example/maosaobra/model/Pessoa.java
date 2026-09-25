@@ -22,7 +22,7 @@ public class Pessoa {
     @Column(name = "id_pessoa")
     private Long id;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 100)
     private String nome;
 
     @Column(nullable = false)
@@ -31,7 +31,7 @@ public class Pessoa {
     @Column(nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 255)
     private String senha;
 
     @Column(precision = 3, scale = 2)

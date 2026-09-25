@@ -2,6 +2,7 @@ package org.example.maosaobra.service;
 
 import org.example.maosaobra.model.Cliente;
 import org.example.maosaobra.repository.ClienteRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,12 +11,15 @@ import java.util.List;
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public ClienteService(ClienteRepository clienteRepository) {
+    public ClienteService(ClienteRepository clienteRepository,  PasswordEncoder passwordEncoder) {
         this.clienteRepository = clienteRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Cliente salvar(Cliente cliente) {
+        cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
         return clienteRepository.save(cliente);
     }
 

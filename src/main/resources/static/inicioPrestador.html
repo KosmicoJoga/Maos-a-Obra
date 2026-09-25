@@ -47,6 +47,7 @@
                 <img src="/images/foto_perfil.png">
                 Nome
             </a>
+            <button onclick="logout()">Sair (teste)</button>
         </div>
 
     </header>
@@ -193,6 +194,18 @@
     </main>
 
 </div>
+
+<script>
+    async function logout() {
+        const resposta = await fetch("/login/logout", { method: "POST" });
+
+        if (resposta.ok) {
+            window.location.href = "login.html";
+        } else {
+            alert("Erro ao encerrar a sessão");
+        }
+    }
+</script>
 
 <!-- BARRA LATERAL DIREITA -->
 <aside class="sidebar-direita">

@@ -38,12 +38,12 @@
 
                 <div class="senha">
                     <span>  Senha:</span>
-                    <input type="text" id="Senha" name="Senha">
+                    <input type="text" id="senha" name="senha">
                 </div>
 
                 <div class="naotemconta">
                     <h5 id="texto-conta">Não têm uma conta?</h5>
-                    <h5 id="link-criar"><a href="Cadastro.html">Cadastre-se aqui</a></h5>
+                    <h5 id="link-criar"><a href="cadastro.html">Cadastre-se aqui</a></h5>
                 </div>
 
                 <button class="btn-enviar" type="submit">
@@ -70,7 +70,24 @@
             senha: senha,
         };
 
-        let url;
+        try {
+            const resposta = await fetch("/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dados)
+            });
+
+            if (resposta.ok) {
+                const usuario = await resposta.json();
+                window.location.href = usuario.tipo === "TRABALHADOR"
+                ? "inicioPrestador.html" : "inicioCliente.html";
+            } else
+                alert("Email ou senha inválidos!")
+        } catch (erro) {
+            console.erro("Erro ao tentar logar:", erro);
+            alert("Não foi possível conectar ao servidor");
+        }
+
     })
 
 </script>
