@@ -22,7 +22,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/","/login", "/clientes", "/trabalhadores", "/css/**", "/images/**", "/*.html")
+                .requestMatchers("/","/login", "/clientes", "/trabalhadores", "/css/**", "/images/**", "/login.html", "/cadastro.html", "/index.html")
                 .permitAll()
                 .anyRequest()
                 .authenticated())

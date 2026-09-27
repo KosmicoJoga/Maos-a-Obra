@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mãos à obra</title>
-    <link rel="stylesheet" href="css/geral.css">
-    <link rel="stylesheet" href="css/styleinicioPrestador.css">
-    <link rel="icon" type="image/png" href="images/Logo_TCC.png">
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/styleinicioCliente.css?v=2">
+    <link rel="icon" type="image/png" href="/images/Logo_TCC.png">
 </head>
 <body>
 
@@ -29,13 +29,12 @@
 
         <!-- LOGO -->
         <div class="logo">
-            <img src="images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+            <img src="../static/images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
         </div>
 
 
         <!-- AÇÕES DO USUÁRIO -->
         <div class="acoes">
-
 
             <a class="notificações">
                 <img src="/images/notificacoes.png">
@@ -43,11 +42,13 @@
             <a class="mensagens">
                 <img src="/images/mensagens.png">
             </a>
-            <a  class="usuario">
+            <a class="usuario">
                 <img src="/images/foto_perfil.png">
-                Nome
+                <span th:text="${nome}">Nome</span>
             </a>
+
             <button onclick="logout()">Sair (teste)</button>
+
         </div>
 
     </header>
@@ -77,12 +78,12 @@
         </section>
         <br>
         <a href="/demanda.html" class="btn-demanda">
-            Ver solicitações de clientes
+            ANUNCIAR DEMANDA
         </a>
         <br>
         <div class="linha">
 
-            <span>Demandas publicadas</span>
+            <span>Trabalhadores recomendados</span>
 
         </div>
         <br>
@@ -105,9 +106,9 @@
                 <div class="informacoes-trabalhador">
 
                     <div class="dados-trabalhador">
-                        <h2>*Pedido*</h2>
+                        <h2>*Nome* *Idade*</h2>
 
-                        <p>*Nome* *Idade*</p>
+                        <p>*Tipo de serviço*</p>
                     </div>
 
 
@@ -197,7 +198,7 @@
 
 <script>
     async function logout() {
-        const resposta = await fetch("/login/logout", { method: "POST" });
+        const resposta = await fetch("/login/logout", {method: "POST"});
 
         if (resposta.ok) {
             window.location.href = "login.html";
