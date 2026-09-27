@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -95,14 +95,14 @@
         <!-- ABAS DO PERFIL -->
         <nav class="abas-perfil">
             <span onclick=MostradadosInformacoes()>Informações</span>
-            <span onclick="abaatual='mídias'">Mídias</span>
-            <span onclick="abaatual='avaliações'">Avaliações</span>
-            <span onclick="abaatual='histórico de pedidos'">Histórico de pedidos</span>
+            <span onclick=MostraDadosMidias()>Mídias</span>
+            <span onclick=MostradadosAvaliacoes()>Avaliações</span>
+            <span onclick=MostraHistorico()>Histórico de pedidos</span>
             <span onclick=MostradadosCertificados()>Certificados</span>
         </nav>
 
 
-        <section class="informacoes"  id="informacoes"style="display: none;">
+        <section class="informacoes" id="informacoes" style="display: none;">
 
             <h2>SOBRE MIM</h2>
 
@@ -171,6 +171,113 @@
             Um meio social
             Sem igual.
         </section>
+        <section class="mídia" id="midia" style="display: none">
+            O nosso time mostra a sua raça no jogo
+            É o América, América
+            Vai conquistando o coração do povo no jogo
+            E na torcida eu sou América
+
+            Eu sou América e tenho orgulho de ser
+            Porque o América em tudo é o melhor
+            É alegria no esporte e no futebol
+            América, América
+
+            Meu coração vibra nas suas cores
+            Eu sou, eu sou América, América
+            E uma canção que canta mil amores, enfim
+
+            Cantou América, América
+            Vamos em frente gente Americana
+            Mostrar que o nosso time entrou pra valer
+            Bola pra frente, quero ver jogando pra ganhar
+            América, América
+        </section>
+        <section class="Avaliações" id="avaliacoes">
+            O meu coração entra em campo
+            Com o Mirassol
+            É o verde, amarelo e branco
+            Raça e futebol
+
+            Leão, o meu campeão rugindo
+            No país do futebol
+            Salve, salve o meu leão querido
+            Salve o Mirassol
+
+            Salve, salve o meu leão querido
+            Salve o Mirassol
+
+            O meu coração entra em campo
+            Com o Mirassol
+            É o verde, amarelo e branco
+            Raça e futebol
+
+            Leão, o meu campeão rugindo
+            No país do futebol
+            Salve, salve o meu leão querido
+            Salve o Mirassol
+
+            Salve, salve o meu leão querido
+            Salve o Mirassol
+
+            E bate forte a emoção
+            E eu grito: Gol, leão, leão
+            Eu quero ver você vencer
+            Leão, leão, leão
+
+            O meu coração entra em campo
+            Com o Mirassol
+            É o verde, amarelo e branco
+            Raça e futebol
+
+            Leão, o meu campeão rugindo
+            No país do futebol
+            Salve, salve o meu leão querido
+            Salve o Mirassol
+
+            Salve, salve o meu leão querido
+            Salve o Mirassol
+        </section>
+        <section class="Histórico" id="historico">
+            Até a pé nós iremos
+            Para o que der e vier
+            Mas o certo é que nós estaremos
+            Com o Grêmio onde o Grêmio estiver
+
+            Até a pé nós iremos
+            Para o que der e vier
+            Mas o certo é que nós estaremos
+            Com o Grêmio onde o Grêmio estiver
+
+            Cinquenta anos de glória
+            Tens imortal tricolor
+            Os feitos da tua história
+            Canta o Rio Grande com amor
+
+            Até a pé nós iremos
+            Para o que der e vier
+            Mas o certo é que nós estaremos
+            Com o Grêmio onde o Grêmio estiver
+
+            Até a pé nós iremos
+            Para o que der e vier
+            Mas o certo é que nós estaremos
+            Com o Grêmio onde o Grêmio estiver
+
+            Nós somos bons torcedores
+            Sem hesitarmos sequer
+            Aplaudiremos o Grêmio
+            Aonde o Grêmio estiver
+
+            Até a pé nós iremos
+            Para o que der e vier
+            Mas o certo é que nós estaremos
+            Com o Grêmio onde o Grêmio estiver
+
+            Até a pé nós iremos
+            Para o que der e vier
+            Mas o certo é que nós estaremos
+            Com o Grêmio onde o Grêmio estiver
+        </section>
     </main>
 
 </div>
@@ -178,21 +285,45 @@
 <script>
 
 
-    const informacoes=document.getElementById("informacoes");
-    const certificados=document.getElementById("certificados");
-    informacoes.style.display="block";
-    function MostradadosInformacoes(){
-        certificados.style.display="none";
-        informacoes.style.display="block";
+    const informacoes = document.getElementById("informacoes");
+    const certificados = document.getElementById("certificados");
+    const midia = document.getElementById("midia")
+    const avaliacoes = document.getElementById("avaliacoes")
+    const historico = document.getElementById("historico");
+    informacoes.style.display = "block";
+
+    function MostradadosInformacoes() {
+        certificados.style.display = "none";
+        informacoes.style.display = "block";
+        midia.style.display = "none";
     }
 
-    function MostradadosCertificados(){
-        certificados.style.display="block";
-        informacoes.style.display="none"
+    function MostradadosCertificados() {
+        certificados.style.display = "block";
+        informacoes.style.display = "none";
+        midia.style.display = "none";
     }
 
+    function MostraDadosMidias() {
+        certificados.style.display = "none";
+        informacoes.style.display = "none";
+        midia.style.display = "block";
+    }
 
+    function MostradadosAvaliacoes() {
+        certificados.style.display = "none";
+        informacoes.style.display = "none";
+        midia.style.display = "none";
+        avaliacoes.style.display = "block";
+    }
 
+    function MostraHistorico() {
+        certificados.style.display = "none";
+        informacoes.style.display = "none";
+        midia.style.display = "none";
+        avaliacoes.style.display = "none";
+        historico.style.dysplay = "block"
+    }
 
 
 </script>
