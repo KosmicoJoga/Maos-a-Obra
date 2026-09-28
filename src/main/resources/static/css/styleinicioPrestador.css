@@ -28,12 +28,40 @@
 }
 
 .acoes a img {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
 
     object-fit: contain;
 }
 
+.logout {
+    width: 40px;
+    height: 40px;
+
+    background: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    border: none;
+}
+
+.logout img {
+    max-width: 40px;
+
+    position: absolute;
+}
+
+#logout-hover {
+    opacity: 0;
+}
+
+#logout-hover:hover {
+    opacity: 1;
+}
 
 /* =========================
    CONTEÚDO

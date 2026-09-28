@@ -29,7 +29,7 @@
 
         <!-- LOGO -->
         <div class="logo">
-            <img src="../static/images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+            <img src="/images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
         </div>
 
 
@@ -47,7 +47,10 @@
                 <span th:text="${nome}">Nome</span>
             </a>
 
-            <button onclick="logout()">Sair (teste)</button>
+            <button class="logout" onclick="logout()">
+                <img src="/images/sair.png" alt="Logout" id="logout">
+                <img src="/images/sair_hover.png" alt="Logout" id="logout-hover">
+            </button>
 
         </div>
 
@@ -96,7 +99,7 @@
                 <!-- FOTO -->
                 <div class="foto-trabalhador">
                     <img
-                            src="/images/default-user.png"
+                            src="/images/foto_perfil.png"
                             alt="Foto do trabalhador"
                     >
                 </div>
@@ -134,7 +137,7 @@
 
                 <div class="foto-trabalhador">
                     <img
-                            src="/images/default-user.png"
+                            src="/images/foto_perfil.png"
                             alt="Foto do trabalhador"
                     >
                 </div>
