@@ -22,45 +22,103 @@
             <img src="/images/Logo_titulo_horizontal.png" alt="logo">
         </div>
     </header>
-    <main class="conteudo">
-        <div class="texto">
-            <h1>anunciar demanda</h1>
-        </div>
-        <br> <br> <br> <br> <br> <br>
-        <div class="demanda">
-            <div class="tipoDeServiço">
-                <span>Tipo:</span>
 
-            <select id="tipo" name="tipo">
-                <option value="eletricista">Eletricista</option>
-                <option value="faxineiro">Faxineiro</option>
-                <option value="encanador">Encanador</option>
-            </select>
-            </div>
-            <br>
-            <div class="local">
-                <span>Local:</span>
-                <input type="text" id="Local" name="Local">
-            </div>
-            <br>
-            <div class="descricao">
-                <span>  Descrição:</span>
-                <input type="text" id="Descricao" name="Descricao">
-            </div>
-            <br>
-            <div class="orcamento">
-                <span>  Orçamento:</span>
-                <input type="text" id="Orcamento" name="Orcamento">
-            </div>
-            <br>
-            <button class="btn-demanda" onclick="history.back()">
-                anunciar demanda
-            </button>
+    <main class="conteudo">
+
+        <div class="texto">
+            <h1>Anunciar demanda</h1>
         </div>
+
+        <form class="formulario" id="formDemanda">
+            <div class="demanda">
+                <div class="tipoDeServiço">
+                    <span>Tipo:</span>
+                    <select id="tipo" name="tipo">
+                        <option value="eletricista">Eletricista</option>
+                        <option value="faxineiro">Faxineiro</option>
+                        <option value="encanador">Encanador</option>
+                    </select>
+                </div>
+
+                <div class="local">
+                    <span>Local:</span>
+                    <input type="text" id="local" name="Local" placeholder="Digite o endereço" required>
+                </div>
+
+                <div class="descricao">
+                    <span>Descrição:</span>
+                    <textarea id="descricao" name="Descricao" placeholder="Digite a descrição" required></textarea>
+                </div>
+
+                <div class="orcamento">
+                    <span>Orçamento:</span>
+                    <input type="number" id="orcamento" name="Orcamento" placeholder="Digite o orçamento" min="0" step="0.01" required>
+                </div>
+
+                <button class="btn-anunciar" id="btnAnunciar" type="submit">
+                    anunciar demanda
+                </button>
+            </div>
+        </form>
     </main>
 </div>
+
 <aside class="sidebar-direita">
 
 </aside>
+
+
+<script>
+    const selectTipo = document.getElementById("tipo");
+
+    async function carregarServicos() {
+        const response = await fetch("/servicos");
+        if (!response.ok) return;
+        const servicos = await response.json();
+        selectTipo.innerHTML = "";
+        servicos.forEach(s => {
+            const option = document.createElement("option");
+            option.value = s.id; //id do serviço aqui
+            option.textContent = s.tipo; //nome que aparece
+            selectTipo.appendChild(option);
+        });
+    }
+
+    carregarServicos();
+
+    document.getElementById("formDemanda").addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const dados = {
+            idServico: Number(selectTipo.value),
+            endereco: document.getElementById("local").value,
+            descricao: document.getElementById("descricao").value,
+            orcamento: Number(document.getElementById("orcamento").value),
+        };
+
+        try {
+            const resposta = await fetch("/demandas", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(dados),
+            });
+
+            if (resposta.ok) {
+                alert("Demanda anunciada com sucesso!");
+                window.location.href = "inicioCliente";
+            } else if (resposta.status === 400) {
+                const erro = await resposta.json();
+                alert(erro.erro);
+            } else {
+                alert("Você precisa estar logado como cliente para anunciar.");
+            }
+        } catch (e) {
+            alert("Não foi possível conectar ao servidor");
+        }
+    });
+
+</script>
+
 </body>
 </html>

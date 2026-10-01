@@ -147,7 +147,7 @@
     transition: 0.2s;
 }
 
-.btn-demanda:hover {
+.btn-anunciar:hover {
     background-color: #008d26;
 
     transform: scale(1.02);

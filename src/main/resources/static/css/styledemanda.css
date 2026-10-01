@@ -5,6 +5,7 @@
     padding: 12px 20px;
     border-radius: 35px;
 }
+
 .conteudo {
     width: 100%;
     display: flex;
@@ -12,6 +13,7 @@
     align-items: center;
     padding: 50px 30px;
 }
+
 .demanda {
     display: flex;
     flex-direction: column;
@@ -19,15 +21,20 @@
     background-color: #002650;
     padding: 12px 20px;
     border-radius: 35px;
+    margin-top: 50px;
+    gap: 15px;
 }
+
 .demanda input{
     background-color:#001531;
     color:#ffb000;
 }
+
 #tipo{
     background-color:#001531;
     color:#ffb000;
 }
+
 .tipoDeServiço,
 .descricao,
 .local,
@@ -36,6 +43,7 @@
     align-items: center;
     gap: 5px;
 }
+
 .tipoDeServiço > span,
 .descricao > span,
 .local > span,
@@ -43,12 +51,14 @@
     width: 130px;
     text-align: right;
 }
-.btn-demanda {
+
+.btn-anunciar {
     border-radius: 25px;
     background-color: green;
     width: 75%;
     align-items: center;
     color: white;
     height: 50px;
-    font-size:15px;
+    font-size:20px;
+    margin-top: 15px;
 }

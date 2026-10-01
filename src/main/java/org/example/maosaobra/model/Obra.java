@@ -22,7 +22,7 @@ public class Obra {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
     @ManyToOne

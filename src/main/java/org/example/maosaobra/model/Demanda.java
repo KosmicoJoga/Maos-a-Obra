@@ -7,18 +7,18 @@ import java.time.LocalDateTime;
 
 // JPA
 @Entity
-@Table(name = "contratacao")
+@Table(name = "demanda")
 
 // LOMBOK
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Contratacao {
+public class Demanda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_contratacao")
+    @Column(name = "id_demanda")
     private Long id;
 
     @ManyToOne
@@ -34,7 +34,7 @@ public class Contratacao {
     private Obra obra;
 
     @Enumerated(EnumType.STRING)
-    private StatusContratacao status;
+    private StatusDemanda status;
 
     @Column(name = "data_solicitacao")
     private LocalDateTime dataSolicitacao;

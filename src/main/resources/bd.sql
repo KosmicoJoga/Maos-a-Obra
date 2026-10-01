@@ -38,19 +38,6 @@ CREATE TABLE mei(
 	foreign key(id_mei) REFERENCES trabalhador(id_pessoa) ON DELETE CASCADE
 );
 
-CREATE TABLE obra(
-	id_obra INT PRIMARY KEY auto_increment,
-	id_cliente INT NOT NULL,
-	id_trabalhador INT,
-    id_servico INT,
-    descricao VARCHAR(255) NOT NULL,
-	endereco VARCHAR(255) NOT NULL,
-	orcamento DECIMAL(10, 2),
-	foreign key(id_cliente) REFERENCES cliente(id_pessoa) ON DELETE CASCADE,
-	foreign key(id_trabalhador) REFERENCES trabalhador(id_pessoa),
-	foreign key(id_servico) REFERENCES servico(id_servico)
-);
-
 CREATE TABLE avaliacao(
 	id_avaliacao INT PRIMARY KEY auto_increment,
     id_cliente INT NOT NULL, 
@@ -62,12 +49,26 @@ CREATE TABLE avaliacao(
 	foreign key(id_trabalhador) REFERENCES trabalhador(id_pessoa) ON DELETE CASCADE
 );
 
-CREATE TABLE contratacao(
-    id_contratacao INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE obra(
+	id_obra INT PRIMARY KEY auto_increment,
+	id_cliente INT,
+	id_trabalhador INT,
+    id_servico INT,
+    descricao VARCHAR(255) NOT NULL,
+	endereco VARCHAR(255) NOT NULL,
+	orcamento DECIMAL(10, 2),
+	foreign key(id_cliente) REFERENCES cliente(id_pessoa) ON DELETE CASCADE,
+	foreign key(id_trabalhador) REFERENCES trabalhador(id_pessoa),
+	foreign key(id_servico) REFERENCES servico(id_servico)
+);
+
+CREATE TABLE demanda(
+    id_demanda INT PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT,
     id_trabalhador INT,
     id_obra INT,
     status ENUM(
+		'ABERTA',
         'PENDENTE',
         'ACEITA',
         'RECUSADA',

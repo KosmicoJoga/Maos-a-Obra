@@ -1,6 +1,7 @@
 package org.example.maosaobra.model;
 
-public enum StatusContratacao {
+public enum StatusDemanda {
+    ABERTA,
     PENDENTE,
     ACEITA,
     RECUSADA,
