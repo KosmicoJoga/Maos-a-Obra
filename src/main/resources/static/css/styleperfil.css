@@ -101,6 +101,16 @@
     box-sizing: border-box;
 }
 
+#btn-registrar-certificado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin: 20px;
+    width: fit-content;
+}
+
 .abas-perfil {
     background-color: #002657;
     color: white;

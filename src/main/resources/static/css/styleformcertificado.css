@@ -1,0 +1,76 @@
+.conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 30px;
+}
+
+.texto {
+    display: flex;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+
+.form-certificado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-certificado div {
+    gap: 15px;
+}
+
+.cadastro-certificado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin: 0;
+}
+
+label {
+    gap: 5px;
+}
+
+.cadastro-certificado input{
+    background-color:#001531;
+    color:#ffb000;
+}
+
+.nome,
+.certificado {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.nome > span,
+.certificado > span {
+    width: 85px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.btn-enviar {
+    border-radius: 25px;
+    background-color: green;
+    width: 60%;
+    align-items: center;
+    color: white;
+    height: 50px;
+    font-size: 20px;
+    margin-top: 20px;
+}

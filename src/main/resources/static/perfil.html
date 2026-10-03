@@ -94,11 +94,11 @@
 
         <!-- ABAS DO PERFIL -->
         <nav class="abas-perfil">
-            <span onclick=MostradadosInformacoes()>Informações</span>
-            <span onclick=MostraDadosMidias()>Mídias</span>
-            <span onclick=MostradadosAvaliacoes()>Avaliações</span>
-            <span onclick=MostraHistorico()>Histórico de pedidos</span>
-            <span onclick=MostradadosCertificados()>Certificados</span>
+            <span onclick=mostrarInformacoes()>Informações</span>
+            <span onclick=mostrarMidias()>Mídias</span>
+            <span onclick=mostrarAvaliacoes()>Avaliações</span>
+            <span onclick=mostrarHistorico()>Histórico de pedidos</span>
+            <span onclick=mostrarCertificados()>Certificados</span>
         </nav>
 
 
@@ -153,23 +153,11 @@
         </section>
 
         <section class="certificados" id="certificados" style="display: none">
-            Avante, Riverinos!
-            Com a bandeira de glória nas mãos
-            Lutemos com ardor
-            Pela vitória do tricolor
-            Levemos a nossa sede
-            Que é orgulho do nosso torrão
-            A taça conquistada
-            Com heroísmo e sem paixão
 
-            A nossa meta certa a seguir
-            É defender o Piauí
-            Com o nome do tricolor
-            Em qualquer lugar
-            Gritando gol!
-            E ainda proporcionarmos
-            Um meio social
-            Sem igual.
+            <button class="botao-verde" id="btn-registrar-certificado" onclick="window.location.href='formCertificado.html'">
+                REGISTRAR CERTIFICADO
+            </button>
+
         </section>
         <section class="mídia" id="midia" style="display: none">
             O nosso time mostra a sua raça no jogo
@@ -284,7 +272,6 @@
 
 <script>
 
-
     const informacoes = document.getElementById("informacoes");
     const certificados = document.getElementById("certificados");
     const midia = document.getElementById("midia")
@@ -292,32 +279,39 @@
     const historico = document.getElementById("historico");
     informacoes.style.display = "block";
 
-    function MostradadosInformacoes() {
-        certificados.style.display = "none";
+    function mostrarInformacoes() {
         informacoes.style.display = "block";
+        certificados.style.display = "none";
         midia.style.display = "none";
+        historico.style.display = "none";
+        avaliacoes.style.display = "none";
     }
 
-    function MostradadosCertificados() {
-        certificados.style.display = "block";
+    function mostrarCertificados() {
         informacoes.style.display = "none";
+        certificados.style.display = "block";
         midia.style.display = "none";
+        historico.style.display = "none";
+        avaliacoes.style.display = "none";
     }
 
-    function MostraDadosMidias() {
+    function mostrarMidias() {
         certificados.style.display = "none";
         informacoes.style.display = "none";
         midia.style.display = "block";
+        historico.style.display = "none";
+        avaliacoes.style.display = "none";
     }
 
-    function MostradadosAvaliacoes() {
+    function mostrarAvaliacoes() {
         certificados.style.display = "none";
         informacoes.style.display = "none";
         midia.style.display = "none";
         avaliacoes.style.display = "block";
+        historico.style.display = "none";
     }
 
-    function MostraHistorico() {
+    function mostrarHistorico() {
         certificados.style.display = "none";
         informacoes.style.display = "none";
         midia.style.display = "none";
@@ -325,8 +319,8 @@
         historico.style.dysplay = "block"
     }
 
-
 </script>
+
 <aside class="sidebar-direita">
 
 </aside>
