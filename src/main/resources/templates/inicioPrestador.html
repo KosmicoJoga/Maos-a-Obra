@@ -78,11 +78,11 @@
             </button>
 
         </section>
-        <br>
-        <a href="/demanda.html" class="btn-demanda">
-            Ver solicitações de clientes
+
+        <a href="/solicitacoesDemanda" class="btn-demanda">
+            VER SOLICITAÇÕES DE CLIENTES
         </a>
-        <br>
+
         <div class="linha">
 
             <span>Demandas publicadas</span>
@@ -200,7 +200,7 @@
 
 <script>
     async function logout() {
-        const resposta = await fetch("/login/logout", { method: "POST" });
+        const resposta = await fetch("/login/logout", {method: "POST"});
 
         if (resposta.ok) {
             window.location.href = "login.html";

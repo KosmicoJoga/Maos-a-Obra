@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos à obra</title>
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/stylesolicitacoesDemanda.css">
+    <link rel="icon" type="image/png" href="/images/Logo_TCC.png">
+</head>
+<body>
+
+
+<!-- BARRA LATERAL ESQUERDA-->
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar">
+        <img src="/images/Botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+
+
+<!-- ÁREA PRINCIPAL -->
+<div class="pagina">
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+        </div>
+
+
+        <!-- AÇÕES DO USUÁRIO -->
+        <div class="acoes">
+
+            <a class="notificações">
+                <img src="/images/notificacoes.png">
+            </a>
+            <a class="mensagens">
+                <img src="/images/mensagens.png">
+            </a>
+            <a class="usuario">
+                <img src="/images/foto_perfil.png">
+                <span th:text="${nome}">Nome</span>
+            </a>
+
+            <button class="logout" onclick="logout()">
+                <img src="/images/sair.png" alt="Logout" id="logout">
+                <img src="/images/sair_hover.png" alt="Logout" id="logout-hover">
+            </button>
+        </div>
+
+    </header>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+
+        <!-- PESQUISA -->
+        <section class="pesquisa">
+
+            <button class="btn-filtro">
+                <img src="/images/filtro.png" alt="Filtros">
+            </button>
+
+            <input
+                    type="text"
+                    placeholder="Pesquise aqui..."
+                    class="campo-pesquisa"
+            >
+
+            <button class="btn-pesquisar">
+                <img src="/images/lupa.png" alt="Pesquisar">
+            </button>
+
+        </section>
+
+        <div class="linha">
+            <h2>Soliticações de Demanda</h2>
+        </div>
+
+        <section class="lista-demandas">
+            <article class="card-demanda" th:each="d : ${demandas}">
+
+                <div class="foto-cliente">
+                    <img src="/images/foto_perfil.png" alt="Foto do cliente">
+                </div>
+
+                <div class="informacoes-demanda">
+
+                    <div class="dados-demanda">
+                        <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>
+                        <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente • Local</p>
+                        <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>
+                    </div>
+
+                    <div class="orcamento">
+                        <span th:text="'ORÇAMENTO: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
+                    </div>
+
+                    <a class="btn-demanda" href="#" >VER DETALHES</a>
+
+                </div>
+            </article>
+
+            <p th:if="${#lists.isEmpty(demandas)}">Nenhuma solicitação de demanda no momento.</p>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+    async function logout() {
+        const resposta = await fetch("/login/logout", {method: "POST"});
+
+        if (resposta.ok) {
+            window.location.href = "login.html";
+        } else {
+            alert("Erro ao encerrar a sessão");
+        }
+    }
+</script>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita">
+
+</aside>
+</body>
+
+</html>

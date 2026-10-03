@@ -2,6 +2,7 @@ package org.example.maosaobra.controller;
 
 import org.example.maosaobra.model.Pessoa;
 import org.example.maosaobra.security.PessoaDetails;
+import org.example.maosaobra.service.DemandaService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PaginaController {
+
+    private final DemandaService demandaService;
+
+    public PaginaController(DemandaService demandaService) {
+        this.demandaService = demandaService;
+    }
 
     @GetMapping("/inicioCliente")
     public String inicioCliente(Authentication authentication, Model model) {
@@ -28,5 +35,16 @@ public class PaginaController {
         model.addAttribute("nome",  pessoa.getNome());
 
         return "inicioPrestador";
+    }
+
+    @GetMapping("/solicitacoesDemanda")
+    public String solicitacoesDemanda(Authentication authentication, Model model) {
+        PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
+        Pessoa pessoa = details.getPessoa();
+
+        model.addAttribute("nome",  pessoa.getNome());
+        model.addAttribute("demandas", demandaService.buscarAbertas());
+
+        return "solicitacoesDemanda";
     }
 }

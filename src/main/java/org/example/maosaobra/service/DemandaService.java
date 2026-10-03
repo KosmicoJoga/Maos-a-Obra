@@ -60,4 +60,9 @@ public class DemandaService {
 
         return demandaRepository.save(demanda);
     }
+
+    public List<Demanda> buscarAbertas() {
+        return demandaRepository.findByStatusOrderByDataSolicitacaoDesc(StatusDemanda.ABERTA);
+    }
+
 }
