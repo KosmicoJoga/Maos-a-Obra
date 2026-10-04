@@ -1,15 +1,20 @@
 .acoes {
     height: 100%;
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: flex-end;
     gap: 20px;
+    flex-wrap: nowrap;
 }
 
 .acoes a {
     height: 50px;
     width: fit-content;
+    flex-shrink: 0;
 
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
 
@@ -23,11 +28,19 @@
     font-size: 20px;
 }
 
+
 .acoes img {
     width: 35px;
     height: 35px;
 
     object-fit: contain;
+}
+
+.conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .logout {
@@ -57,13 +70,6 @@
 
 #logout-hover:hover {
     opacity: 1;
-}
-
-.conteudo {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .perfil {
@@ -178,6 +184,7 @@
     justify-content: space-between;
     text-align: center;
 }
+
 
 .card-detalhes h2{
     margin-bottom: 20px;

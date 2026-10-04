@@ -47,4 +47,24 @@ public class PaginaController {
 
         return "solicitacoesDemanda";
     }
+
+    @GetMapping("/perfil")
+    public String perfil(Authentication authentication, Model model) {
+        PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
+        Pessoa pessoa = details.getPessoa();
+
+        model.addAttribute("nome",  pessoa.getNome());
+
+        return "perfil";
+    }
+
+    @GetMapping("/perfilLogado")
+    public String perfilLogado(Authentication authentication, Model model) {
+        PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
+        Pessoa pessoa = details.getPessoa();
+
+        model.addAttribute("nome",  pessoa.getNome());
+
+        return "perfilLogado";
+    }
 }

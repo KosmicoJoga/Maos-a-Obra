@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns="http://www.w3.org/1999/html">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,10 +7,10 @@
 
     <title>Mãos à obra</title>
 
-    <link rel="stylesheet" href="css/geral.css">
-    <link rel="stylesheet" href="css/styleperfil.css">
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/styleperfilLogado.css">
 
-    <link rel="icon" type="image/png" href="images/Logo_TCC.png">
+    <link rel="icon" type="image/png" href="/images/Logo_TCC.png">
 </head>
 
 <body>
@@ -33,24 +33,22 @@
 
         <!-- LOGO -->
         <div class="logo">
-            <img src="images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+            <img src="/images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
         </div>
 
-        <!-- AÇÕES DO USUÁRIO DESLOGADO -->
+        <!-- AÇÕES DO USUÁRIO -->
         <div class="acoes" id="acoes_deslogado" style="display: none">
 
             <a href="/cadastro.html" class="btn-cadastrar">
-                <img src="images/usuario.png" alt="">
+                <img src="/images/usuario.png" alt="">
                 <span>Cadastrar</span>
             </a>
 
             <a href="/login.html" class="btn-entrar">
-                <img src="images/formulario.png" alt="">
+                <img src="/images/formulario.png" alt="">
                 <span>Entrar</span>
             </a>
         </div>
-
-        <!-- AÇÕES DO USUÁRIO LOGADO -->
         <div class="acoes" id="acoes_logado" style="display: none">
 
             <a class="notificações">
@@ -78,13 +76,13 @@
         <section class="perfil">
 
             <div class="foto-perfil">
-                <img src="images/foto_perfil.png" alt="Foto do perfil">
+                <img src="/images/foto_perfil.png" alt="Foto do perfil">
             </div>
 
             <div class="dados-perfil">
 
                 <div class="nome-idade">
-                    <h1 class="nome-perfil">*nome completo*</h1>
+                    <h1 class="nome-perfil" th:text="${nome}">*nome completo*</h1>
                     <p class="idade-perfil">*idade*</p>
                 </div>
 
@@ -289,18 +287,16 @@
 </div>
 
 <script>
+
     const talogado= document.getElementById("acoes_logado");
     const naotalogado= document.getElementById("acoes_deslogado");
-
     verificarlogin();
-
     const informacoes = document.getElementById("informacoes");
     const certificados = document.getElementById("certificados");
     const midia = document.getElementById("midia")
     const avaliacoes = document.getElementById("avaliacoes")
     const historico = document.getElementById("historico");
     informacoes.style.display = "block";
-
     async function verificarlogin(){
         const resposta= await fetch("/login/me");
         if(resposta.ok){
@@ -308,9 +304,9 @@
         }
         else{
             naotalogado.style.display= "flex";
+
         }
     }
-
     function mostrarInformacoes() {
         informacoes.style.display = "flex";
         certificados.style.display = "none";
@@ -350,6 +346,7 @@
         avaliacoes.style.display = "none";
         historico.style.dysplay = "flex"
     }
+
 </script>
 
 <script>
@@ -363,7 +360,6 @@
         }
     }
 </script>
-
 <aside class="sidebar-direita">
 
 </aside>
