@@ -121,7 +121,7 @@
     object-fit: contain;
 }
 
-.btn-demanda {
+.btn-perfil {
     grid-column: 1 / 3;
     grid-row: 2;
 
@@ -289,7 +289,7 @@
    INFORMAÇÕES
 ========================= */
 
-.informacoes-demanda {
+.informacoes-trabalhador {
     flex: 1;
     min-height: 150px;
 
@@ -304,14 +304,14 @@
 
 /* NOME E SERVIÇO */
 
-.dados-demanda {
+.dados-trabalhador{
     grid-column: 1;
     grid-row: 1;
 
     padding-top: 5px;
 }
 
-.dados-demanda h2 {
+.dados-trabalhador h2 {
     color: #ffb000;
 
     font-size: 23px;
@@ -320,7 +320,7 @@
     margin-bottom: 12px;
 }
 
-.dados-demanda p {
+.dados-trabalhador p {
     color: #ffb000;
 
     font-size: 22px;
@@ -357,7 +357,7 @@
    BOTÃO VER PERFIL
 ========================= */
 
-.btn-demanda {
+.btn-perfil {
     grid-column: 1 / 3;
     grid-row: 2;
 
@@ -383,7 +383,7 @@
     transition: 0.2s;
 }
 
-.btn-demanda:hover {
+.btn-perfil:hover {
     background-color: #008d26;
 
     transform: scale(1.02);
@@ -472,7 +472,7 @@
         flex-direction: column;
     }
 
-    .informacoes-demanda {
+    .informacoes-perfil {
         width: 100%;
     }
 

@@ -103,7 +103,6 @@
                 <p>*status (on/offline)</p>
                 <small>*membro desde 20xx*</small>
 
-                <button class="botao-verde" onclick="window.location.href='solicitar.html'">SOLICITAR SERVICO</button>
             </div>
 
         </section>
@@ -118,6 +117,7 @@
         </nav>
 
 
+        <button class="botao-verde" id="btn-informacoes" style="display: none"Mostrarbtninfo()> editar informações</button>
         <section class="informacoes" id="informacoes" style="display: none;">
 
             <h2>SOBRE MIM</h2>
@@ -175,6 +175,7 @@
             </button>
 
         </section>
+        <button class="botao-verde" id="btn-midia" style="display:none"> editar midia</button>
         <section class="mídia" id="midia" style="display: none">
             O nosso time mostra a sua raça no jogo
             É o América, América
@@ -296,7 +297,9 @@
     const midia = document.getElementById("midia")
     const avaliacoes = document.getElementById("avaliacoes")
     const historico = document.getElementById("historico");
-    informacoes.style.display = "block";
+    const btninfo= document.getElementById("btn-informacoes");
+    const btnmidia= document.getElementById("btn-midia");
+              mostrarInformacoes();
     async function verificarlogin(){
         const resposta= await fetch("/login/me");
         if(resposta.ok){
@@ -313,6 +316,8 @@
         midia.style.display = "none";
         historico.style.display = "none";
         avaliacoes.style.display = "none";
+        btninfo.style.display = "flex";
+        btnmidia.style.display="none";
     }
 
     function mostrarCertificados() {
@@ -321,6 +326,8 @@
         midia.style.display = "none";
         historico.style.display = "none";
         avaliacoes.style.display = "none";
+        btninfo.style.display = "none";
+        btnmidia.style.display="none";
     }
 
     function mostrarMidias() {
@@ -329,6 +336,8 @@
         midia.style.display = "flex";
         historico.style.display = "none";
         avaliacoes.style.display = "none";
+        btninfo.style.display = "none";
+        btnmidia.style.display="flex";
     }
 
     function mostrarAvaliacoes() {
@@ -337,6 +346,8 @@
         midia.style.display = "none";
         avaliacoes.style.display = "flex";
         historico.style.display = "none";
+        btninfo.style.display = "none";
+        btnmidia.style.display="none";
     }
 
     function mostrarHistorico() {
@@ -345,6 +356,8 @@
         midia.style.display = "none";
         avaliacoes.style.display = "none";
         historico.style.display = "flex"
+        btninfo.style.display = "none";
+        btnmidia.style.display="none";
     }
 
 </script>

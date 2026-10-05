@@ -12,7 +12,9 @@ CREATE TABLE pessoa
     idade     INT                 NOT NULL,
     email     VARCHAR(255) UNIQUE NOT NULL,
     senha     VARCHAR(255)        NOT NULL,
-    avaliacao DECIMAL(3, 2) UNSIGNED DEFAULT 0.00
+    avaliacao DECIMAL(3, 2) UNSIGNED DEFAULT 0.00,
+    sobre_mim text,
+    horarios datetime
 );
 
 CREATE TABLE servico
@@ -24,7 +26,9 @@ CREATE TABLE servico
 INSERT INTO servico
 VALUES (null, "Eletricista"),
        (null, "Faxineiro"),
-       (null, "Encanador");
+       (null, "Encanador"),
+       (null,"pintor"),
+       (null,"construtor");
 -- colocar o resto dos tipos de trabalhadores no insert acima!
 
 create table certificado
