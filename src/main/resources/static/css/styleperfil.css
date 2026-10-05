@@ -30,6 +30,14 @@
     object-fit: contain;
 }
 
+.info-juntas{
+    display: flex;
+    flex-direction: row;
+    border-right: black;
+    margin: 20px 0 20px 0;
+    justify-content: space-between;
+    align-items: center;
+}
 .logout {
     width: 40px;
     height: 40px;
@@ -164,20 +172,7 @@
     gap: 10px;
 }
 
-.detalhes {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border: white solid 1px;
-    margin-top: 50px;
-}
 
-.card-detalhes {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: center;
-}
 
 .card-detalhes h2{
     margin-bottom: 20px;
