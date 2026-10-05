@@ -166,6 +166,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    margin: 20px 0 20px 0;
+
+    font-size: 30px;
 }
 
 /* CAMPO */
@@ -285,7 +289,7 @@
    INFORMAÇÕES
 ========================= */
 
-.informacoes-trabalhador {
+.informacoes-demanda {
     flex: 1;
     min-height: 150px;
 
@@ -300,14 +304,14 @@
 
 /* NOME E SERVIÇO */
 
-.dados-trabalhador {
+.dados-demanda {
     grid-column: 1;
     grid-row: 1;
 
     padding-top: 5px;
 }
 
-.dados-trabalhador h2 {
+.dados-demanda h2 {
     color: #ffb000;
 
     font-size: 23px;
@@ -316,7 +320,7 @@
     margin-bottom: 12px;
 }
 
-.dados-trabalhador p {
+.dados-demanda p {
     color: #ffb000;
 
     font-size: 22px;
@@ -353,7 +357,7 @@
    BOTÃO VER PERFIL
 ========================= */
 
-.btn-perfil {
+.btn-demanda {
     grid-column: 1 / 3;
     grid-row: 2;
 
@@ -379,7 +383,7 @@
     transition: 0.2s;
 }
 
-.btn-perfil:hover {
+.btn-demanda:hover {
     background-color: #008d26;
 
     transform: scale(1.02);
@@ -468,7 +472,7 @@
         flex-direction: column;
     }
 
-    .informacoes-trabalhador {
+    .informacoes-demanda {
         width: 100%;
     }
 
@@ -476,7 +480,7 @@
         font-size: 20px;
     }
 
-    .btn-perfil {
+    .btn-demanda {
         width: 100%;
     }
 }

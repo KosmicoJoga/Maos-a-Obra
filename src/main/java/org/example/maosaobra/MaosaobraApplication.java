@@ -9,6 +9,4 @@ public class MaosaobraApplication {
     public static void main(String[] args) {
         SpringApplication.run(MaosaobraApplication.class, args);
     }
-
-    //teste
 }
