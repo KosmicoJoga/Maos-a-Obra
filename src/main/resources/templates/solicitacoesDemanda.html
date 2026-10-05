@@ -14,7 +14,7 @@
 <!-- BARRA LATERAL ESQUERDA-->
 <aside class="sidebar-esquerda">
 
-    <button class="btn-voltar">
+    <button class="btn-voltar" onclick="history.back()">
         <img src="/images/Botao_voltar.png" alt="Voltar">
     </button>
 
@@ -29,7 +29,7 @@
 
         <!-- LOGO -->
         <div class="logo">
-            <img src="images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+            <img src="/images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
         </div>
 
 
@@ -37,13 +37,13 @@
         <div class="acoes">
 
             <a class="notificações">
-                <img src="/images/notificacoes.png">
+                <img src="/images/notificacoes.png" alt="Notificações">
             </a>
             <a class="mensagens">
-                <img src="/images/mensagens.png">
+                <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario">
-                <img src="/images/foto_perfil.png">
+                <img src="/images/foto_perfil.png" alt="Foto do usuário">
                 <span th:text="${nome}">Nome</span>
             </a>
 
@@ -80,34 +80,35 @@
         </section>
 
         <div class="linha">
-            <h2>Soliticações de Demanda</h2>
+            <span>Soliticações de Demanda</span>
         </div>
 
         <section class="lista-demandas">
-            <article class="card-demanda" th:each="d : ${demandas}">
 
-                <div class="foto-cliente">
-                    <img src="/images/foto_perfil.png" alt="Foto do cliente">
-                </div>
+<!--            <article class="card-demanda" th:each="d : ${demandas}">-->
 
-                <div class="informacoes-demanda">
+<!--                <div class="foto-cliente">-->
+<!--                    <img src="/images/foto_perfil.png" alt="Foto do cliente">-->
+<!--                </div>-->
 
-                    <div class="dados-demanda">
-                        <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>
-                        <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente • Local</p>
-                        <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>
-                    </div>
+<!--                <div class="informacoes-demanda">-->
 
-                    <div class="orcamento">
-                        <span th:text="'ORÇAMENTO: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
-                    </div>
+<!--                    <div class="dados-demanda">-->
+<!--                        <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>-->
+<!--                        <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente • Local</p>-->
+<!--                        <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>-->
+<!--                    </div>-->
 
-                    <a class="btn-demanda" href="#" >VER DETALHES</a>
+<!--                    <div class="orcamento">-->
+<!--                        <span th:text="'ORÇAMENTO: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>-->
+<!--                    </div>-->
 
-                </div>
-            </article>
+<!--                    <a class="btn-demanda" href="#" >VER DETALHES</a>-->
 
-            <p th:if="${#lists.isEmpty(demandas)}">Nenhuma solicitação de demanda no momento.</p>
+<!--                </div>-->
+<!--            </article>-->
+
+<!--            <p th:if="${#lists.isEmpty(demandas)}">Nenhuma solicitação de demanda no momento.</p>-->
 
         </section>
 

@@ -33,6 +33,7 @@ public class PaginaController {
         Pessoa pessoa = details.getPessoa();
 
         model.addAttribute("nome",  pessoa.getNome());
+        model.addAttribute("demandas", demandaService.buscarAbertas());
 
         return "inicioPrestador";
     }

@@ -79,118 +79,45 @@
 
         </section>
 
-        <a href="/solicitacoesDemanda" class="btn-demanda">
+        <a href="/solicitacoesDemanda" class="btn-solicitacoes">
             VER SOLICITAÇÕES DE CLIENTES
         </a>
 
         <div class="linha">
 
-            <span>Demandas publicadas</span>
+            <span>Demandas públicas</span>
 
         </div>
-        <br>
+
         <!-- LISTA DE TRABALHADORES -->
-        <section class="lista-trabalhadores">
+        <section class="lista-demandas">
 
             <!-- CARD DO TRABALHADOR -->
-            <article class="card-trabalhador">
+            <article class="card-demanda" th:each="d : ${demandas}">
 
                 <!-- FOTO -->
-                <div class="foto-trabalhador">
-                    <img
-                            src="/images/foto_perfil.png"
-                            alt="Foto do trabalhador"
-                    >
+                <div class="foto-cliente">
+                    <img src="/images/foto_perfil.png" alt="Foto do Cliente">
                 </div>
-
 
                 <!-- INFORMAÇÕES -->
-                <div class="informacoes-trabalhador">
+                <div class="informacoes-demanda">
 
-                    <div class="dados-trabalhador">
-                        <h2>*Pedido*</h2>
-
-                        <p>*Nome* *Idade*</p>
+                    <div class="dados-demanda">
+                        <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>
+                        <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente • Local</p>
+                        <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>
                     </div>
 
-
-                    <!-- AVALIAÇÃO -->
-                    <div class="avaliacao">
-                        <span>4,7</span>
-                        <span class="estrela">★</span>
+                    <div class="orcamento">
+                        <span th:text="'ORÇAMENTO: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
                     </div>
 
-
-                    <!-- BOTÃO -->
-                    <a href="/perfil.html" class="btn-perfil">
-                        VER PERFIL
-                    </a>
-
+                    <a class="btn-demanda" href="#">VER DEMANDA</a>
                 </div>
-
             </article>
 
-
-            <!-- OUTRO CARD -->
-            <article class="card-trabalhador">
-
-                <div class="foto-trabalhador">
-                    <img
-                            src="/images/foto_perfil.png"
-                            alt="Foto do trabalhador"
-                    >
-                </div>
-
-                <div class="informacoes-trabalhador">
-
-                    <div class="dados-trabalhador">
-                        <h2>*Nome* *Idade*</h2>
-                        <p>*Tipo de serviço*</p>
-                    </div>
-
-                    <div class="avaliacao">
-                        <span>4,7</span>
-                        <span class="estrela">★</span>
-                    </div>
-
-                    <a href="/perfil.html" class="btn-perfil">
-                        VER PERFIL
-                    </a>
-
-                </div>
-
-            </article>
-
-
-            <!-- OUTRO CARD -->
-            <article class="card-trabalhador">
-
-                <div class="foto-trabalhador">
-                    <img
-                            src="/images/foto_perfil.png"
-                            alt="Foto do trabalhador"
-                    >
-                </div>
-
-                <div class="informacoes-trabalhador">
-
-                    <div class="dados-trabalhador">
-                        <h2>*Nome* *Idade*</h2>
-                        <p>*Tipo de serviço*</p>
-                    </div>
-
-                    <div class="avaliacao">
-                        <span>4,7</span>
-                        <span class="estrela">★</span>
-                    </div>
-
-                    <a href="/perfil.html" class="btn-perfil">
-                        VER PERFIL
-                    </a>
-
-                </div>
-
-            </article>
+            <p th:if="${#lists.isEmpty(demandas)}">Nenhuma solicitação de demanda no momento.</p>
 
         </section>
 

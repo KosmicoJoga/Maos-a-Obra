@@ -122,7 +122,7 @@
     object-fit: contain;
 }
 
-.btn-demanda {
+.btn-solicitacoes {
     width: 450px;
     height: 60px;
 
@@ -139,16 +139,8 @@
     text-decoration: none;
 
     font-size: 25px;
-
-    transition: 0.2s;
-
 }
 
-.btn-anunciar:hover {
-    background-color: #008d26;
-
-    transform: scale(1.02);
-}
 
 .linha {
     width: calc(100% + 60px);
@@ -163,7 +155,9 @@
     align-items: center;
     justify-content: center;
 
-    margin-top: 20px;
+    margin: 20px 0 20px 0;
+
+    font-size: 30px;
 }
 
 /* CAMPO */
@@ -216,14 +210,14 @@
 
 
 /* =========================
-   LISTA DE TRABALHADORES
+   LISTA DE DEMANDAS
 ========================= */
 
-.lista-trabalhadores {
-    width: min(630px, 90%);
-
+.lista-demandas {
     display: flex;
     flex-direction: column;
+
+    align-items: center;
 
     gap: 28px;
 }
@@ -233,7 +227,7 @@
    CARD
 ========================= */
 
-.card-trabalhador {
+.card-demanda {
     width: 100%;
     min-height: 210px;
 
@@ -251,10 +245,10 @@
 
 
 /* =========================
-   FOTO
+   FOTO DO CLIENTE
 ========================= */
 
-.foto-trabalhador {
+.foto-cliente {
     width: 157px;
     height: 157px;
 
@@ -271,7 +265,7 @@
     justify-content: center;
 }
 
-.foto-trabalhador img {
+.foto-cliente img {
     width: 100%;
     height: 100%;
 
@@ -280,93 +274,77 @@
 
 
 /* =========================
-   INFORMAÇÕES
+   INFORMAÇÕES DE DEMANDA
 ========================= */
 
-.informacoes-trabalhador {
-    flex: 1;
-    min-height: 150px;
+.informacoes-demanda {
+    display: flex;
 
-    display: grid;
-
-    grid-template-columns: 1fr auto;
-    grid-template-rows: 1fr auto;
-
-    column-gap: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
 
-/* NOME E SERVIÇO */
+/* DADOS DE DEMANDA */
 
-.dados-trabalhador {
-    grid-column: 1;
-    grid-row: 1;
+.dados-demanda {
+    width: 500px;
 
-    padding-top: 5px;
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+    border-right: solid 3px black;
+    border-left: solid 3px black;
+
+    padding: 0 10px 0 10px;
 }
 
-.dados-trabalhador h2 {
+.dados-demanda h2 {
     color: #ffb000;
 
-    font-size: 23px;
-    font-weight: normal;
-
-    margin-bottom: 12px;
+    font-size: 25px;
 }
 
-.dados-trabalhador p {
+.dados-demanda p {
     color: #ffb000;
 
     font-size: 22px;
 }
 
-
 /* =========================
-   AVALIAÇÃO
+   ORÇAMENTO
 ========================= */
 
-.avaliacao {
-    grid-column: 2;
-    grid-row: 1;
+.orcamento {
+    text-align: center;
 
-    display: flex;
-    align-items: center;
+    height: stretch;
+    width: 190px;
 
-    gap: 7px;
-
-    font-size: 24px;
+    font-size: 25px;
     color: white;
+
+    align-content: center;
+
+    border-right: solid 3px black;
+
+    padding: 10px;
 }
-
-.estrela {
-    color: #ffbd00;
-
-    font-size: 40px;
-
-    line-height: 1;
-}
-
 
 /* =========================
-   BOTÃO VER PERFIL
+   BOTÃO VER DEMANDA
 ========================= */
 
-.btn-perfil {
-    grid-column: 1 / 3;
-    grid-row: 2;
-
-    width: 295px;
-    height: 64px;
-
-    justify-self: center;
+.btn-demanda {
+    width: 300px;
+    height: 60px;
 
     background-color: #00731e;
 
     border-radius: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     color: white;
 
@@ -374,13 +352,10 @@
 
     font-size: 25px;
 
-    transition: 0.2s;
-}
+    margin-left: 10px;
 
-.btn-perfil:hover {
-    background-color: #008d26;
-
-    transform: scale(1.02);
+    text-align: center;
+    align-content: center;
 }
 
 
@@ -466,7 +441,7 @@
         flex-direction: column;
     }
 
-    .informacoes-trabalhador {
+    .informacoes-demanda {
         width: 100%;
     }
 
@@ -474,7 +449,7 @@
         font-size: 20px;
     }
 
-    .btn-perfil {
+    .btn-demanda {
         width: 100%;
     }
 }

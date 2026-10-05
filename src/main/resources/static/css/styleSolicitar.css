@@ -4,6 +4,7 @@
     background-color: #002650;
     padding: 12px 20px;
     border-radius: 35px;
+    margin-bottom: 30px;
 }
 .conteudo {
     width: 100%;
@@ -19,6 +20,7 @@
     background-color: #002650;
     padding: 12px 20px;
     border-radius: 35px;
+    gap: 20px;
 }
 .demanda input{
     background-color:#001531;
@@ -44,5 +46,5 @@
     align-items: center;
     color: white;
     height: 50px;
-    font-size:15px;
+    font-size:20px;
 }

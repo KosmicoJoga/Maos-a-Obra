@@ -162,7 +162,9 @@
     align-items: center;
     justify-content: center;
 
-    margin-top: 20px;
+    margin: 20px 0 20px 0;
+
+    font-size: 30px;
 }
 
 /* CAMPO DE PESQUISA */
@@ -223,8 +225,6 @@
     flex-direction: column;
 
     gap: 28px;
-
-    margin-top: 50px;
 }
 
 
@@ -303,7 +303,7 @@
     border-right: solid 3px black;
     border-left: solid 3px black;
 
-    padding: 0px 10px 0px 10px;
+    padding: 0 10px 0 10px;
 }
 
 .dados-demanda h2 {
@@ -340,7 +340,7 @@
 }
 
 /* =========================
-   BOTÃO VER PERFIL
+   BOTÃO VER DEMANDA
 ========================= */
 
 .btn-demanda {
@@ -358,6 +358,9 @@
     font-size: 25px;
 
     margin-left: 10px;
+
+    text-align: center;
+    align-items: center;
 }
 
 /* =========================
@@ -442,7 +445,7 @@
         flex-direction: column;
     }
 
-    .informacoes-trabalhador {
+    .informacoes-demanda {
         width: 100%;
     }
 
@@ -450,7 +453,7 @@
         font-size: 20px;
     }
 
-    .btn-perfil {
+    .btn-demanda {
         width: 100%;
     }
 }
