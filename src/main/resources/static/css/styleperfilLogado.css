@@ -162,7 +162,14 @@
     cursor: pointer;
 }
 
-
+.info-juntas{
+    display: flex;
+    flex-direction: row;
+    border-right: black;
+    margin: 20px 0 20px 0;
+    justify-content: space-between;
+    align-items: center;
+}
 .informacoes {
     display: flex;
     flex-direction: column;
@@ -170,13 +177,7 @@
     gap: 10px;
 }
 
-.detalhes {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border: white solid 1px;
-    margin-top: 50px;
-}
+
 
 .card-detalhes {
     display: flex;
