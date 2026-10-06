@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos à obra</title>
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/styleeditarPerfil.css">
+    <link rel="icon" type="image/png" href="/images/Logo_TCC.png">
+</head>
+<body>
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/Botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+
+<div class="pagina">
+
+    <header class="header">
+
+        <div class="logo">
+            <img src="/images/Logo_titulo_horizontal.png" alt="logo">
+        </div>
+
+    </header>
+
+    <main class="conteudo">
+
+        <div class="texto">
+            <h1>Editar perfil</h1>
+        </div>
+
+        <form class="infos-perfil" id="formPerfil">
+
+            <div class="nome">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" th:value="${pessoa.nome}" required>
+            </div>
+
+            <div class="idade">
+                <label for="idade">Idade:</label>
+                <input type="number" min="1" id="idade" th:value="${pessoa.idade}" required>
+            </div>
+
+            <div class="servico" th:if="${ehTrabalhador}">
+                <label for="servico">Tipo de serviço:</label>
+                <select id="servico">
+                    <option value="">Manter o atual</option>
+                </select>
+            </div>
+
+            <div class="sobre-mim">
+                <label for="sobreMim">Sobre Mim:</label>
+                <textarea id="sobreMim" rows="5" th:text="${pessoa.sobreMim}"></textarea>
+            </div>
+
+            <button type="submit" class="btn-atualizar">
+                Salvar alterações
+            </button>
+        </form>
+    </main>
+</div>
+
+<script>
+    const selectServico = document.getElementById("servico"); // fica null quando é cliente
+
+    async function carregarServicos() {
+        if (!selectServico) return;
+        const resposta = await fetch("/servicos");
+        const servicos = await resposta.json();
+
+        servicos.forEach(s => {
+            const option = document.createElement("option");
+            option.value = s.id;
+            option.textContent = s.tipo;
+            selectServico.appendChild(option);
+        });
+    }
+
+    carregarServicos();
+
+    document.getElementById("formPerfil").addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const dados = {
+            nome: document.getElementById("nome").value,
+            idade: Number(document.getElementById("idade").value),
+            sobreMim: document.getElementById("sobreMim").value,
+            idServico: selectServico && selectServico.value ? Number(selectServico.value) : null,
+        }
+
+        try {
+            const resposta = await fetch("/perfil", {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(dados)
+            });
+
+            if (resposta.ok) window.location.href = "/perfil/logado";
+            else if (resposta.status === 400) {
+                const erro = await resposta.json();
+                alert(erro.erro);
+            } else alert("Não foi possível salvar! Faça login novamente!");
+        } catch (e) {
+            alert("Não foi possível conectar ao servidor");
+        }
+    });
+</script>
+
+<aside class="sidebar-direita">
+
+</aside>
+</body>
+</html>

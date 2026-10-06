@@ -25,7 +25,6 @@ public class SecurityConfig {
                 .requestMatchers("/","/login", "/clientes", "/trabalhadores", "/css/**", "/images/**", "/login.html", "/cadastro.html", "/index.html", "/*.html")
                 .permitAll()
                         .requestMatchers("/demandas").hasRole("CLIENTE")
-                        .requestMatchers("/solicitacoesDemanda").hasRole("TRABALHADOR")
                 .anyRequest()
                 .authenticated())
                 .csrf(csrf -> csrf.disable())

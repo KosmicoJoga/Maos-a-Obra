@@ -35,6 +35,11 @@
     color:#ffb000;
 }
 
+#descricao {
+    background-color:#001531;
+    color:#ffb000;
+}
+
 .tipoDeServiço,
 .descricao,
 .local,
@@ -44,10 +49,10 @@
     gap: 5px;
 }
 
-.tipoDeServiço > span,
-.descricao > span,
-.local > span,
-.orcamento > span {
+.tipoDeServiço > label,
+.descricao > label,
+.local > label,
+.orcamento > label {
     width: 130px;
     text-align: right;
 }

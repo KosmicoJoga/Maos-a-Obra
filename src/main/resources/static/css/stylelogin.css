@@ -42,8 +42,8 @@
     display:flex;
     align-items: center;
 }
-.email > span,
-.senha> span {
+.email > label,
+.senha> label {
     width: 130px;
     text-align: right;
 }

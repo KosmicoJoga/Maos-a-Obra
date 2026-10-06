@@ -27,8 +27,8 @@ INSERT INTO servico
 VALUES (null, "Eletricista"),
        (null, "Faxineiro"),
        (null, "Encanador"),
-       (null,"pintor"),
-       (null,"construtor");
+       (null, "Pintor"),
+       (null, "Construtor");
 -- colocar o resto dos tipos de trabalhadores no insert acima!
 
 create table certificado

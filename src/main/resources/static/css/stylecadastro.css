@@ -62,12 +62,12 @@ select {
     color:#ffb000;
 }
 
-.nome > span,
-.idade > span,
-.email > span,
-.ConfirmaEmail > span,
-.senha > span ,
-.tipoPrestador>span{
+.nome > label,
+.idade > label,
+.email > label,
+.ConfirmaEmail > label,
+.senha > label,
+.tipoPrestador > label{
     width: 130px;
     text-align: right;
 }

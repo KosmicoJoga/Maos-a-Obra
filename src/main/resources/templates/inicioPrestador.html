@@ -42,7 +42,7 @@
             <a class="mensagens">
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
-            <a class="usuario" href="/perfilLogado">
+            <a class="usuario" href="/perfil/logado">
                 <img src="/images/foto_perfil.png" alt="Foto do usuário">
                 <span th:text="${nome}">Nome</span>
             </a>
@@ -67,11 +67,8 @@
                 <img src="/images/filtro.png" alt="Filtros">
             </button>
 
-            <input
-                    type="text"
-                    placeholder="Pesquise aqui..."
-                    class="campo-pesquisa"
-            >
+            <label for="pesquisa"></label>
+            <input id="pesquisa" class="campo-pesquisa" type="text" placeholder="Pesquise aqui...">
 
             <button class="btn-pesquisar">
                 <img src="/images/lupa.png" alt="Pesquisar">
@@ -130,7 +127,7 @@
         const resposta = await fetch("/login/logout", {method: "POST"});
 
         if (resposta.ok) {
-            window.location.href = "login.html";
+            window.location.href = "/login.html";
         } else {
             alert("Erro ao encerrar a sessão");
         }

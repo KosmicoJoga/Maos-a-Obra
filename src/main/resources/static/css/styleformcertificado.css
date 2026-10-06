@@ -57,8 +57,8 @@ label {
     width: 100%;
 }
 
-.nome > span,
-.certificado > span {
+.nome > label,
+.certificado > label {
     width: 85px;
     text-align: right;
     flex-shrink: 0;

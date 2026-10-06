@@ -83,7 +83,7 @@
 
                 <div class="nome-idade">
                     <h1 class="nome-perfil" th:text="${nome}">*nome completo*</h1>
-                    <p class="idade-perfil">*idade*</p>
+                    <p class="idade-perfil" th:text="${pessoa.idade} + ' anos'">*idade*</p>
                 </div>
 
                 <p class="tipo-servico">*tipo de serviço*</p>
@@ -117,21 +117,51 @@
         </nav>
 
 
-        <button class="botao-verde" id="btn-informacoes" style="display: none"Mostrarbtninfo()> editar informações</button>
+        <a class="botao-verde" id="btn-informacoes" style="display: none" href="/perfil/editar">
+            EDITAR INFORMAÇÕES
+        </a>
+
         <section class="informacoes" id="informacoes" style="display: none;">
 
             <h2>SOBRE MIM</h2>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            <p th:text="${pessoa.sobreMim} ?: 'Você ainda não escreveu nada sobre você.'">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                 ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                 fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.</p>
+                deserunt mollit anim id est laborum.
+            </p>
+
             <div class="info-juntas">
-            <div class="detalhes">
+                <div class="detalhes">
+                    <div class="card-detalhes">
+                        <section>
+                            <h2>Serviços Oferecidos</h2>
+
+                            <ul>
+                                <li>Lorem ipsum</li>
+                                <li>Lorem ipsum</li>
+                                <li>Lorem ipsum</li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
                 <div class="card-detalhes">
                     <section>
-                        <h2>Serviços Oferecidos</h2>
+                        <h2>Experiência</h2>
+
+                        <ul>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <div class="card-detalhes">
+                    <section>
+                        <h2>Horários disponíveis</h2>
 
                         <ul>
                             <li>Lorem ipsum</li>
@@ -141,36 +171,13 @@
                     </section>
                 </div>
             </div>
-            <div class="card-detalhes">
-                <section>
-                    <h2>Experiência</h2>
-
-                    <ul>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
-                    </ul>
-                </section>
-            </div>
-
-            <div class="card-detalhes">
-                <section>
-                    <h2>Horários disponíveis</h2>
-
-                    <ul>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
-                    </ul>
-                </section>
-            </div>
-            </div>
 
         </section>
 
         <section class="certificados" id="certificados" style="display: none">
 
-            <button class="botao-verde" id="btn-registrar-certificado" onclick="window.location.href='formCertificado.html'">
+            <button class="botao-verde" id="btn-registrar-certificado"
+                    onclick="window.location.href='/formCertificado.html'">
                 REGISTRAR CERTIFICADO
             </button>
 
@@ -289,27 +296,28 @@
 
 <script>
 
-    const talogado= document.getElementById("acoes_logado");
-    const naotalogado= document.getElementById("acoes_deslogado");
+    const talogado = document.getElementById("acoes_logado");
+    const naotalogado = document.getElementById("acoes_deslogado");
     verificarlogin();
     const informacoes = document.getElementById("informacoes");
     const certificados = document.getElementById("certificados");
     const midia = document.getElementById("midia")
     const avaliacoes = document.getElementById("avaliacoes")
     const historico = document.getElementById("historico");
-    const btninfo= document.getElementById("btn-informacoes");
-    const btnmidia= document.getElementById("btn-midia");
-              mostrarInformacoes();
-    async function verificarlogin(){
-        const resposta= await fetch("/login/me");
-        if(resposta.ok){
-            talogado.style.display= "flex";
-        }
-        else{
-            naotalogado.style.display= "flex";
+    const btninfo = document.getElementById("btn-informacoes");
+    const btnmidia = document.getElementById("btn-midia");
+    mostrarInformacoes();
+
+    async function verificarlogin() {
+        const resposta = await fetch("/login/me");
+        if (resposta.ok) {
+            talogado.style.display = "flex";
+        } else {
+            naotalogado.style.display = "flex";
 
         }
     }
+
     function mostrarInformacoes() {
         informacoes.style.display = "flex";
         certificados.style.display = "none";
@@ -317,7 +325,7 @@
         historico.style.display = "none";
         avaliacoes.style.display = "none";
         btninfo.style.display = "flex";
-        btnmidia.style.display="none";
+        btnmidia.style.display = "none";
     }
 
     function mostrarCertificados() {
@@ -327,7 +335,7 @@
         historico.style.display = "none";
         avaliacoes.style.display = "none";
         btninfo.style.display = "none";
-        btnmidia.style.display="none";
+        btnmidia.style.display = "none";
     }
 
     function mostrarMidias() {
@@ -337,7 +345,7 @@
         historico.style.display = "none";
         avaliacoes.style.display = "none";
         btninfo.style.display = "none";
-        btnmidia.style.display="flex";
+        btnmidia.style.display = "flex";
     }
 
     function mostrarAvaliacoes() {
@@ -347,7 +355,7 @@
         avaliacoes.style.display = "flex";
         historico.style.display = "none";
         btninfo.style.display = "none";
-        btnmidia.style.display="none";
+        btnmidia.style.display = "none";
     }
 
     function mostrarHistorico() {
@@ -357,7 +365,7 @@
         avaliacoes.style.display = "none";
         historico.style.display = "flex"
         btninfo.style.display = "none";
-        btnmidia.style.display="none";
+        btnmidia.style.display = "none";
     }
 
 </script>
@@ -367,7 +375,7 @@
         const resposta = await fetch("/login/logout", {method: "POST"});
 
         if (resposta.ok) {
-            window.location.href = "login.html";
+            window.location.href = "/login.html";
         } else {
             alert("Erro ao encerrar a sessão");
         }

@@ -1,3 +1,13 @@
+/* TÍTULO */
+
+.conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 30px;
+}
+
 .texto {
     display: flex;
     align-items: center;
@@ -6,14 +16,10 @@
     border-radius: 35px;
     margin-bottom: 30px;
 }
-.conteudo {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px 30px;
-}
-.demanda {
+
+/* FORM PRA EDITAR INFOS DO PERFIL*/
+
+.infos-perfil {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,29 +28,36 @@
     border-radius: 35px;
     gap: 20px;
 }
-.demanda input{
-    background-color:#001531;
-    color:#ffb000;
-}
-.descricao,
-.local,
-.orcamento{
+
+.nome,
+.idade,
+.sobre-mim,
+.servico {
     display: flex;
     align-items: center;
     gap: 5px;
 }
-.descricao > label,
-.local > label,
-.orcamento > label {
+
+.nome > span,
+.idade > span,
+.sobre-mim > span {
     width: 130px;
     text-align: right;
 }
-.btn-solicita {
+
+.infos-perfil input,
+.infos-perfil textarea,
+.infos-perfil select {
+    background-color: #001531;
+    color: #ffb000;
+}
+
+.btn-atualizar {
     border-radius: 25px;
     background-color: green;
     width: 75%;
     align-items: center;
     color: white;
     height: 50px;
-    font-size:20px;
+    font-size: 20px;
 }

@@ -1,8 +1,9 @@
 package org.example.maosaobra.controller;
 
 import org.example.maosaobra.model.Pessoa;
-import org.example.maosaobra.security.PessoaDetails;
+import org.example.maosaobra.model.Trabalhador;
 import org.example.maosaobra.service.DemandaService;
+import org.example.maosaobra.service.PessoaService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +13,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PaginaController {
 
     private final DemandaService demandaService;
+    private final PessoaService pessoaService;
 
-    public PaginaController(DemandaService demandaService) {
+    public PaginaController(DemandaService demandaService, PessoaService pessoaService) {
         this.demandaService = demandaService;
+        this.pessoaService = pessoaService;
     }
 
     @GetMapping("/inicioCliente")
     public String inicioCliente(Authentication authentication, Model model) {
-        PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
-        Pessoa pessoa = details.getPessoa();
+        Pessoa pessoa = pessoaLogada(authentication);
 
         model.addAttribute("nome",  pessoa.getNome());
 
@@ -29,8 +31,7 @@ public class PaginaController {
 
     @GetMapping("/inicioPrestador")
     public String inicioPrestador(Authentication authentication, Model model) {
-        PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
-        Pessoa pessoa = details.getPessoa();
+        Pessoa pessoa = pessoaLogada(authentication);
 
         model.addAttribute("nome",  pessoa.getNome());
         model.addAttribute("demandas", demandaService.buscarAbertas());
@@ -40,8 +41,7 @@ public class PaginaController {
 
     @GetMapping("/solicitacoesDemanda")
     public String solicitacoesDemanda(Authentication authentication, Model model) {
-        PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
-        Pessoa pessoa = details.getPessoa();
+        Pessoa pessoa = pessoaLogada(authentication);
 
         model.addAttribute("nome",  pessoa.getNome());
         model.addAttribute("demandas", demandaService.buscarAbertas());
@@ -49,23 +49,28 @@ public class PaginaController {
         return "solicitacoesDemanda";
     }
 
-    @GetMapping("/perfil")
-    public String perfil(Authentication authentication, Model model) {
-        PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
-        Pessoa pessoa = details.getPessoa();
-
-        model.addAttribute("nome",  pessoa.getNome());
-
-        return "perfil";
-    }
-
-    @GetMapping("/perfilLogado")
+    @GetMapping("/perfil/logado")
     public String perfilLogado(Authentication authentication, Model model) {
-        PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
-        Pessoa pessoa = details.getPessoa();
+        Pessoa pessoa = pessoaLogada(authentication);
 
         model.addAttribute("nome",  pessoa.getNome());
+        model.addAttribute("pessoa",  pessoa);
 
         return "perfilLogado";
+    }
+
+    @GetMapping("/perfil/editar")
+    public String editarPerfil(Authentication authentication, Model model) {
+        Pessoa pessoa = pessoaLogada(authentication);
+
+        model.addAttribute("pessoa", pessoa);
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
+
+        return "editarPerfil";
+    }
+
+    // função somente utilizada por essa própria classe
+    private Pessoa pessoaLogada(Authentication authentication) {
+        return pessoaService.buscarPorEmail(authentication.getName());
     }
 }

@@ -130,8 +130,9 @@
     text-decoration: none;
     margin: 20px;
     width: fit-content;
-gap: 15px;
+    gap: 15px;
 }
+
 #btn-midia{
     display: flex;
     flex-direction: column;
@@ -178,6 +179,7 @@ gap: 15px;
     justify-content: space-between;
     align-items: center;
 }
+
 .informacoes {
     display: flex;
     flex-direction: column;
@@ -185,15 +187,12 @@ gap: 15px;
     gap: 10px;
 }
 
-
-
 .card-detalhes {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     text-align: center;
 }
-
 
 .card-detalhes h2{
     margin-bottom: 20px;

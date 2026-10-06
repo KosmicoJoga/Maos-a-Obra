@@ -32,7 +32,7 @@
         <form class="formulario" id="formDemanda">
             <div class="demanda">
                 <div class="tipoDeServiço">
-                    <span>Tipo:</span>
+                    <label for="tipo">Tipo:</label>
                     <select id="tipo" name="tipo">
                         <option value="eletricista">Eletricista</option>
                         <option value="faxineiro">Faxineiro</option>
@@ -41,17 +41,17 @@
                 </div>
 
                 <div class="local">
-                    <span>Local:</span>
+                    <label for="local">Local:</label>
                     <input type="text" id="local" name="Local" placeholder="Digite o endereço" required>
                 </div>
 
                 <div class="descricao">
-                    <span>Descrição:</span>
+                    <label for="descricao">Descrição:</label>
                     <textarea id="descricao" name="Descricao" placeholder="Digite a descrição" required></textarea>
                 </div>
 
                 <div class="orcamento">
-                    <span>Orçamento:</span>
+                    <label for="orcamento">Orçamento:</label>
                     <input type="number" id="orcamento" name="Orcamento" placeholder="Digite o orçamento" min="0" step="0.01" required>
                 </div>
 

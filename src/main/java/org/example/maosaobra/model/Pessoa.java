@@ -2,7 +2,6 @@ package org.example.maosaobra.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.math.BigDecimal;
 
 // JPA
@@ -22,19 +21,21 @@ public class Pessoa {
     @Column(name = "id_pessoa")
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(name = "idade", nullable = false)
     private Integer idade;
 
-    @Column(nullable = false, unique = true, length = 255)
+    @Column(name = "email", nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "senha", nullable = false, length = 255)
     private String senha;
 
-    @Column(precision = 3, scale = 2)
+    @Column(name = "avaliacao", precision = 3, scale = 2)
     private BigDecimal avaliacao;
 
+    @Column(name = "sobre_mim", columnDefinition = "TEXT")
+    private String sobreMim;
 }
