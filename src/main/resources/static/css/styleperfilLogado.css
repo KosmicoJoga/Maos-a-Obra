@@ -122,6 +122,20 @@
     font-size: large;
 }
 
+#btn-redefinir{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        margin: 20px;
+        width: fit-content;
+        gap: 15px;
+        border-radius: 30px;
+        padding: 10px 15px;
+        font-size: 30px;
+    }
+
 #btn-informacoes{
     display: flex;
     flex-direction: column;

@@ -1,0 +1,65 @@
+.texto {
+    display: flex;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+.conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 30px;
+}
+
+.form-logar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.form-logar div {
+    gap: 15px;
+}
+
+.MudarSenha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #002650;
+    padding: 12px 20px;
+    border-radius: 35px;
+}
+.MudarSenha input{
+    background-color:#001531;
+    color:#ffb000;
+}
+.SenhaAntiga,
+.senha,
+.ConfirmaSenha{
+    gap: 5px;
+    display:flex;
+    align-items: center;
+}
+.SenhaAntiga > label,
+.senha> label,
+.ConfirmaSenha> label{
+    width: 130px;
+    text-align: right;
+}
+#texto-conta{
+    color: gray;
+}
+.btn-enviar {
+    margin-top: 2px;
+    font-size: 20px;
+    border-radius: 25px;
+    background-color: green;
+    width: 50%;
+    align-items: center;
+    justify-items: center;
+    color: white;
+    height: 50px;
+}
