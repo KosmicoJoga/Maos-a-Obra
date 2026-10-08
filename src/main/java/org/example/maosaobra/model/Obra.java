@@ -42,4 +42,10 @@ public class Obra {
     @Column(precision = 10, scale = 2)
     private BigDecimal orcamento;
 
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
 }

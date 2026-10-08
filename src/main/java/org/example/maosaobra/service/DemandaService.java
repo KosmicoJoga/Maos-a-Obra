@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DemandaService {
@@ -15,11 +16,13 @@ public class DemandaService {
     private final DemandaRepository demandaRepository;
     private final ServicoService servicoService;
     private final ObraService obraService;
+    private final GeocodingService geocodingService;
 
-    public DemandaService(DemandaRepository demandaRepository, ServicoService servicoService, ObraService obraService) {
+    public DemandaService(DemandaRepository demandaRepository, ServicoService servicoService, ObraService obraService, GeocodingService geocodingService) {
         this.demandaRepository = demandaRepository;
         this.servicoService = servicoService;
         this.obraService = obraService;
+        this.geocodingService = geocodingService;
     }
 
     public Demanda salvar(Demanda demanda) {
@@ -49,6 +52,14 @@ public class DemandaService {
         obra.setEndereco(dto.endereco());
         obra.setDescricao(dto.descricao());
         obra.setOrcamento(dto.orcamento());
+
+        Optional<double[]> coordenadas = geocodingService.buscarCoordenadas(dto.endereco());
+
+        if (coordenadas.isPresent()) {
+            obra.setLatitude(coordenadas.get()[0]);
+            obra.setLongitude(coordenadas.get()[1]);
+        }
+
         obra = obraService.salvar(obra);
 
         Demanda demanda = new Demanda();
@@ -64,5 +75,4 @@ public class DemandaService {
     public List<Demanda> buscarAbertas() {
         return demandaRepository.findByStatusOrderByDataSolicitacaoDesc(StatusDemanda.ABERTA);
     }
-
 }

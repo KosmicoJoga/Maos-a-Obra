@@ -14,7 +14,7 @@ CREATE TABLE pessoa
     senha     VARCHAR(255)        NOT NULL,
     avaliacao DECIMAL(3, 2) UNSIGNED DEFAULT 0.00,
     sobre_mim text,
-    horarios datetime
+    horarios  datetime
 );
 
 CREATE TABLE servico
@@ -82,6 +82,8 @@ CREATE TABLE obra
     descricao      VARCHAR(255) NOT NULL,
     endereco       VARCHAR(255) NOT NULL,
     orcamento      DECIMAL(10, 2),
+    latitude       DOUBLE,
+    longitude      DOUBLE,
     foreign key (id_cliente) REFERENCES cliente (id_pessoa) ON DELETE CASCADE,
     foreign key (id_trabalhador) REFERENCES trabalhador (id_pessoa),
     foreign key (id_servico) REFERENCES servico (id_servico)

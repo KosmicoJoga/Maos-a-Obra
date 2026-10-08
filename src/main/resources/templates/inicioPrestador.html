@@ -86,24 +86,25 @@
 
         </div>
 
-        <!-- LISTA DE TRABALHADORES -->
+        <!-- LISTA DE DEMANDAS -->
         <section class="lista-demandas">
 
-            <!-- CARD DO TRABALHADOR -->
-            <article class="card-demanda" th:each="d : ${demandas}">
+            <!-- CARD DA DEMANDA -->
+            <article class="card-demanda" th:each="d : ${demandas}" th:data-lat="${d.obra.latitude}" th:data-lng="${d.obra.longitude}">
 
-                <!-- FOTO -->
+                <!-- FOTO DO CLIENTE -->
                 <div class="foto-cliente">
                     <img src="/images/foto_perfil.png" alt="Foto do Cliente">
                 </div>
 
-                <!-- INFORMAÇÕES -->
+                <!-- INFORMAÇÕES DA DEMANDA -->
                 <div class="informacoes-demanda">
 
                     <div class="dados-demanda">
                         <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>
                         <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente • Local</p>
                         <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>
+                        <p class="distancia"></p>
                     </div>
 
                     <div class="orcamento">
@@ -132,6 +133,36 @@
             alert("Erro ao encerrar a sessão");
         }
     }
+
+    function haversinekm(lat1, lon1, lat2, lon2) {
+        const R = 6371; // raio da Terra em km
+        const toRad = g => g * Math.PI / 180;
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+
+        const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function mostrarDistancias() {
+        if (!navigator.geolocation) return;
+
+        navigator.geolocation.getCurrentPosition(pos => {
+            const minhaLat = pos.coords.latitude;
+            const minhaLon = pos.coords.longitude;
+
+            document.querySelectorAll(".card-demanda").forEach(card => {
+                if (!card.dataset.lat || !card.dataset.lng) return; // demanda sem coordenada
+
+                const km = haversinekm(minhaLat, minhaLon, Number(card.dataset.lat), Number(card.dataset.lng));
+
+                card.querySelector(".distancia").textContent = "Aproximadamente " + km.toFixed(1).replace(".", ",") + " km de você";
+            });
+        });
+    }
+
+    mostrarDistancias();
 </script>
 
 <!-- BARRA LATERAL DIREITA -->
