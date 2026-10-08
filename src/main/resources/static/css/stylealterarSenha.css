@@ -5,6 +5,7 @@
     padding: 12px 20px;
     border-radius: 35px;
 }
+
 .conteudo {
     width: 100%;
     display: flex;
@@ -13,18 +14,18 @@
     padding: 50px 30px;
 }
 
-.form-logar {
+.form-alterar-senha {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 25px;
 }
 
-.form-logar div {
+.form-alterar-senha div {
     gap: 15px;
 }
 
-.MudarSenha {
+.alterar-senha {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,32 +33,37 @@
     padding: 12px 20px;
     border-radius: 35px;
 }
-.MudarSenha input{
+
+.alterar-senha input{
     background-color:#001531;
     color:#ffb000;
 }
-.SenhaAntiga,
-.senha,
-.ConfirmaSenha{
+
+.senha-atual,
+.senha-nova,
+.senha-confirmar{
     gap: 5px;
     display:flex;
     align-items: center;
 }
-.SenhaAntiga > label,
-.senha> label,
-.ConfirmaSenha> label{
+
+.senha-atual > label,
+.senha-nova> label,
+.senha-confirmar> label{
     width: 130px;
     text-align: right;
 }
+
 #texto-conta{
     color: gray;
 }
+
 .btn-enviar {
-    margin-top: 2px;
+    margin-top: 15px;
     font-size: 20px;
     border-radius: 25px;
     background-color: green;
-    width: 50%;
+    width: 70%;
     align-items: center;
     justify-items: center;
     color: white;

@@ -1,6 +1,7 @@
 package org.example.maosaobra.service;
 
 import org.example.maosaobra.dto.PerfilUpdateDTO;
+import org.example.maosaobra.dto.SenhaUptadeDTO;
 import org.example.maosaobra.model.Pessoa;
 import org.example.maosaobra.model.Trabalhador;
 import org.example.maosaobra.repository.PessoaRepository;
@@ -23,12 +24,12 @@ public class PessoaService {
         this.servicoService = servicoService;
     }
 
-    public Pessoa salvar(Pessoa pessoa){
+    public Pessoa salvar(Pessoa pessoa) {
         pessoa.setSenha(passwordEncoder.encode(pessoa.getSenha()));
         return this.pessoaRepository.save(pessoa);
     }
 
-    public void excluir(Pessoa pessoa){
+    public void excluir(Pessoa pessoa) {
         this.pessoaRepository.delete(pessoa);
     }
 
@@ -36,11 +37,11 @@ public class PessoaService {
         return this.pessoaRepository.findAll();
     }
 
-    public Pessoa buscarPorId(Long id){
+    public Pessoa buscarPorId(Long id) {
         return this.pessoaRepository.findById(id).orElse(null);
     }
 
-    public Pessoa buscarPorEmail(String email){
+    public Pessoa buscarPorEmail(String email) {
         return this.pessoaRepository.findByEmail(email).orElse(null);
     }
 
@@ -60,5 +61,30 @@ public class PessoaService {
         }
 
         return pessoaRepository.save(pessoa);
+    }
+
+    @Transactional
+    public void alterarSenha(String email, SenhaUptadeDTO dto) {
+
+        Pessoa pessoa = this.buscarPorEmail(email);
+
+        // verificar se a senha escrita pelo usuário é a que está salva no banco
+        if (dto.senhaAtual() == null || !passwordEncoder.matches(dto.senhaAtual(), pessoa.getSenha()))
+            throw new IllegalArgumentException("Senha atual incorreta!");
+
+        // verificar se a senha nova tem no mínimo 8 caracteres
+        if (dto.senhaNova() == null || dto.senhaNova().length() < 8)
+            throw new IllegalArgumentException("A nova senha deve ter no mínimo 8 caracteres!");
+
+        // verificar se a senha nova bate com a senha confirmada
+        if (!dto.senhaNova().equals(dto.senhaConfirmada()))
+            throw new IllegalArgumentException("A confirmação não confere com a nova senha!");
+
+        // verificar se a senha nova é exatamente igual à senha salva no banco (não faria sentido a senha nova ser a mesma do banco)
+        if (passwordEncoder.matches(dto.senhaNova(), pessoa.getSenha()))
+            throw new IllegalArgumentException("A nova senha deve ser diferente da atual!");
+
+        pessoa.setSenha(passwordEncoder.encode(dto.senhaNova()));
+        pessoaRepository.save(pessoa);
     }
 }

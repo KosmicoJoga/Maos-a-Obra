@@ -121,7 +121,7 @@
     object-fit: contain;
 }
 
-.btn-perfil {
+.btn-demanda {
     grid-column: 1 / 3;
     grid-row: 2;
 
@@ -147,7 +147,7 @@
     transition: 0.2s;
 }
 
-.btn-anunciar:hover {
+.btn-demanda:hover {
     background-color: #008d26;
 
     transform: scale(1.02);

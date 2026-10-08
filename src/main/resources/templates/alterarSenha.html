@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos à obra</title>
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/stylealterarSenha.css">
+    <link rel="icon" type="image/png" href="/images/Logo_TCC.png">
+</head>
+<body>
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/Botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+<div class="pagina">
+
+    <header class="header">
+        <div class="logo">
+            <img src="/images/Logo_titulo_horizontal.png" alt="logo">
+        </div>
+    </header>
+
+    <main class="conteudo">
+        <form class="form-alterar-senha" id="formAlterarSenha">
+            <div class="texto">
+                <h1>Alterar senha</h1>
+            </div>
+
+            <div class="alterar-senha">
+
+                <div class="senha-atual">
+                    <label for="senhaAtual">Senha atual:</label>
+                    <input type="password" id="senhaAtual" autocomplete="current-password" required>
+                </div>
+
+                <div class="senha-nova">
+                    <label for="senhaNova">Senha nova:</label>
+                    <input type="password" id="senhaNova" autocomplete="new-password" minlength="8" maxlength="64" required>
+                </div>
+
+                <div class="senha-confirmar">
+                    <label for="senhaConfirmada">Confirmar senha: </label>
+                    <input type="password" id="senhaConfirmada" autocomplete="new-password" required>
+
+                </div>
+
+                <button class="btn-enviar"  type="submit">
+                    Confirmar alteração
+                </button>
+
+            </div>
+        </form>
+    </main>
+</div>
+
+<script>
+
+    const form = document.getElementById("formAlterarSenha");
+
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const senhaNova = document.getElementById("senhaNova").value;
+        const senhaConfirmada = document.getElementById("senhaConfirmada").value;
+
+        if (senhaNova !== senhaConfirmada) {
+            alert("A confirmação não confere com a nova senha.");
+            return;
+        }
+
+        const dados = {
+            senhaAtual: document.getElementById("senhaAtual").value,
+            senhaNova: senhaNova,
+            senhaConfirmada: senhaConfirmada
+        };
+
+        try {
+            const resposta = await fetch("/perfil/senha", {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(dados)
+            });
+
+            if (resposta.ok) {
+                alert("Senha alterada com sucesso! Entre novamente utilizando a sua nova senha!");
+                window.location.href = "/login.html";
+            } else if (resposta.status === 400) {
+                const erro = await resposta.json();
+                alert(erro.erro);
+            } else alert("Não foi possível alterar a senha.");
+
+        } catch (e) {
+            alert("Não foi possível conectar ao servidor");
+        }
+    })
+
+</script>
+
+<aside class="sidebar-direita">
+
+</aside>
+</body>
+</html>

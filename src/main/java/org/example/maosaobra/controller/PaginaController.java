@@ -69,6 +69,12 @@ public class PaginaController {
         return "editarPerfil";
     }
 
+    @GetMapping("/perfil/senha")
+    public String alterarSenha(Authentication auth, Model model) {
+        model.addAttribute("nome", pessoaLogada(auth).getNome());
+        return "alterarSenha";
+    }
+
     // função somente utilizada por essa própria classe
     private Pessoa pessoaLogada(Authentication authentication) {
         return pessoaService.buscarPorEmail(authentication.getName());
