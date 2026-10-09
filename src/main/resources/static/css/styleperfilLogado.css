@@ -1,37 +1,33 @@
+
 .acoes {
     height: 100%;
+
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
     gap: 20px;
-    flex-wrap: nowrap;
 }
 
-.acoes a {
+.usuario,.btn-entrar,.btn-cadastrar {
     height: 50px;
-    width: fit-content;
-    flex-shrink: 0;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-
-    padding: 0 15px;
-    gap: 10px;
+    min-width: 150px;
 
     text-decoration: none;
     color: #ffb000;
+
     background-color: #002650;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
 
     font-size: 20px;
 }
 
-
-.acoes img {
-    width: 35px;
-    height: 35px;
+.acoes a img {
+    width: 45px;
+    height: 45px;
 
     object-fit: contain;
 }
@@ -185,21 +181,24 @@
     cursor: pointer;
 }
 
-.info-juntas{
+.info-juntas {
     display: flex;
     flex-direction: row;
-    border-right: black;
-    margin: 20px 0 20px 0;
+    margin: 20px 0;
     justify-content: space-between;
     align-items: center;
 }
+
 
 .informacoes {
     display: flex;
     flex-direction: column;
     padding: 20px;
     gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
 }
+
 
 .card-detalhes {
     display: flex;
