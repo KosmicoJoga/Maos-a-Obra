@@ -26,7 +26,7 @@
         </div>
     </header>
     <main class="conteudo">
-        <form class="form-cadastrar" id="cadastroForm" method="post">
+        <form class="form-cadastrar" id="cadastroForm">
             <div class="texto">
                 <h1> Cadastrar conta</h1>
             </div>
@@ -69,11 +69,7 @@
 
                 <div class="tipoPrestador" id="tipoPrestador" style="display: none;">
                     <label for="servico">Tipo de serviço:</label>
-                    <select id="servico">
-                        <option value="eletricista">Eletricista</option>
-                        <option value="faxineiro">Faxineiro</option>
-                        <option value="encanador">Encanador</option>
-                    </select>
+                    <select id="servico"></select>
                 </div>
 
                 <div class="senha">
@@ -147,7 +143,7 @@
         } else {
             url = "/trabalhadores";
 
-            dados.servico = document.getElementById("servico").value;
+            dados.servico = { id: Number(selectServico.value) };
         }
 
         try {
@@ -160,7 +156,6 @@
 
             if (resposta.ok) {
                 alert("Cadastro realizado com sucesso!");
-
                 window.location.href = "login.html";
             } else {
                 alert("Erro ao realizar cadastro!");
@@ -172,6 +167,22 @@
         }
 
     });
+
+    const selectServico = document.getElementById("servico");
+
+    async function carregarServicos() {
+        const resposta = await fetch("/servicos");
+        if (!resposta.ok) return;
+
+        const servicos = await resposta.json();
+        servicos.forEach(s => {
+            const option = document.createElement("option");
+            option.value = s.id;          // o id que o banco usa
+            option.textContent = s.tipo;  // o nome que aparece
+            selectServico.appendChild(option);
+        });
+    }
+    carregarServicos();
 </script>
 
 <aside class="sidebar-direita">

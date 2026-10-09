@@ -2,6 +2,7 @@ package org.example.maosaobra.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -26,6 +27,7 @@ public class SecurityConfig {
                 .permitAll()
                         .requestMatchers("/demandas").hasRole("CLIENTE")
                         .requestMatchers("/solicitacoesDemanda").hasRole("TRABALHADOR")
+                        .requestMatchers(HttpMethod.GET, "/servicos").permitAll()
                 .anyRequest()
                 .authenticated())
                 .csrf(csrf -> csrf.disable())
