@@ -1,23 +1,31 @@
 package org.example.maosaobra.controller;
 
+import org.example.maosaobra.dto.ConversaDTO;
+import org.example.maosaobra.model.Conversa;
 import org.example.maosaobra.model.Pessoa;
 import org.example.maosaobra.model.Trabalhador;
+import org.example.maosaobra.service.ChatService;
 import org.example.maosaobra.service.DemandaService;
 import org.example.maosaobra.service.PessoaService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @Controller
 public class PaginaController {
 
     private final DemandaService demandaService;
     private final PessoaService pessoaService;
+    private final ChatService chatService;
 
-    public PaginaController(DemandaService demandaService, PessoaService pessoaService) {
+    public PaginaController(DemandaService demandaService, PessoaService pessoaService, ChatService chatService) {
         this.demandaService = demandaService;
         this.pessoaService = pessoaService;
+        this.chatService = chatService;
     }
 
     @GetMapping("/inicioCliente")
@@ -73,6 +81,36 @@ public class PaginaController {
     public String alterarSenha(Authentication auth, Model model) {
         model.addAttribute("nome", pessoaLogada(auth).getNome());
         return "alterarSenha";
+    }
+
+    @GetMapping("/conversas")
+    public String conversas(Authentication authentication, Model model) {
+        Pessoa pessoa = pessoaLogada(authentication);
+
+        List<ConversaDTO> conversas = chatService.minhasConversas(pessoa).stream()
+                .map(c -> new ConversaDTO(c.getId(), c.getCliente().getId().equals(pessoa.getId())
+                                ? c.getTrabalhador().getNome()
+                                : c.getCliente().getNome()))
+                .toList();
+
+        model.addAttribute("nome", pessoa.getNome());
+        model.addAttribute("conversas", conversas);
+        return "conversas";
+    }
+
+    @GetMapping("/chat/{id}")
+    public String chat(@PathVariable Long id, Authentication authentication, Model model) {
+        Pessoa pessoa = pessoaLogada(authentication);
+        Conversa conversa = chatService.buscarSeParticipa(id, pessoa);   // 404 se não participa
+
+        String outra = conversa.getCliente().getId().equals(pessoa.getId())
+                ? conversa.getTrabalhador().getNome()
+                : conversa.getCliente().getNome();
+
+        model.addAttribute("nome", pessoa.getNome());
+        model.addAttribute("idConversa", conversa.getId());
+        model.addAttribute("outraPessoa", outra);
+        return "chat";
     }
 
     // função somente utilizada por essa própria classe

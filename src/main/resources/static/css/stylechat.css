@@ -1,0 +1,96 @@
+
+.conteudo {
+    text-align: center;
+}
+
+.titulo {
+    text-align: center;
+
+    margin: 20px;
+    padding: 10px;
+
+    background-color: #001b3d;
+
+    width: fit-content;
+
+    border-radius: 20px;
+
+}
+
+.mensagens-chat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 60vh;
+    overflow-y: auto;
+    background-color: #002650;
+    border-radius: 35px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.mensagem {
+    max-width: 70%;
+    padding: 8px 14px;
+    border-radius: 18px;
+    word-break: break-word;
+}
+
+.mensagem.minha {
+    align-self: flex-end;
+    background-color: #ffb000;
+    color: #001531;
+}
+
+.mensagem.outra {
+    align-self: flex-start;
+    background-color: #001531;
+    color: #ffb000;
+}
+
+.mensagem span {
+    display: block;
+    font-size: 0.7em;
+    opacity: 0.7;
+    text-align: right;
+}
+
+.form-mensagem {
+    display: flex;
+    gap: 10px;
+    margin: 15px 20px 0 20px;
+    align-items: center;
+}
+
+.form-mensagem input {
+    flex: 1;
+    background-color: #001531;
+    color: #ffb000;
+    height: 40px;
+    border-radius: 15px;
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+.btn-enviar {
+    width: 200px;
+    height: stretch;
+    border-radius: 30px;
+    background-color: #02892e;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+
+.card-conversa {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+
+
+
+
+

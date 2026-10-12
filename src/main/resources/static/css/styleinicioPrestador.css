@@ -358,6 +358,12 @@
     align-content: center;
 }
 
+.botoes-demanda {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 
 /* =========================
    RESPONSIVIDADE

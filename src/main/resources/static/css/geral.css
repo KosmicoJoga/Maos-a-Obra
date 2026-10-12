@@ -89,3 +89,66 @@ body {
     cursor: pointer;
     width: 350px;
 }
+
+.acoes {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.usuario {
+    height: 50px;
+    min-width: 150px;
+
+    text-decoration: none;
+    color: #ffb000;
+
+    background-color: #002650;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    font-size: 20px;
+}
+
+.acoes a img {
+    width: 45px;
+    height: 45px;
+
+    object-fit: contain;
+}
+
+.logout {
+    width: 40px;
+    height: 40px;
+
+    background: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    border: none;
+}
+
+.logout img {
+    max-width: 40px;
+
+    position: absolute;
+}
+
+#logout-hover {
+    opacity: 0;
+}
+
+#logout-hover:hover {
+    opacity: 1;
+}
+

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos à obra</title>
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/stylechat.css">
+    <link rel="icon" type="image/png" href="/images/Logo_TCC.png">
+</head>
+<body>
+
+
+<!-- BARRA LATERAL ESQUERDA-->
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar">
+        <img src="/images/Botao_voltar.png" alt="Voltar" onclick="history.back()">
+    </button>
+
+</aside>
+
+
+<!-- ÁREA PRINCIPAL -->
+<div class="pagina">
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="/images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+        </div>
+
+
+        <!-- AÇÕES DO USUÁRIO -->
+        <div class="acoes">
+
+            <a class="notificações">
+                <img src="/images/notificacoes.png" alt="Notificações">
+            </a>
+            <a class="mensagens">
+                <img src="/images/mensagens.png" alt="Mensagens">
+            </a>
+            <a class="usuario" href="/perfil/logado">
+                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <span th:text="${nome}">Nome</span>
+            </a>
+
+            <button class="logout" onclick="logout()">
+                <img src="/images/sair.png" alt="Logout" id="logout">
+                <img src="/images/sair_hover.png" alt="Logout" id="logout-hover">
+            </button>
+        </div>
+
+    </header>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+        <!-- CHAT -->
+        <h2 class="titulo" th:text="'Conversa com ' + ${outraPessoa}">Conversa</h2>
+
+        <section class="mensagens-chat" id="listaMensagens" th:data-id="${idConversa}"></section>
+
+        <form class="form-mensagem" id="formMensagem">
+
+            <input type="text" id="conteudo" maxlength="1000" autocomplete="off" placeholder="Digite sua mensagem..." required>
+
+            <button type="submit" class="btn-enviar">Enviar Mensagem</button>
+
+        </form>
+
+    </main>
+
+</div>
+
+<script>
+    async function logout() {
+        const resposta = await fetch("/login/logout", {method: "POST"});
+
+        if (resposta.ok) {
+            window.location.href = "/login.html";
+        } else {
+            alert("Erro ao encerrar a sessão");
+        }
+    }
+
+    const lista = document.getElementById("listaMensagens");
+    const idConversa = lista.dataset.id;
+
+    let ultimoId = 0;
+
+    function adicionarNaTela(m) {
+        if (m.id <= ultimoId) return; // evita duplicar se duas buscas se cruzarem
+
+        const balao = document.createElement("div")
+        balao.className = "mensagem " + (m.minha ? "minha" : "outra");
+
+        const texto = document.createElement("p");
+        texto.textContent = m.conteudo; // textContent, nunca innerHTML
+
+        const hora = document.createElement("span");
+        hora.textContent = new Date(m.dataEnvio).toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"});
+
+        balao.append(texto, hora);
+        lista.appendChild(balao);
+        ultimoId = m.id;
+    }
+
+    async function buscarNovas() {
+        const resposta = await fetch(`/api/conversas/${idConversa}/mensagens?depoisDe=${ultimoId}`);
+
+        if (resposta.status === 403) {      // sessão expirou
+            window.location.href = "/login.html";
+            return;
+        }
+
+        if (!resposta.ok) return;
+
+        const novas = await resposta.json();
+
+        if (novas.length === 0) return;
+
+        novas.forEach(adicionarNaTela);
+        lista.scrollTop = lista.scrollHeight;
+    }
+
+    buscarNovas();                      // ao abrir: carrega o histórico
+    setInterval(buscarNovas, 3000);     // depois: pergunta por novidades a cada 3 segundos
+
+    document.getElementById("formMensagem").addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const campo = document.getElementById("conteudo");
+
+        try {
+            const resposta = await fetch(`/api/conversas/${idConversa}/mensagens`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({conteudo: campo.value})
+            });
+
+            if (resposta.ok) {
+                campo.value = "";
+                buscarNovas();   // já mostra a que acabei de enviar
+            } else if (resposta.status === 400) {
+                const erro = await resposta.json();
+                alert(erro.erro);
+            } else {
+                alert("Não foi possível enviar a mensagem.");
+            }
+        } catch (e) {
+            alert("Não foi possível conectar ao servidor");
+        }
+    });
+</script>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita">
+
+</aside>
+</body>
+
+</html>
