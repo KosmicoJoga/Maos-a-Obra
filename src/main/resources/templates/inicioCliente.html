@@ -92,110 +92,81 @@
         <section class="lista-trabalhadores">
 
             <!-- CARD DO TRABALHADOR -->
-            <article class="card-trabalhador">
-
-                <!-- FOTO -->
-                <div class="foto-trabalhador">
-                    <img
-                            src="/images/foto_perfil.png"
-                            alt="Foto do trabalhador"
-                    >
-                </div>
-
-
-                <!-- INFORMAÇÕES -->
-                <div class="informacoes-trabalhador">
-
-                    <div class="dados-trabalhador">
-                        <h2>*Nome* *Idade*</h2>
-
-                        <p>*Tipo de serviço*</p>
-                    </div>
-
-
-                    <!-- AVALIAÇÃO -->
-                    <div class="avaliacao">
-                        <span>4,7</span>
-                        <span class="estrela">★</span>
-                    </div>
-
-
-                    <!-- BOTÃO -->
-                    <a href="/perfil.html" class="btn-perfil">
-                        VER PERFIL
-                    </a>
-
-                </div>
-
-            </article>
-
-
-            <!-- OUTRO CARD -->
-            <article class="card-trabalhador">
+            <article class="card-trabalhador" th:each="t : ${trabalhadores}">
 
                 <div class="foto-trabalhador">
-                    <img
-                            src="/images/foto_perfil.png"
-                            alt="Foto do trabalhador"
-                    >
+                    <img src="/images/foto_perfil.png" alt="Foto do Trabalhador">
                 </div>
 
                 <div class="informacoes-trabalhador">
 
                     <div class="dados-trabalhador">
-                        <h2>*Nome* *Idade*</h2>
-                        <p>*Tipo de serviço*</p>
+                        <h2 th:text="${t.nome} + ', ' + ${t.idade}">Nome, idade</h2>
+                        <p th:text="${t.servico?.tipo} ?: 'Serviço não informado'">Tipo de serviço</p>
                     </div>
 
                     <div class="avaliacao">
-                        <span>4,7</span>
-                        <span class="estrela">★</span>
+                        <th:block th:if="${t.avaliacao != null}">
+                            <span th:text="${#numbers.formatDecimal(t.avaliacao, 1, 1, 'COMMA')}">4,7</span>
+                            <span class="estrela">★</span>
+                        </th:block>
+                        <span th:if="${t.avaliacao == null}">Sem avaliações</span>
                     </div>
 
-                    <a href="/perfil.html" class="btn-perfil">
-                        VER PERFIL
-                    </a>
+                    <a href="/perfil.html" class="btn-perfil">VER PERFIL</a>
 
                 </div>
 
             </article>
 
-
-            <!-- OUTRO CARD -->
-            <article class="card-trabalhador">
-
-                <div class="foto-trabalhador">
-                    <img
-                            src="/images/foto_perfil.png"
-                            alt="Foto do trabalhador"
-                    >
-                </div>
-
-                <div class="informacoes-trabalhador">
-
-                    <div class="dados-trabalhador">
-                        <h2>*Nome* *Idade*</h2>
-                        <p>*Tipo de serviço*</p>
-                    </div>
-
-                    <div class="avaliacao">
-                        <span>4,7</span>
-                        <span class="estrela">★</span>
-                    </div>
-
-                    <a href="/perfil.html" class="btn-perfil">
-                        VER PERFIL
-                    </a>
-
-                </div>
-
-            </article>
+            <p th:if="${#lists.isEmpty(trabalhadores)}">Nenhum trabalhador cadastrado ainda.</p>
 
         </section>
 
     </main>
 
 </div>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar()>
+    <span> Notificações</span>
+</aside>
+
+<aside class="sidebar-direita" id="sidebar">
+
+</aside>
+
+<aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar()>
+    <span> Mensagens</span>
+</aside>
+</body>
+
+<script>
+    const notificacoes = document.getElementById("mostraNotificacao");
+    const sideBar = document.getElementById("sidebar");
+    const mensagen = document.getElementById("mostraMensagen");
+
+    async function CarregarNotificacoes() {
+        notificacoes.style.display = "flex";
+        sideBar.style.display = "none";
+        mensagen.style.display = "none";
+    }
+
+    async function SideBar() {
+        notificacoes.style.display = "none";
+        sideBar.style.display = "flex";
+        mensagen.style.display = "none";
+    }
+
+    async function CarregarMensagens() {
+
+        notificacoes.style.display = "none";
+        sideBar.style.display = "none";
+        mensagen.style.display = "flex";
+    }
+</script>
 
 <script>
     async function logout() {
@@ -206,42 +177,6 @@
         } else {
             alert("Erro ao encerrar a sessão");
         }
-    }
-</script>
-
-<!-- BARRA LATERAL DIREITA -->
-<aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar()>
-    <span> Notificações</span>
-</aside>
-<aside class="sidebar-direita" id="sidebar">
-
-</aside>
-<aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar()>
-    <span> Mensagens</span>
-</aside>
-</body>
-
-<script>
-    const notificacoes= document.getElementById("mostraNotificacao");
-    const sideBar= document.getElementById("sidebar");
-    const mensagen= document.getElementById("mostraMensagen");
-    async function CarregarNotificacoes(){
-        notificacoes.style.display="flex";
-        sideBar.style.display="none";
-        mensagen.style.display="none";
-    }
-    async function SideBar(){
-        notificacoes.style.display="none";
-        sideBar.style.display="flex";
-        mensagen.style.display="none";
-    }
-    async function CarregarMensagens(){
-
-        notificacoes.style.display="none";
-        sideBar.style.display="none";
-        mensagen.style.display="flex";
     }
 </script>
 </html>

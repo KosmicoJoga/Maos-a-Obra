@@ -21,4 +21,6 @@ public class TrabalhadorController {
     public Trabalhador cadastrar(@RequestBody Trabalhador trabalhador){
         return trabalhadorService.salvar(trabalhador);
     }
+
+
 }

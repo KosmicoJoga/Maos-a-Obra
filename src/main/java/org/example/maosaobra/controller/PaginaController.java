@@ -4,9 +4,7 @@ import org.example.maosaobra.dto.ConversaDTO;
 import org.example.maosaobra.model.Conversa;
 import org.example.maosaobra.model.Pessoa;
 import org.example.maosaobra.model.Trabalhador;
-import org.example.maosaobra.service.ChatService;
-import org.example.maosaobra.service.DemandaService;
-import org.example.maosaobra.service.PessoaService;
+import org.example.maosaobra.service.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +19,13 @@ public class PaginaController {
     private final DemandaService demandaService;
     private final PessoaService pessoaService;
     private final ChatService chatService;
+    private final TrabalhadorService trabalhadorService;
 
-    public PaginaController(DemandaService demandaService, PessoaService pessoaService, ChatService chatService) {
+    public PaginaController(DemandaService demandaService, PessoaService pessoaService, ChatService chatService, TrabalhadorService trabalhadorService) {
         this.demandaService = demandaService;
         this.pessoaService = pessoaService;
         this.chatService = chatService;
+        this.trabalhadorService = trabalhadorService;
     }
 
     @GetMapping("/inicioCliente")
@@ -33,6 +33,7 @@ public class PaginaController {
         Pessoa pessoa = pessoaLogada(authentication);
 
         model.addAttribute("nome",  pessoa.getNome());
+        model.addAttribute("trabalhadores",  trabalhadorService.buscarTodosPorAvaliacao());
 
         return "inicioCliente"; // nome do arquivo na pasta templates, e sem o ".html"
     }

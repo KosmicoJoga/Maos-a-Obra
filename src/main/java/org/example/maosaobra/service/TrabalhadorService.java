@@ -34,4 +34,8 @@ public class TrabalhadorService {
     public Trabalhador buscarPorId(Long id){
         return this.trabalhadorRepository.findById(id).orElse(null);
     }
+
+    public List<Trabalhador> buscarTodosPorAvaliacao() {
+        return trabalhadorRepository.findAllByOrderByAvaliacaoDesc();
+    }
 }

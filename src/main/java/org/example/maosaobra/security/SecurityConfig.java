@@ -27,6 +27,8 @@ public class SecurityConfig {
                 .permitAll()
                         .requestMatchers("/demandas").hasRole("CLIENTE")
                         .requestMatchers("/solicitacoesDemanda").hasRole("TRABALHADOR")
+                        .requestMatchers("/inicioCliente").hasRole("CLIENTE")
+                        .requestMatchers("/inicioPrestador").hasRole("TRABALHADOR")
                         .requestMatchers(HttpMethod.GET, "/servicos").permitAll()
                 .anyRequest()
                 .authenticated())
