@@ -36,31 +36,19 @@
             <img src="/images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
         </div>
 
-        <!-- AÇÕES DO USUÁRIO -->
-        <div class="acoes" id="acoes_deslogado" style="display: none">
+        <div class="acoes">
 
-            <a href="/cadastro.html" class="btn-cadastrar">
-                <img src="/images/usuario.png" alt="">
-                <span>Cadastrar</span>
-            </a>
-
-            <a href="/login.html" class="btn-entrar">
-                <img src="/images/formulario.png" alt="">
-                <span>Entrar</span>
-            </a>
-        </div>
-        <div class="acoes" id="acoes_logado" style="display: none">
-
-            <a class="notificações">
+            <a class="notificações" onclick=CarregarNotificacoes()>
                 <img src="/images/notificacoes.png" alt="Notificações">
             </a>
-            <a class="mensagens">
+            <a class="mensagens" onclick="CarregarMensagens()">
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
-            <a class="usuario">
+            <a class="usuario" href="/perfil/logado">
                 <img src="/images/foto_perfil.png" alt="Foto do usuário">
                 <span th:text="${nome}">Nome</span>
             </a>
+
             <button class="logout" onclick="logout()">
                 <img src="/images/sair.png" alt="Logout" id="logout">
                 <img src="/images/sair_hover.png" alt="Logout" id="logout-hover">
@@ -382,9 +370,38 @@
         }
     }
 </script>
-<aside class="sidebar-direita">
+<aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar()>
+    <span> Notificações</span>
+</aside>
+<aside class="sidebar-direita" id="sidebar">
 
+</aside>
+<aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar()>
+    <span> Mensagens</span>
 </aside>
 
 </body>
+<script>
+    const notificacoes= document.getElementById("mostraNotificacao");
+    const sideBar= document.getElementById("sidebar");
+    const mensagen= document.getElementById("mostraMensagen");
+    async function CarregarNotificacoes(){
+        notificacoes.style.display="flex";
+        sideBar.style.display="none";
+        mensagen.style.display="none";
+    }
+    async function SideBar(){
+        notificacoes.style.display="none";
+        sideBar.style.display="flex";
+        mensagen.style.display="none";
+    }
+    async function CarregarMensagens(){
+
+        notificacoes.style.display="none";
+        sideBar.style.display="none";
+        mensagen.style.display="flex";
+    }
+</script>
 </html>

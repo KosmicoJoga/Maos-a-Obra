@@ -36,10 +36,10 @@
         <!-- AÇÕES DO USUÁRIO -->
         <div class="acoes">
 
-            <a class="notificações">
+            <a class="notificações" onclick="CarregarNotificacoes()">
                 <img src="/images/notificacoes.png" alt="Notificações">
             </a>
-            <a class="mensagens" href="/conversas">
+            <a class="mensagens" onclick="CarregarMensagens()">
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario" href="/perfil/logado">
@@ -196,9 +196,38 @@
 </script>
 
 <!-- BARRA LATERAL DIREITA -->
-<aside class="sidebar-direita">
+<aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar()>
+    <span> Notificações</span>
+</aside>
+<aside class="sidebar-direita" id="sidebar">
 
 </aside>
-</body>
+<aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar()>
+    <span> Mensagens</span>
+</aside>
 
+</body>
+<script>
+    const notificacoes= document.getElementById("mostraNotificacao");
+    const sideBar= document.getElementById("sidebar");
+    const mensagen= document.getElementById("mostraMensagen");
+    async function CarregarNotificacoes(){
+        notificacoes.style.display="flex";
+        sideBar.style.display="none";
+        mensagen.style.display="none";
+    }
+    async function SideBar(){
+        notificacoes.style.display="none";
+        sideBar.style.display="flex";
+        mensagen.style.display="none";
+    }
+    async function CarregarMensagens(){
+
+        notificacoes.style.display="none";
+        sideBar.style.display="none";
+        mensagen.style.display="flex";
+    }
+</script>
 </html>

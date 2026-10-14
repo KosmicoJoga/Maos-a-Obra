@@ -1,66 +1,7 @@
-/* BOTÕES DO HEADER */
 
-.acoes {
-    height: 100%;
 
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
 
-.usuario {
-    height: 50px;
-    min-width: 150px;
 
-    text-decoration: none;
-    color: #ffb000;
-
-    background-color: #002650;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 10px;
-
-    font-size: 20px;
-}
-
-.acoes a img {
-    width: 45px;
-    height: 45px;
-
-    object-fit: contain;
-}
-
-.logout {
-    width: 40px;
-    height: 40px;
-
-    background: none;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-
-    border: none;
-}
-
-.logout img {
-    max-width: 40px;
-
-    position: absolute;
-}
-
-#logout-hover {
-    opacity: 0;
-}
-
-#logout-hover:hover {
-    opacity: 1;
-}
 
 /* =========================
    CONTEÚDO
@@ -484,7 +425,7 @@
         width: 100%;
     }
 }
-   .sidebar-notifica {
+   .sidebar-notifica,.sidebar-mensagen {
        width: 20%;
        min-height: 100vh;
        background-color: #001d41;
@@ -497,7 +438,7 @@
    }
 
 
-#btn-voltarSideBar {
+#btn-voltarSideBar, #btn-voltarSideBarmsg {
 
     top: 10px;
     left: 10px;
@@ -509,8 +450,8 @@
     cursor: pointer;
 }
 
-/* Título das notificações */
-.sidebar-notifica span {
+
+.sidebar-notifica span,.sidebar-mensagen span {
     margin-left: 55px;
     margin-top: 5px;
     font-size: 25px;

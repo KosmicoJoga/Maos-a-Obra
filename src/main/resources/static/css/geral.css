@@ -45,6 +45,7 @@ body {
     width: 64px;
     height: 64px;
     object-fit: contain;
+
 }
 .pagina {
     width: 83%;
@@ -119,7 +120,7 @@ body {
 .acoes a img {
     width: 45px;
     height: 45px;
-
+    cursor: pointer;
     object-fit: contain;
 }
 
