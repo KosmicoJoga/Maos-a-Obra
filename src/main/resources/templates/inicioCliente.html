@@ -113,7 +113,7 @@
                         <span th:if="${t.avaliacao == null}">Sem avaliações</span>
                     </div>
 
-                    <a href="/perfil.html" class="btn-perfil">VER PERFIL</a>
+                    <a th:href="@{/perfil/{id}(id=${t.id})}" class="btn-perfil">VER PERFIL</a>
 
                 </div>
 
@@ -129,7 +129,7 @@
 
 <!-- BARRA LATERAL DIREITA -->
 <aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar()>
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar() alt="Fechar aba">
     <span> Notificações</span>
 </aside>
 
@@ -138,7 +138,7 @@
 </aside>
 
 <aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar()>
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar() alt="Fechar aba">
     <span> Mensagens</span>
 </aside>
 </body>
