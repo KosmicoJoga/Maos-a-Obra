@@ -40,7 +40,7 @@
     color:#ffb000;
 }
 
-.tipoDeServiço,
+
 .descricao,
 .local,
 .orcamento{
@@ -48,8 +48,13 @@
     align-items: center;
     gap: 5px;
 }
+.tipoDeServiço{
+    text-align: right;
+    width: 105px;
+    display: flex;
+    gap: 5px;
+}
 
-.tipoDeServiço > label,
 .descricao > label,
 .local > label,
 .orcamento > label {

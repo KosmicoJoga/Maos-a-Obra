@@ -66,10 +66,21 @@ select {
 .idade > label,
 .email > label,
 .ConfirmaEmail > label,
-.senha > label,
-.tipoPrestador > label{
+.senha > label{
     width: 130px;
     text-align: right;
+}
+.tipoPrestador{
+    text-align: right;
+    width: 270px;
+}
+#mei{
+
+    width: 234px;
+    gap: 5px;
+}
+#semmei{
+    margin-inline: 22px;
 }
 
 .jatemconta{

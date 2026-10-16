@@ -13,6 +13,7 @@
     align-items: center;
     padding: 50px 30px;
 }
+
 .demanda {
     display: flex;
     flex-direction: column;
@@ -33,12 +34,14 @@
     align-items: center;
     gap: 5px;
 }
+
 .descricao > label,
 .local > label,
 .orcamento > label {
     width: 130px;
     text-align: right;
 }
+
 .btn-solicita {
     border-radius: 25px;
     background-color: green;

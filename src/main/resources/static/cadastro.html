@@ -46,6 +46,19 @@
                         Prestador
                     </label>
                 </div>
+                    <div class="tipoDaConta" id="mei" style="display: none">
+                        <span> Possui MEI:</span>
+                        <label>
+                            <input type="radio" name="emei" value="emei">
+                            Sim
+                        </label>
+                        <label>
+                            <div class="tipoDaConta" id="semmei">
+                            <input type="radio" name="emei" value="naomei">
+                            Não
+                            </div>
+                        </label>
+                </div>
 
                 <div class="nome">
                     <label for="nome">Nome:</label>
@@ -93,11 +106,14 @@
 <script>
     function MostrarTipo(mostrar) {
         const campo = document.getElementById("tipoPrestador");
-
+      const mei=    document.getElementById("mei")
         if (mostrar) {
-            campo.style.display = "block";
+            campo.style.display = "flex";
+            mei.style.display = "flex";
+
         } else {
             campo.style.display = "none";
+            mei.style.display = "none";
         }
     }
 </script>
