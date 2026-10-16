@@ -78,8 +78,8 @@
         </section>
 
         <!-- BOTÃO PARA ANUNCIAR UMA DEMANDA PÚBLICA -->
-        <a href="/demanda.html" class="btn-demanda">
-            ANUNCIAR DEMANDA
+        <a href="/demanda.html" class="botao-verde">
+            ANUNCIAR UMA DEMANDA PÚBLICA
         </a>
 
         <div class="linha">
@@ -101,7 +101,8 @@
                 <div class="informacoes-trabalhador">
 
                     <div class="dados-trabalhador">
-                        <h2 th:text="${t.nome} + ', ' + ${t.idade}">Nome, idade</h2>
+                        <h2 th:text="${t.nome}">Nome</h2>
+                        <p th:text="${t.idade} + ' anos'">Idade</p>
                         <p th:text="${t.servico?.tipo} ?: 'Serviço não informado'">Tipo de serviço</p>
                     </div>
 
@@ -141,7 +142,6 @@
     <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar() alt="Fechar aba">
     <span> Mensagens</span>
 </aside>
-</body>
 
 <script>
     const notificacoes = document.getElementById("mostraNotificacao");
@@ -179,4 +179,7 @@
         }
     }
 </script>
+
+</body>
+
 </html>

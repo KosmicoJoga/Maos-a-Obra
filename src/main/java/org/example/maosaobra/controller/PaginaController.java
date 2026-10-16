@@ -56,7 +56,7 @@ public class PaginaController {
         Pessoa pessoa = pessoaLogada(authentication);
 
         model.addAttribute("nome",  pessoa.getNome());
-        model.addAttribute("demandas", demandaService.buscarAbertas());
+        model.addAttribute("demandas", demandaService.buscarSolicitacoesPendentes(pessoa.getId()));
 
         return "solicitacoesDemanda";
     }
@@ -106,6 +106,7 @@ public class PaginaController {
         model.addAttribute("perfil", perfil);
         model.addAttribute("ehTrabalhador", perfil instanceof Trabalhador);
         model.addAttribute("podeConversar", logada instanceof Trabalhador && perfil instanceof Cliente);
+        model.addAttribute("podeSolicitar", logada instanceof Cliente && perfil instanceof Trabalhador);
 
         return "perfilPublico";
     }
@@ -138,6 +139,19 @@ public class PaginaController {
         model.addAttribute("idConversa", conversa.getId());
         model.addAttribute("outraPessoa", outra);
         return "chat";
+    }
+
+    @GetMapping("/solicitarDemanda/{id:\\d+}")
+    public String solicitarDemanda(@PathVariable Long id, Authentication auth, Model model) {
+
+        Trabalhador trabalhador = trabalhadorService.buscarPorId(id);
+        if (trabalhador == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Trabalhador não encontrado!");
+
+        model.addAttribute("nome", pessoaLogada(auth).getNome());
+        model.addAttribute("trabalhador", trabalhador);
+
+        return "solicitarDemanda";
     }
 
     // função somente utilizada por essa própria classe

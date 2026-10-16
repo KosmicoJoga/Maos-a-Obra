@@ -11,4 +11,6 @@ import java.util.List;
 public interface DemandaRepository extends JpaRepository<Demanda, Long> {
 
     List<Demanda> findByStatusOrderByDataSolicitacaoDesc(StatusDemanda status);
+
+    List<Demanda> findByTrabalhadorIdAndStatusOrderByDataSolicitacaoDesc(Long idTrabalhador, StatusDemanda status);
 }

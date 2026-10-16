@@ -84,11 +84,12 @@ body {
     color: white;
     border: none;
     border-radius: 30px;
-    padding: 10px 15px;
+    padding: 15px;
     font-size: 30px;
     font-family: Arial, sans-serif;
     cursor: pointer;
-    width: 350px;
+    width: fit-content;
+    text-decoration: none;
 }
 
 .acoes {

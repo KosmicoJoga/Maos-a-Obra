@@ -92,6 +92,9 @@
                         onclick="iniciarConversa(this)">
                     CONVERSAR
                 </button>
+                <a class="botao-verde" id="botao-solicitar" th:if="${podeSolicitar}" th:href="@{/solicitarDemanda/{id}(id=${perfil.id})}">
+                    SOLICITAR UMA DEMANDA
+                </a>
             </div>
 
         </section>
@@ -361,7 +364,6 @@
     <span> Mensagens</span>
 </aside>
 
-</body>
 <script>
     const notificacoes = document.getElementById("mostraNotificacao");
     const sideBar = document.getElementById("sidebar");
@@ -385,4 +387,7 @@
         mensagen.style.display = "flex";
     }
 </script>
+
+</body>
+
 </html>

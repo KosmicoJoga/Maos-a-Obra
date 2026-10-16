@@ -52,6 +52,17 @@
     flex-direction: column;
     margin: 20px;
     align-items: end;
+    justify-content: center;
+}
+
+#botao-solicitar {
+    width: 420px;
+    text-align: center;
+}
+
+#btn-editar-senha {
+    width: 200px;
+    text-align: center;
 }
 
 .status p, small {

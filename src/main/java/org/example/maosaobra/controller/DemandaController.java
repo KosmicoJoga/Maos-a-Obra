@@ -1,5 +1,6 @@
 package org.example.maosaobra.controller;
 
+import org.example.maosaobra.dto.DemandaDiretaDTO;
 import org.example.maosaobra.dto.DemandaRequestDTO;
 import org.example.maosaobra.model.Cliente;
 import org.example.maosaobra.model.Demanda;
@@ -32,6 +33,20 @@ public class DemandaController {
         Cliente cliente = clienteService.buscarPorId(details.getPessoa().getId());
 
         Demanda demanda = demandaService.criarDemandaPublica(cliente, dto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
+                "id", demanda.getId(),
+                "status", demanda.getStatus()
+        ));
+    }
+
+    @PostMapping("/direta")
+    public ResponseEntity<?> criarDireta(@RequestBody DemandaDiretaDTO dto, Authentication auth) {
+
+        PessoaDetails details = (PessoaDetails) auth.getPrincipal();
+        Cliente cliente = clienteService.buscarPorId(details.getPessoa().getId());
+
+        Demanda demanda = demandaService.criarDemandaDireta(cliente, dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
                 "id", demanda.getId(),

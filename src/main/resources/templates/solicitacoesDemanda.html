@@ -82,36 +82,42 @@
 
         <section class="lista-demandas">
 
-<!--            <article class="card-demanda" th:each="d : ${demandas}">-->
+            <article class="card-demanda" th:each="d : ${demandas}">
 
-<!--                <div class="foto-cliente">-->
-<!--                    <img src="/images/foto_perfil.png" alt="Foto do cliente">-->
-<!--                </div>-->
+                <div class="foto-cliente">
+                    <img src="/images/foto_perfil.png" alt="Foto do cliente">
+                </div>
 
-<!--                <div class="informacoes-demanda">-->
+                <div class="informacoes-demanda">
 
-<!--                    <div class="dados-demanda">-->
-<!--                        <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>-->
-<!--                        <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente • Local</p>-->
-<!--                        <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>-->
-<!--                    </div>-->
+                    <div class="dados-demanda">
+                        <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>
+                        <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente •
+                            Local</p>
+                        <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>
+                    </div>
 
-<!--                    <div class="orcamento">-->
-<!--                        <span th:text="'ORÇAMENTO: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>-->
-<!--                    </div>-->
+                    <div class="orcamento">
+                        <span th:text="'ORÇAMENTO: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
+                    </div>
 
-<!--                    <a class="btn-demanda" href="#" >VER DETALHES</a>-->
+                    <a class="btn-demanda" href="#">VER DETALHES</a>
 
-<!--                </div>-->
-<!--            </article>-->
+                </div>
+            </article>
 
-<!--            <p th:if="${#lists.isEmpty(demandas)}">Nenhuma solicitação de demanda no momento.</p>-->
+            <p th:if="${#lists.isEmpty(demandas)}">Nenhuma demanda de clientes para você no momento...</p>
 
         </section>
 
     </main>
 
 </div>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita">
+
+</aside>
 
 <script>
     async function logout() {
@@ -125,10 +131,6 @@
     }
 </script>
 
-<!-- BARRA LATERAL DIREITA -->
-<aside class="sidebar-direita">
-
-</aside>
 </body>
 
 </html>

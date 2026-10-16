@@ -6,6 +6,7 @@
     border-radius: 35px;
     margin-bottom: 30px;
 }
+
 .conteudo {
     width: 100%;
     display: flex;
@@ -23,10 +24,17 @@
     border-radius: 35px;
     gap: 20px;
 }
+
 .demanda input{
     background-color:#001531;
     color:#ffb000;
 }
+
+#descricao {
+    background-color:#001531;
+    color:#ffb000;
+}
+
 .descricao,
 .local,
 .orcamento{
