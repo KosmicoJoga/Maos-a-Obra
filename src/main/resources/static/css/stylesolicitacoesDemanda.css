@@ -457,3 +457,34 @@
         width: 100%;
     }
 }
+.sidebar-notifica,.sidebar-mensagen {
+    width: 20%;
+    min-height: 100vh;
+    background-color: #001d41;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding-top: 20px;
+}
+
+
+#btn-voltarSideBar, #btn-voltarSideBarmsg {
+
+    top: 10px;
+    left: 10px;
+
+    width: 45px;
+    height: 45px;
+
+    object-fit: contain;
+    cursor: pointer;
+}
+
+
+.sidebar-notifica span,.sidebar-mensagen span {
+    margin-left: 55px;
+    margin-top: 5px;
+    font-size: 25px;
+}

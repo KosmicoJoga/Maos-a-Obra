@@ -56,6 +56,10 @@
                 <label for="sobreMim">Sobre Mim:</label>
                 <textarea id="sobreMim" rows="5" th:text="${pessoa.sobreMim}"></textarea>
             </div>
+            <div class="foto">
+                <label>Foto:</label>
+                <input type="file" id="foto" name="Foto" accept="image/png, image/jpeg,image/pdf" required>
+            </div>
 
             <button type="submit" class="btn-atualizar">
                 Salvar alterações

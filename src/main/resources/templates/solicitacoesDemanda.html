@@ -36,10 +36,10 @@
         <!-- AÇÕES DO USUÁRIO -->
         <div class="acoes">
 
-            <a class="notificações">
+            <a class="notificações" onclick="CarregarNotificacoes()">
                 <img src="/images/notificacoes.png" alt="Notificações">
             </a>
-            <a class="mensagens">
+            <a class="mensagens" onclick="CarregarMensagens()">
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario" href="/perfil/logado">
@@ -101,7 +101,10 @@
                         <span th:text="'ORÇAMENTO: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
                     </div>
 
-                    <a class="btn-demanda" href="#">VER DETALHES</a>
+                    <button type="button" class="btn-demanda" th:data-cliente="${d.cliente.id}"
+                            onclick="iniciarConversa(this)">
+                        CONVERSAR
+                    </button>
 
                 </div>
             </article>
@@ -113,10 +116,36 @@
     </main>
 
 </div>
+<script>
+async function iniciarConversa(botao) {
+const resposta = await fetch("/api/conversas", {
+method: "POST",
+headers: {"Content-Type": "application/json"},
+body: JSON.stringify({idCliente: Number(botao.dataset.cliente)})
+});
 
+if (resposta.ok) {
+const conversa = await resposta.json();
+window.location.href = "/chat/" + conversa.id;
+} else {
+alert("Não foi possível iniciar a conversa.");
+}
+}
+
+</script>
 <!-- BARRA LATERAL DIREITA -->
 <aside class="sidebar-direita">
+    <aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
+        <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar() alt="Fechar aba">
+        <span> Notificações</span>
+    </aside>
+    <aside class="sidebar-direita" id="sidebar">
 
+    </aside>
+    <aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
+        <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar() alt="Fechar aba">
+        <span> Mensagens</span>
+    </aside>
 </aside>
 
 <script>
@@ -130,7 +159,27 @@
         }
     }
 </script>
+<script>
+    const notificacoes= document.getElementById("mostraNotificacao");
+    const sideBar= document.getElementById("sidebar");
+    const mensagen= document.getElementById("mostraMensagen");
+    async function CarregarNotificacoes(){
+        notificacoes.style.display="flex";
+        sideBar.style.display="none";
+        mensagen.style.display="none";
+    }
+    async function SideBar(){
+        notificacoes.style.display="none";
+        sideBar.style.display="flex";
+        mensagen.style.display="none";
+    }
+    async function CarregarMensagens(){
 
+        notificacoes.style.display="none";
+        sideBar.style.display="none";
+        mensagen.style.display="flex";
+    }
+</script>
 </body>
 
 </html>
