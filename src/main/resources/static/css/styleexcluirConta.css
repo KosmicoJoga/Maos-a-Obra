@@ -1,0 +1,70 @@
+.texto {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+
+    align-items: center;
+    background-color: #002650;
+
+    padding: 20px;
+
+    border-radius: 35px;
+}
+
+.conteudo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 30px;
+}
+
+.form-excluir-conta {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    background-color: #002650;
+
+    padding: 20px;
+    border-radius: 35px;
+    gap: 25px;
+
+    margin-top: 40px;
+}
+
+.form-excluir-conta div {
+    gap: 15px;
+}
+
+.form-excluir-conta input{
+    background-color:#001531;
+    color:#ffb000;
+}
+
+.senha,
+.confirmacao {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.senha > label,
+.confirmacao > label {
+    width: 130px;
+    text-align: right;
+}
+
+.btn-excluir {
+    font-size: 20px;
+    border-radius: 25px;
+    background-color: red;
+    width: 70%;
+    align-items: center;
+    justify-items: center;
+    color: white;
+    height: 50px;
+    opacity: 0.4;
+}

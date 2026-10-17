@@ -38,10 +38,10 @@
 
         <div class="acoes">
 
-            <a class="notificações" onclick=CarregarNotificacoes()>
+            <a class="notificações" onclick="carregarNotificacoes()">
                 <img src="/images/notificacoes.png" alt="Notificações">
             </a>
-            <a class="mensagens" onclick="CarregarMensagens()">
+            <a class="mensagens" onclick="carregarMensagens()">
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario" href="/perfil/logado">
@@ -91,9 +91,15 @@
             </div>
 
             <div class="status">
-                <button class="botao-verde" id="btn-editar-senha" onclick="window.location.href='/perfil/senha'">Editar
-                    senha
+
+                <button class="botao-verde" id="btn-editar-senha" onclick="window.location.href='/perfil/senha'">
+                    Editar senha
                 </button>
+
+                <button class="botao-verde" id="btn-excluir-conta" onclick="window.location.href='/perfil/excluir'">
+                    Excluir conta
+                </button>
+
             </div>
 
         </section>
@@ -294,6 +300,7 @@
     const historico = document.getElementById("historico");
     const btninfo = document.getElementById("btn-informacoes");
     const btnmidia = document.getElementById("btn-midia");
+
     mostrarInformacoes();
 
     function mostrarInformacoes() {
@@ -349,6 +356,7 @@
 </script>
 
 <script>
+
     async function logout() {
         const resposta = await fetch("/login/logout", {method: "POST"});
 
@@ -358,42 +366,51 @@
             alert("Erro ao encerrar a sessão");
         }
     }
+
 </script>
+
 <aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar()>
+
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=sairSideBar()>
     <span> Notificações</span>
+
 </aside>
+
 <aside class="sidebar-direita" id="sidebar">
 
 </aside>
+
 <aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar()>
+
+    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=sairSideBar() alt="Voltar">
     <span> Mensagens</span>
+
 </aside>
 
 <script>
+
     const notificacoes = document.getElementById("mostraNotificacao");
     const sideBar = document.getElementById("sidebar");
     const mensagen = document.getElementById("mostraMensagen");
 
-    async function CarregarNotificacoes() {
+    async function carregarNotificacoes() {
         notificacoes.style.display = "flex";
         sideBar.style.display = "none";
         mensagen.style.display = "none";
     }
 
-    async function SideBar() {
+    async function sairSideBar() {
         notificacoes.style.display = "none";
         sideBar.style.display = "flex";
         mensagen.style.display = "none";
     }
 
-    async function CarregarMensagens() {
-
+    async function carregarMensagens() {
         notificacoes.style.display = "none";
         sideBar.style.display = "none";
         mensagen.style.display = "flex";
     }
+
 </script>
 
 </body>

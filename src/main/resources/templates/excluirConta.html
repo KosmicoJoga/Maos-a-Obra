@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos à obra</title>
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/styleexcluirConta.css">
+    <link rel="icon" type="image/png" href="/images/Logo_TCC.png">
+</head>
+<body>
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/Botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+<div class="pagina">
+
+    <header class="header">
+        <div class="logo">
+            <img src="/images/Logo_titulo_horizontal.png" alt="logo">
+        </div>
+    </header>
+
+    <main class="conteudo">
+
+        <div class="texto">
+            <h1>Excluir Conta</h1>
+            <p>Esta ação é <strong>PERMANENTE</strong> e não pode ser desfeita após ser executada, pense bem!!</p>
+        </div>
+
+        <form class="form-excluir-conta" id="formExcluir">
+
+            <div class="senha">
+                <label for="senha">Sua senha:</label>
+                <input type="password" id="senha" autocomplete="current-password" required>
+            </div>
+
+            <div class="confirmacao">
+                <label for="confirmacao">Digite "EXCLUIR" para confirmar:</label>
+                <input type="text" id="confirmacao" autocomplete="off" required>
+            </div>
+
+            <button type="submit" class="btn-excluir" id="btnExcluir" disabled>
+                Excluir minha conta
+            </button>
+
+        </form>
+
+    </main>
+</div>
+
+<script>
+
+    const confirmacao = document.getElementById("confirmacao");
+    const botao = document.getElementById("btnExcluir");
+
+    confirmacao.addEventListener("input", () => {
+        botao.disabled = confirmacao.value !== "EXCLUIR"
+        if (confirmacao.value === "EXCLUIR") {
+            botao.style.opacity = "1";
+        } else
+            botao.style.opacity = "0.4";
+    });
+
+    document.getElementById("formExcluir").addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        if (confirmacao.value !== "EXCLUIR") return;
+
+        try {
+            const resposta = await fetch("/perfil/excluir", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({senha: document.getElementById("senha").value})
+            });
+
+            if (resposta.ok) {
+                alert("Sua conta foi excluída!");
+                window.location.href = "/index.html";
+            } else if (resposta.status === 400) {
+                const erro = await resposta.json();
+                alert(erro.erro);
+            } else {
+                alert("Não foi possível excluir a conta.");
+            }
+        } catch (e) {
+            alert("Não foi possível conectar ao servidor");
+        }
+
+    });
+
+</script>
+
+<aside class="sidebar-direita">
+
+</aside>
+</body>
+</html>

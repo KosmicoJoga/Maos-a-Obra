@@ -154,6 +154,11 @@ public class PaginaController {
         return "solicitarDemanda";
     }
 
+    @GetMapping("/perfil/excluir")
+    public String excluirConta() {
+        return "excluirConta";
+    }
+
     // função somente utilizada por essa própria classe
     private Pessoa pessoaLogada(Authentication authentication) {
         return pessoaService.buscarPorEmail(authentication.getName());

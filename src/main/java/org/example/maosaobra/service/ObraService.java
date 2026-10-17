@@ -3,6 +3,7 @@ package org.example.maosaobra.service;
 import org.example.maosaobra.model.Obra;
 import org.example.maosaobra.repository.ObraRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,5 +30,17 @@ public class ObraService {
 
     public Obra buscarPorId(Long id){
         return this.obraRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
+    public void excluirDoCliente(Long idCliente) {
+        obraRepository.deleteByClienteId(idCliente);
+    }
+
+    @Transactional
+    public void desvincularTrabalhador(Long idTrabalhador) {
+        for (Obra o : obraRepository.findByTrabalhadorId(idTrabalhador)) {
+            o.setTrabalhador(null);
+        }
     }
 }

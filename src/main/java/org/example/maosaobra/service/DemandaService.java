@@ -109,4 +109,28 @@ public class DemandaService {
     public List<Demanda> buscarSolicitacoesPendentes(Long idTrabalhador) {
         return demandaRepository.findByTrabalhadorIdAndStatusOrderByDataSolicitacaoDesc(idTrabalhador, StatusDemanda.PENDENTE);
     }
+
+    public boolean temServicoEmAndamento(Pessoa pessoa) {
+        if (pessoa instanceof Cliente)
+            return demandaRepository.existsByClienteIdAndStatus(pessoa.getId(), StatusDemanda.ACEITA);
+        if (pessoa instanceof Trabalhador)
+            return demandaRepository.existsByTrabalhadorIdAndStatus(pessoa.getId(), StatusDemanda.ACEITA);
+        return false;
+    }
+
+    @Transactional
+    public void removerDadosDoCliente(Long idCliente) {
+        demandaRepository.deleteByClienteId(idCliente);
+        obraService.excluirDoCliente(idCliente);
+    }
+
+    @Transactional
+    public void desvincularTrabalhador(Long idTrabalhador) {
+        for (Demanda d : demandaRepository.findByTrabalhadorId(idTrabalhador)) {
+            if (d.getStatus() == StatusDemanda.PENDENTE)
+                d.setStatus(StatusDemanda.RECUSADA);
+            d.setTrabalhador(null);
+        }
+        obraService.desvincularTrabalhador(idTrabalhador);
+    }
 }

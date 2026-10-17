@@ -2,8 +2,10 @@ package org.example.maosaobra.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.example.maosaobra.dto.ExcluirContaDTO;
 import org.example.maosaobra.dto.PerfilUpdateDTO;
 import org.example.maosaobra.dto.SenhaUptadeDTO;
+import org.example.maosaobra.service.ContaService;
 import org.example.maosaobra.service.PessoaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,20 +19,17 @@ import java.util.Map;
 public class PerfilController {
 
     private final PessoaService pessoaService;
+    private final ContaService contaService;
 
-    public PerfilController(PessoaService pessoaService) {
+    public PerfilController(PessoaService pessoaService, ContaService contaService) {
         this.pessoaService = pessoaService;
+        this.contaService = contaService;
     }
 
     @PutMapping
     public ResponseEntity<?> atualizar(@RequestBody PerfilUpdateDTO dto, Authentication authentication) {
         pessoaService.atualizarPerfil(authentication.getName(), dto);
         return ResponseEntity.ok().build();
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<?> handleValidacao(IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
     }
 
     @PutMapping("/senha")
@@ -44,5 +43,24 @@ public class PerfilController {
         SecurityContextHolder.clearContext();
 
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/excluir")
+    public ResponseEntity<?> excluirConta(@RequestBody ExcluirContaDTO dto, Authentication auth, HttpServletRequest request) {
+
+        contaService.excluirConta(auth.getName(), dto);
+
+        // só chega aqui se a exclusão deu certo, se der exceção desfaz tudo e a sessão se mantém
+        HttpSession sessao = request.getSession(false);
+        if (sessao != null) sessao.invalidate();
+        SecurityContextHolder.clearContext();
+
+        return ResponseEntity.ok().build();
+    }
+
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleValidacao(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
     }
 }
