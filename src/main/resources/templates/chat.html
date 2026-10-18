@@ -6,7 +6,7 @@
     <title>Mãos à obra</title>
     <link rel="stylesheet" href="/css/geral.css">
     <link rel="stylesheet" href="/css/stylechat.css">
-    <link rel="icon" type="image/png" href="/images/Logo_TCC.png">
+    <link rel="icon" type="image/png" href="/images/logo_TCC.png">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 <aside class="sidebar-esquerda">
 
     <button class="btn-voltar">
-        <img src="/images/Botao_voltar.png" alt="Voltar" onclick="history.back()">
+        <img src="/images/botao_voltar.png" alt="Voltar" onclick="history.back()">
     </button>
 
 </aside>
@@ -29,17 +29,16 @@
 
         <!-- LOGO -->
         <div class="logo">
-            <img src="/images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+            <img src="/images/logo_titulo_horizontal.png" alt="Mãos à Obra">
         </div>
-
 
         <!-- AÇÕES DO USUÁRIO -->
         <div class="acoes">
 
-            <a class="notificações" onclick="CarregarNotificacoes()">
+            <a class="notificações" onclick=carregarNotificacoes()>
                 <img src="/images/notificacoes.png" alt="Notificações">
             </a>
-            <a class="mensagens" onclick="CarregarMensagens()">
+            <a class="mensagens" onclick="carregarConversas()">
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario" href="/perfil/logado">
@@ -55,7 +54,6 @@
 
     </header>
 
-
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="conteudo">
 
@@ -66,6 +64,7 @@
 
         <form class="form-mensagem" id="formMensagem">
 
+            <label for="conteudo"></label>
             <input type="text" id="conteudo" maxlength="1000" autocomplete="off" placeholder="Digite sua mensagem..." required>
 
             <button type="submit" class="btn-enviar">Enviar Mensagem</button>
@@ -76,16 +75,77 @@
 
 </div>
 
+<!-- BARRA LATERAL NOTIFICAÇÕES -->
+<aside class="sidebar-notificacoes" id="sidebarNotificacoes" style="display: none">
+
+    <div class="notificacoes-titulo">
+        <img src="/images/botao_voltar.png" id="btn-voltarSideBar" onclick=sideBar() alt="Fechar aba">
+        <span>Notificações</span>
+    </div>
+
+</aside>
+
+<!-- BARRA LATERAL CHATS -->
+<aside class="sidebar-conversas" id="sidebarConversas" style="display: none">
+    <div class="conversas-titulo">
+        <img src="/images/botao_voltar.png" id="btn-voltarSideBarmsg" onclick=sideBar() alt="Fechar aba">
+        <span>Conversas</span>
+    </div>
+
+    <!-- LISTA DE CHATS/CONVERSAS -->
+    <section class="lista-conversas">
+        <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
+            <img src="/images/foto_perfil.png" alt="Foto">
+            <span th:text="${c.nomeOutraPessoa}">Nome</span>
+        </a>
+
+        <p th:if="${#lists.isEmpty(conversas)}">Você ainda não tem conversas.</p>
+    </section>
+</aside>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita" id="sidebar">
+
+</aside>
+
+<script>
+    const notificacoes = document.getElementById("sidebarNotificacoes");
+    const barraLateralDireita = document.getElementById("sidebar");
+    const conversas = document.getElementById("sidebarConversas");
+
+    async function carregarNotificacoes() {
+        notificacoes.style.display = "flex";
+        barraLateralDireita.style.display = "none";
+        conversas.style.display = "none";
+    }
+
+    async function sideBar() {
+        notificacoes.style.display = "none";
+        barraLateralDireita.style.display = "flex";
+        conversas.style.display = "none";
+    }
+
+    async function carregarConversas() {
+        notificacoes.style.display = "none";
+        barraLateralDireita.style.display = "none";
+        conversas.style.display = "flex";
+    }
+
+</script>
+
 <script>
     async function logout() {
         const resposta = await fetch("/login/logout", {method: "POST"});
 
         if (resposta.ok) {
-            window.location.href = "/login.html";
+            window.location.href = "/index.html";
         } else {
             alert("Erro ao encerrar a sessão");
         }
     }
+</script>
+
+<script>
 
     const lista = document.getElementById("listaMensagens");
     const idConversa = lista.dataset.id;
@@ -113,7 +173,7 @@
         const resposta = await fetch(`/api/conversas/${idConversa}/mensagens?depoisDe=${ultimoId}`);
 
         if (resposta.status === 403) {      // sessão expirou
-            window.location.href = "/login.html";
+            window.location.href = "/formLogin.html";
             return;
         }
 
@@ -156,41 +216,9 @@
             alert("Não foi possível conectar ao servidor");
         }
     });
+
 </script>
 
-<!-- BARRA LATERAL DIREITA -->
-<aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar() alt="Fechar aba">
-    <span> Notificações</span>
-</aside>
-<aside class="sidebar-direita" id="sidebar">
-
-</aside>
-<aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar() alt="Fechar aba">
-    <span> Mensagens</span>
-</aside>
 </body>
 
 </html>
-<script>
-    const notificacoes= document.getElementById("mostraNotificacao");
-    const sideBar= document.getElementById("sidebar");
-    const mensagen= document.getElementById("mostraMensagen");
-    async function CarregarNotificacoes(){
-        notificacoes.style.display="flex";
-        sideBar.style.display="none";
-        mensagen.style.display="none";
-    }
-    async function SideBar(){
-        notificacoes.style.display="none";
-        sideBar.style.display="flex";
-        mensagen.style.display="none";
-    }
-    async function CarregarMensagens(){
-
-        notificacoes.style.display="none";
-        sideBar.style.display="none";
-        mensagen.style.display="flex";
-    }
-</script>

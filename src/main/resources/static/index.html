@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/geral.css">
 
-    <link rel="icon" type="image/png" href="images/Logo_TCC.png">
+    <link rel="icon" type="image/png" href="images/logo_TCC.png">
 </head>
 
 <body>
@@ -19,7 +19,7 @@
 <aside class="sidebar-esquerda">
 
     <button class="btn-voltar">
-        <img src="images/Botao_voltar.png" alt="Voltar">
+        <img src="images/botao_voltar.png" alt="Voltar">
     </button>
 
 </aside>
@@ -33,20 +33,20 @@
 
         <!-- LOGO -->
         <div class="logo">
-            <img src="images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+            <img src="images/logo_titulo_horizontal.png" alt="Mãos à Obra">
         </div>
 
 
         <!-- AÇÕES DO USUÁRIO -->
         <div class="acoes">
 
-            <a href="cadastro.html" class="btn-cadastrar">
-                <img src="images/usuario.png" alt="">
+            <a href="formCadastro.html" class="btn-cadastrar">
+                <img src="images/cadastrar.png" alt="">
                 <span>Cadastrar</span>
             </a>
 
-            <a href="login.html" class="btn-entrar">
-                <img src="images/formulario.png" alt="">
+            <a href="formLogin.html" class="btn-entrar">
+                <img src="images/entrar.png" alt="">
                 <span>Entrar</span>
             </a>
 
@@ -189,6 +189,26 @@
 <aside class="sidebar-direita">
 
 </aside>
+
+<script>
+
+    async function verificarLogin() {
+        const resposta = await fetch("/login/me");
+
+        if (resposta.ok) {
+
+            const usuario = await resposta.json();
+
+            if (usuario.tipo === "TRABALHADOR")
+                window.location.href =  "/inicioPrestador";
+            else
+                window.location.href = "/inicioCliente";
+        }
+    }
+
+    verificarLogin()
+
+</script>
 
 </body>
 

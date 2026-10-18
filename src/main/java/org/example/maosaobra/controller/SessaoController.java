@@ -48,19 +48,14 @@ public class SessaoController {
 
         return ResponseEntity.ok(Map.of(
                 "nome", pessoa.getNome(),
-                "email",  pessoa.getEmail(),
+                "email", pessoa.getEmail(),
                 "tipo", tipo
         ));
     }
 
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<?> handleBadCredentials() {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("erro", "Email ou senha inválidos!"));
-    }
-
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
+
         request.getSession().invalidate();
         SecurityContextHolder.clearContext();
         return ResponseEntity.ok().build();
@@ -68,12 +63,21 @@ public class SessaoController {
 
     @GetMapping("/me")
     public ResponseEntity<?> me(Authentication authentication) {
-        if (authentication == null) {
+
+        if (authentication == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+
         PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
         Pessoa pessoa = details.getPessoa();
         String tipo = (pessoa instanceof Trabalhador) ? "TRABALHADOR" : "CLIENTE";
+
         return ResponseEntity.ok(Map.of("nome", pessoa.getNome(), "tipo", tipo));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<?> handleBadCredentials() {
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("erro", "Email ou senha inválidos!"));
     }
 }

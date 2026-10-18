@@ -6,13 +6,13 @@
     <title>Mãos à obra</title>
     <link rel="stylesheet" href="/css/geral.css">
     <link rel="stylesheet" href="/css/stylealterarSenha.css">
-    <link rel="icon" type="image/png" href="/images/Logo_TCC.png">
+    <link rel="icon" type="image/png" href="/images/logo_TCC.png">
 </head>
 <body>
 <aside class="sidebar-esquerda">
 
     <button class="btn-voltar" onclick="history.back()">
-        <img src="/images/Botao_voltar.png" alt="Voltar">
+        <img src="/images/botao_voltar.png" alt="Voltar">
     </button>
 
 </aside>
@@ -20,7 +20,7 @@
 
     <header class="header">
         <div class="logo">
-            <img src="/images/Logo_titulo_horizontal.png" alt="logo">
+            <img src="/images/logo_titulo_horizontal.png" alt="logo">
         </div>
     </header>
 
@@ -88,7 +88,7 @@
 
             if (resposta.ok) {
                 alert("Senha alterada com sucesso! Entre novamente utilizando a sua nova senha!");
-                window.location.href = "/login.html";
+                window.location.href = "/formLogin.html";
             } else if (resposta.status === 400) {
                 const erro = await resposta.json();
                 alert(erro.erro);

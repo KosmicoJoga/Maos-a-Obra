@@ -32,59 +32,71 @@ public class PaginaController {
     }
 
     @GetMapping("/inicioCliente")
-    public String inicioCliente(Authentication authentication, Model model) {
-        Pessoa pessoa = pessoaLogada(authentication);
+    public String inicioCliente(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+
+        List<ConversaDTO> conversas = conversas(pessoa);
 
         model.addAttribute("nome",  pessoa.getNome());
         model.addAttribute("trabalhadores",  trabalhadorService.buscarTodosPorAvaliacao());
+        model.addAttribute("conversas", conversas);
 
         return "inicioCliente"; // nome do arquivo na pasta templates, e sem o ".html"
     }
 
     @GetMapping("/inicioPrestador")
-    public String inicioPrestador(Authentication authentication, Model model) {
-        Pessoa pessoa = pessoaLogada(authentication);
+    public String inicioPrestador(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+
+        List<ConversaDTO> conversas = conversas(pessoa);
 
         model.addAttribute("nome",  pessoa.getNome());
         model.addAttribute("demandas", demandaService.buscarAbertas());
+        model.addAttribute("conversas", conversas);
 
         return "inicioPrestador";
     }
 
     @GetMapping("/solicitacoesDemanda")
-    public String solicitacoesDemanda(Authentication authentication, Model model) {
-        Pessoa pessoa = pessoaLogada(authentication);
+    public String solicitacoesDemanda(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+
+        List<ConversaDTO> conversas = conversas(pessoa);
 
         model.addAttribute("nome",  pessoa.getNome());
         model.addAttribute("demandas", demandaService.buscarSolicitacoesPendentes(pessoa.getId()));
+        model.addAttribute("conversas", conversas);
 
         return "solicitacoesDemanda";
     }
 
     @GetMapping("/perfil/logado")
-    public String perfilLogado(Authentication authentication, Model model) {
-        Pessoa pessoa = pessoaLogada(authentication);
+    public String perfilLogado(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+
+        List<ConversaDTO> conversas = conversas(pessoa);
 
         model.addAttribute("nome",  pessoa.getNome());
         model.addAttribute("pessoa",  pessoa);
+        model.addAttribute("conversas", conversas);
 
         return "perfilLogado";
     }
 
     @GetMapping("/perfil/editar")
-    public String editarPerfil(Authentication authentication, Model model) {
-        Pessoa pessoa = pessoaLogada(authentication);
+    public String editarPerfil(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
 
         model.addAttribute("pessoa", pessoa);
         model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
 
-        return "editarPerfil";
+        return "formEditarPerfil";
     }
 
     @GetMapping("/perfil/senha")
     public String alterarSenha(Authentication auth, Model model) {
         model.addAttribute("nome", pessoaLogada(auth).getNome());
-        return "alterarSenha";
+        return "formAlterarSenha";
     }
 
     // {id:\\d+} restringe o id apenas a números, para não dar conflito com outros caminhos de /perfil
@@ -92,6 +104,8 @@ public class PaginaController {
     public String perfilPublico(@PathVariable Long id, Authentication auth, Model model) {
 
         Pessoa logada = pessoaLogada(auth);
+
+        List<ConversaDTO> conversas = conversas(logada);
 
         if (logada.getId().equals(id)) {
             return "redirect:/perfil/logado";
@@ -107,29 +121,16 @@ public class PaginaController {
         model.addAttribute("ehTrabalhador", perfil instanceof Trabalhador);
         model.addAttribute("podeConversar", logada instanceof Trabalhador && perfil instanceof Cliente);
         model.addAttribute("podeSolicitar", logada instanceof Cliente && perfil instanceof Trabalhador);
+        model.addAttribute("conversas", conversas);
 
         return "perfilPublico";
     }
 
-    @GetMapping("/conversas")
-    public String conversas(Authentication authentication, Model model) {
-        Pessoa pessoa = pessoaLogada(authentication);
-
-        List<ConversaDTO> conversas = chatService.minhasConversas(pessoa).stream()
-                .map(c -> new ConversaDTO(c.getId(), c.getCliente().getId().equals(pessoa.getId())
-                                ? c.getTrabalhador().getNome()
-                                : c.getCliente().getNome()))
-                .toList();
-
-        model.addAttribute("nome", pessoa.getNome());
-        model.addAttribute("conversas", conversas);
-        return "conversas";
-    }
-
-    @GetMapping("/chat/{id}")
-    public String chat(@PathVariable Long id, Authentication authentication, Model model) {
-        Pessoa pessoa = pessoaLogada(authentication);
-        Conversa conversa = chatService.buscarSeParticipa(id, pessoa);   // 404 se não participa
+    @GetMapping("/chat/{id:\\d+}")
+    public String chat(@PathVariable Long id, Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+        Conversa conversa = chatService.buscarSeParticipa(id, pessoa);  // 404 se não participa
+        List<ConversaDTO> conversas = conversas(pessoa);
 
         String outra = conversa.getCliente().getId().equals(pessoa.getId())
                 ? conversa.getTrabalhador().getNome()
@@ -138,6 +139,8 @@ public class PaginaController {
         model.addAttribute("nome", pessoa.getNome());
         model.addAttribute("idConversa", conversa.getId());
         model.addAttribute("outraPessoa", outra);
+        model.addAttribute("conversas", conversas);
+
         return "chat";
     }
 
@@ -151,16 +154,26 @@ public class PaginaController {
         model.addAttribute("nome", pessoaLogada(auth).getNome());
         model.addAttribute("trabalhador", trabalhador);
 
-        return "solicitarDemanda";
+        return "formSolicitarDemanda";
     }
 
     @GetMapping("/perfil/excluir")
     public String excluirConta() {
-        return "excluirConta";
+        return "formExcluirConta";
     }
 
-    // função somente utilizada por essa própria classe
-    private Pessoa pessoaLogada(Authentication authentication) {
-        return pessoaService.buscarPorEmail(authentication.getName());
+    // função paga pegar a conta do usuário logada
+    private Pessoa pessoaLogada(Authentication auth) {
+        return pessoaService.buscarPorEmail(auth.getName());
+    }
+
+    // função para carregar as conversas em diversas páginas
+    private List<ConversaDTO> conversas(Pessoa pessoa) {
+
+        return chatService.minhasConversas(pessoa).stream()
+                .map(c -> new ConversaDTO(c.getId(), c.getCliente().getId().equals(pessoa.getId())
+                        ? c.getTrabalhador().getNome()
+                        : c.getCliente().getNome()))
+                .toList();
     }
 }

@@ -172,7 +172,7 @@
     list-style: none;
 }
 
-.sidebar-notifica,.sidebar-mensagen {
+.sidebar-notificacoes,.sidebar-conversas {
     width: 20%;
     min-height: 100vh;
     background-color: #001d41;
@@ -198,7 +198,7 @@
 }
 
 
-.sidebar-notifica span,.sidebar-mensagen span {
+.sidebar-notificacoes span,.sidebar-conversas span {
     margin-left: 55px;
     margin-top: 5px;
     font-size: 25px;

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/geral.css">
     <link rel="stylesheet" href="css/styleperfil.css">
 
-    <link rel="icon" type="image/png" href="images/Logo_TCC.png">
+    <link rel="icon" type="image/png" href="images/logo_TCC.png">
 </head>
 
 <body>
@@ -19,7 +19,7 @@
 <aside class="sidebar-esquerda">
 
     <button class="btn-voltar" onclick="history.back()">
-        <img src="/images/Botao_voltar.png" alt="Voltar">
+        <img src="/images/botao_voltar.png" alt="Voltar">
     </button>
 
 </aside>
@@ -33,19 +33,19 @@
 
         <!-- LOGO -->
         <div class="logo">
-            <img src="images/Logo_titulo_horizontal.png" alt="Mãos à Obra">
+            <img src="images/logo_titulo_horizontal.png" alt="Mãos à Obra">
         </div>
 
         <!-- AÇÕES DO USUÁRIO DESLOGADO -->
         <div class="acoes" id="acoes_deslogado" style="display: none">
 
-            <a href="/cadastro.html" class="btn-cadastrar">
-                <img src="images/usuario.png" alt="">
+            <a href="/formCadastro.html" class="btn-cadastrar">
+                <img src="images/cadastrar.png" alt="">
                 <span>Cadastrar</span>
             </a>
 
-            <a href="/login.html" class="btn-entrar">
-                <img src="images/formulario.png" alt="">
+            <a href="/formLogin.html" class="btn-entrar">
+                <img src="images/entrar.png" alt="">
                 <span>Entrar</span>
             </a>
         </div>
@@ -131,10 +131,22 @@
                 deserunt mollit anim id est laborum.</p>
 
             <div class="info-juntas">
-            <div class="detalhes">
+                <div class="detalhes">
+                    <div class="card-detalhes">
+                        <section>
+                            <h2>Serviços Oferecidos</h2>
+
+                            <ul>
+                                <li>Lorem ipsum</li>
+                                <li>Lorem ipsum</li>
+                                <li>Lorem ipsum</li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
                 <div class="card-detalhes">
                     <section>
-                        <h2>Serviços Oferecidos</h2>
+                        <h2>Experiência</h2>
 
                         <ul>
                             <li>Lorem ipsum</li>
@@ -143,30 +155,18 @@
                         </ul>
                     </section>
                 </div>
-            </div>
-            <div class="card-detalhes">
-                <section>
-                    <h2>Experiência</h2>
 
-                    <ul>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
-                    </ul>
-                </section>
-            </div>
+                <div class="card-detalhes">
+                    <section>
+                        <h2>Horários disponíveis</h2>
 
-            <div class="card-detalhes">
-                <section>
-                    <h2>Horários disponíveis</h2>
-
-                    <ul>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
-                        <li>Lorem ipsum</li>
-                    </ul>
-                </section>
-            </div>
+                        <ul>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                            <li>Lorem ipsum</li>
+                        </ul>
+                    </section>
+                </div>
             </div>
 
         </section>
@@ -285,8 +285,8 @@
 </div>
 
 <script>
-    const talogado= document.getElementById("acoes_logado");
-    const naotalogado= document.getElementById("acoes_deslogado");
+    const talogado = document.getElementById("acoes_logado");
+    const naotalogado = document.getElementById("acoes_deslogado");
 
     verificarlogin();
 
@@ -297,13 +297,12 @@
     const historico = document.getElementById("historico");
     informacoes.style.display = "block";
 
-    async function verificarlogin(){
-        const resposta= await fetch("/login/me");
-        if(resposta.ok){
-            talogado.style.display= "flex";
-        }
-        else{
-            naotalogado.style.display= "flex";
+    async function verificarlogin() {
+        const resposta = await fetch("/login/me");
+        if (resposta.ok) {
+            talogado.style.display = "flex";
+        } else {
+            naotalogado.style.display = "flex";
         }
     }
 
@@ -346,9 +345,11 @@
         avaliacoes.style.display = "none";
         historico.style.display = "flex";
     }
+
 </script>
 
 <script>
+
     async function logout() {
         const resposta = await fetch("/login/logout", {method: "POST"});
 
@@ -358,41 +359,47 @@
             alert("Erro ao encerrar a sessão");
         }
     }
+
 </script>
 
 <aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar()>
+    <img src="/images/botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar()>
     <span> Notificações</span>
 </aside>
 <aside class="sidebar-direita" id="sidebar">
 
 </aside>
 <aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
-    <img src="/images/Botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar()>
+    <img src="/images/botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar()>
     <span> Mensagens</span>
 </aside>
 
 
 </body>
-<script>
-    const notificacoes= document.getElementById("mostraNotificacao");
-    const sideBar= document.getElementById("sidebar");
-    const mensagen= document.getElementById("mostraMensagen");
-    async function CarregarNotificacoes(){
-        notificacoes.style.display="flex";
-        sideBar.style.display="none";
-        mensagen.style.display="none";
-    }
-    async function SideBar(){
-        notificacoes.style.display="none";
-        sideBar.style.display="flex";
-        mensagen.style.display="none";
-    }
-    async function CarregarMensagens(){
 
-        notificacoes.style.display="none";
-        sideBar.style.display="none";
-        mensagen.style.display="flex";
+<script>
+    const notificacoes = document.getElementById("mostraNotificacao");
+    const sideBar = document.getElementById("sidebar");
+    const mensagen = document.getElementById("mostraMensagen");
+
+    async function CarregarNotificacoes() {
+        notificacoes.style.display = "flex";
+        sideBar.style.display = "none";
+        mensagen.style.display = "none";
+    }
+
+    async function SideBar() {
+        notificacoes.style.display = "none";
+        sideBar.style.display = "flex";
+        mensagen.style.display = "none";
+    }
+
+    async function CarregarMensagens() {
+
+        notificacoes.style.display = "none";
+        sideBar.style.display = "none";
+        mensagen.style.display = "flex";
     }
 </script>
+
 </html>
