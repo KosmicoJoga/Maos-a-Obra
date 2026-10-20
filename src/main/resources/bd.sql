@@ -29,8 +29,19 @@ VALUES (null, "Eletricista"),
        (null, "Faxineiro"),
        (null, "Encanador"),
        (null, "Pintor"),
-       (null, "Construtor");
--- colocar o resto dos tipos de trabalhadores no insert acima!
+       (null, "Construtor"),
+       (null, "Pedreiro"),
+       (null, "Marceneiro"),
+       (null, "Diarista"),
+       (null, "Jardineiro"),
+       (null, "Chaveiro"),
+       (null, "Montador de móveis"),
+       (null, "Técnico de eletrodomésticos"),
+       (null, "Instalador de ar-condicionado"),
+       (null, "Vidraceiro"),
+       (null, "Passeador de cães"),
+       (null, "Fretes e mudanças"),
+       (null, "Outro");
 
 create table certificado
 (
@@ -110,25 +121,25 @@ CREATE TABLE demanda
 );
 
 CREATE TABLE conversa (
-                          id_conversa		INT PRIMARY KEY AUTO_INCREMENT,
-                          id_cliente		INT NOT NULL,
-                          id_trabalhador	INT NOT NULL,
-                          data_criacao	DATETIME DEFAULT CURRENT_TIMESTAMP,
-                          UNIQUE (id_cliente, id_trabalhador),
-                          FOREIGN KEY (id_cliente) REFERENCES cliente (id_pessoa) ON DELETE CASCADE,
-                          FOREIGN KEY (id_trabalhador) REFERENCES trabalhador (id_pessoa) ON DELETE CASCADE
+    id_conversa		INT PRIMARY KEY AUTO_INCREMENT,
+    id_cliente		INT NOT NULL,
+    id_trabalhador	INT NOT NULL,
+    data_criacao	DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (id_cliente, id_trabalhador),
+    FOREIGN KEY (id_cliente) REFERENCES cliente (id_pessoa) ON DELETE CASCADE,
+    FOREIGN KEY (id_trabalhador) REFERENCES trabalhador (id_pessoa) ON DELETE CASCADE
 );
 
 CREATE TABLE mensagem (
-                          id_mensagem 	INT PRIMARY KEY AUTO_INCREMENT,
-                          id_conversa 	INT NOT NULL,
-                          id_remetente	INT NOT NULL,
-                          conteudo		TEXT NOT NULL,
-                          data_envio		DATETIME DEFAULT CURRENT_TIMESTAMP,
-                          lida			BOOLEAN DEFAULT FALSE,
-                          FOREIGN KEY (id_conversa) REFERENCES conversa (id_conversa) ON DELETE CASCADE,
-                          FOREIGN KEY (id_remetente) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE,
-                          INDEX idx_mensagem_conversa (id_conversa, id_mensagem)
+    id_mensagem 	INT PRIMARY KEY AUTO_INCREMENT,
+    id_conversa 	INT NOT NULL,
+    id_remetente	INT NOT NULL,
+    conteudo		TEXT NOT NULL,
+    data_envio		DATETIME DEFAULT CURRENT_TIMESTAMP,
+    lida			BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (id_conversa) REFERENCES conversa (id_conversa) ON DELETE CASCADE,
+    FOREIGN KEY (id_remetente) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE,
+    INDEX idx_mensagem_conversa (id_conversa, id_mensagem)
 );
 
 

@@ -47,10 +47,43 @@
                 <span th:text="${nome}">Nome</span>
             </a>
 
-            <button class="logout" onclick="logout()">
-                <img src="/images/sair.png" alt="Logout" id="logout">
-                <img src="/images/sair_hover.png" alt="Logout" id="logout-hover">
-            </button>
+            <div class="navegacao-perfil">
+
+                <button class="btn-navegacao-perfil" onclick="carregarNavPerfil()">
+                    <img src="/images/icone_nav.png" alt="Navegacoes do perfil">
+                </button>
+
+                <div class="dropdown-navegacao-perfil" id="dropdownNavPerfil">
+
+                    <ul style="list-style: none;">
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/filtro.png" alt="Icone avaliações">
+                                Minhas avaliações</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/filtro.png" alt="Icone demandas">
+                                Minhas demandas atuais</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/filtro.png" alt="Icone histórico">
+                                Histórico de demandas</a>
+                        </li>
+
+                        <li>
+                            <a onclick="logout()">
+                                <img src="/images/sair.png" alt="Icone sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
     </header>
@@ -247,6 +280,12 @@
         notificacoes.style.display = "none";
         barraLateralDireita.style.display = "none";
         conversas.style.display = "flex";
+    }
+</script>
+
+<script>
+    function carregarNavPerfil() {
+        document.getElementById("dropdownNavPerfil").classList.toggle("aberto");
     }
 </script>
 
