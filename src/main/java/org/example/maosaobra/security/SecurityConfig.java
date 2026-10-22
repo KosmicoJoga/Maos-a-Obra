@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers("/solicitacoesDemanda").hasRole("TRABALHADOR")
                         .requestMatchers("/inicioCliente").hasRole("CLIENTE")
                         .requestMatchers("/inicioPrestador").hasRole("TRABALHADOR")
+                        .requestMatchers("/demandas/*/aceitar", "/demandas/*/recusar").hasRole("TRABALHADOR")
                         .requestMatchers(HttpMethod.GET, "/servicos").permitAll()
                 .anyRequest()
                 .authenticated())

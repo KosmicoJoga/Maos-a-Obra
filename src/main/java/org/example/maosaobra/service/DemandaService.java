@@ -4,8 +4,10 @@ import org.example.maosaobra.dto.DemandaDiretaDTO;
 import org.example.maosaobra.dto.DemandaRequestDTO;
 import org.example.maosaobra.model.*;
 import org.example.maosaobra.repository.DemandaRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -72,7 +74,6 @@ public class DemandaService {
     }
 
     // MÉTODOS PRIVADOS USADOS SOMENTE NESTA CLASSE
-
     private Obra criarObra(Cliente c, Servico s, String endereco, String descricao, BigDecimal orcamento) {
 
         Obra obra = new Obra();
@@ -132,5 +133,26 @@ public class DemandaService {
             d.setTrabalhador(null);
         }
         obraService.desvincularTrabalhador(idTrabalhador);
+    }
+
+    @Transactional
+    public Demanda responderSolicitacao(Long idDemanda, Long idTrabalhador, boolean aceitar) {
+
+        Demanda demanda = demandaRepository.findById(idDemanda).orElse(null);
+
+        if (demanda == null || demanda.getTrabalhador() == null || !demanda.getTrabalhador().getId().equals(idTrabalhador))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitação não encontrada!");
+
+        if (demanda.getStatus() != StatusDemanda.PENDENTE)
+            throw new IllegalArgumentException("Esta solicitação já foi respondida!");
+
+        if (aceitar) {
+            demanda.setStatus(StatusDemanda.ACEITA);
+            demanda.getObra().setTrabalhador(demanda.getTrabalhador()); // a obra da demanda fica com o prestador registrado
+        } else
+            demanda.setStatus(StatusDemanda.RECUSADA);
+
+        return demandaRepository.save(demanda);
+
     }
 }

@@ -27,7 +27,7 @@ public class DemandaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody DemandaRequestDTO dto, Authentication authentication){
+    public ResponseEntity<?> criar(@RequestBody DemandaRequestDTO dto, Authentication authentication) {
 
         PessoaDetails details = (PessoaDetails) authentication.getPrincipal();
         Cliente cliente = clienteService.buscarPorId(details.getPessoa().getId());
@@ -54,8 +54,29 @@ public class DemandaController {
         ));
     }
 
+    @PostMapping("/{id}/aceitar")
+    public ResponseEntity<?> aceitar(@PathVariable Long id, Authentication auth) {
+        return responder(id, auth, true);
+    }
+
+    @PostMapping("/{id}/recusar")
+    public ResponseEntity<?> recusar(@PathVariable Long id, Authentication auth) {
+        return responder(id, auth, false);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<?> handleValidacao(IllegalArgumentException e) {
         return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
+    }
+
+    // função privada para usar somente nesta classe
+    private ResponseEntity<?> responder(Long id, Authentication auth, boolean aceitar) {
+        PessoaDetails details = (PessoaDetails) auth.getPrincipal();
+        Demanda demanda = demandaService.responderSolicitacao(id, details.getPessoa().getId(), aceitar);
+
+        return ResponseEntity.ok(Map.of(
+                "id", demanda.getId(),
+                "status", demanda.getStatus()
+        ));
     }
 }
