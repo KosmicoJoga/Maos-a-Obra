@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos à obra</title>
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/stylesolicitacoesDemanda.css">
+    <link rel="icon" type="image/png" href="/images/logo_TCC.png">
+</head>
+<body>
+
+
+<!-- BARRA LATERAL ESQUERDA-->
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+
+
+<!-- ÁREA PRINCIPAL -->
+<div class="pagina">
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="/images/logo_titulo_horizontal.png" alt="Mãos à Obra">
+        </div>
+
+        <!-- AÇÕES DO USUÁRIO -->
+        <div class="acoes">
+
+            <a class="notificações" onclick=carregarNotificacoes()>
+                <img src="/images/notificacoes.png" alt="Notificações">
+            </a>
+            <a class="mensagens" onclick="carregarConversas()">
+                <img src="/images/mensagens.png" alt="Mensagens">
+            </a>
+            <a class="usuario" href="/perfil/logado">
+                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <span th:text="${nome}">Nome</span>
+            </a>
+
+            <div class="navegacao-perfil">
+
+                <button class="btn-navegacao-perfil" onclick="carregarNavPerfil()">
+                    <img src="/images/icone_nav.png" alt="Navegacoes do perfil">
+                </button>
+
+                <div class="dropdown-navegacao-perfil" id="dropdownNavPerfil">
+
+                    <ul style="list-style: none;">
+
+                        <li>
+                            <a href="/demandasAceitas">
+                                <img src="/images/icone_demanda_aceita.png" alt="Icone demandas">
+                                Demandas aceitas</a>
+                        </li>
+
+                        <li>
+                            <a href="/solicitacoesDemanda">
+                                <img src="/images/icone_solicitacoes.png" alt="Icone demandas">
+                                Solicitações de clientes</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
+                                Minhas Avaliações</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_historico.png" alt="Icone histórico">
+                                Histórico de demandas</a>
+                        </li>
+
+                        <li>
+                            <a onclick="logout()">
+                                <img src="/images/sair.png" alt="Icone sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+        <!-- PESQUISA -->
+        <section class="pesquisa">
+
+            <button class="btn-filtro">
+                <img src="/images/filtro.png" alt="Filtros">
+            </button>
+
+            <label for="pesquisa"></label>
+            <input id="pesquisa" class="campo-pesquisa" type="text" placeholder="Pesquise aqui...">
+
+            <button class="btn-pesquisar">
+                <img src="/images/lupa.png" alt="Pesquisar">
+            </button>
+
+        </section>
+
+        <div class="linha">
+            <span>Demandas aceitas</span>
+        </div>
+
+        <section class="lista-demandas">
+
+            <article class="card-demanda" th:each="d : ${demandas}" th:data-lat="${d.obra.latitude}"
+                     th:data-lng="${d.obra.longitude}">
+
+                <div class="foto-cliente">
+                    <img src="/images/foto_perfil.png" alt="Foto do cliente">
+                </div>
+
+                <div class="informacoes-demanda">
+
+                    <div class="dados-demanda">
+                        <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>
+                        <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente •
+                            Local</p>
+                        <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>
+                        <p class="distancia"></p>
+                    </div>
+
+                    <div class="orcamento">
+                        <span th:text="'ORÇAMENTO: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
+                    </div>
+
+                    <div class="botoes-demanda">
+
+                        <button type="button" class="btn-demanda" th:data-cliente="${d.cliente.id}"
+                                onclick="iniciarConversa(this)">
+                            CONVERSAR
+                        </button>
+
+                        <button type="button" class="btn-demanda btn-concluir" th:data-id="${d.id}"
+                                onclick="concluir(this)">
+                            CONCLUIR DEMANDA
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <p th:if="${#lists.isEmpty(demandas)}">Você ainda não aceitou nenhuma demanda...</p>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+    async function iniciarConversa(botao) {
+        const resposta = await fetch("/api/conversas", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({idCliente: Number(botao.dataset.cliente)})
+        });
+
+        if (resposta.ok) {
+            const conversa = await resposta.json();
+            window.location.href = "/chat/" + conversa.id;
+        } else {
+            alert("Não foi possível iniciar a conversa.");
+        }
+    }
+
+    function concluir(botao) {
+        if (!confirm("Marcar esta demanda como concluída? Ela só será finalizada quando o cliente também confirmar.")) return;
+
+        // TODO: POST /demandas/{id}/concluir (id em botao.dataset.id) quando a lógica existir
+        alert("Em breve!")
+    }
+
+    // fórmula haversine para calcular a distância de 2 pontos numa esfera (Terra)
+    function haversinekm(lat1, lon1, lat2, lon2) {
+        const R = 6371; // raio da Terra em km
+        const toRad = g => g * Math.PI / 180;
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+
+        const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    // calculo de distância da demanda com a localização atual do computador
+    function mostrarDistancias() {
+        if (!navigator.geolocation) return;
+
+        navigator.geolocation.getCurrentPosition(pos => {
+            const minhaLat = pos.coords.latitude;
+            const minhaLon = pos.coords.longitude;
+
+            document.querySelectorAll(".card-demanda").forEach(card => {
+                if (!card.dataset.lat || !card.dataset.lng) return; // demanda sem coordenada
+
+                const km = haversinekm(minhaLat, minhaLon, Number(card.dataset.lat), Number(card.dataset.lng));
+
+                card.querySelector(".distancia").textContent = "Aproximadamente " + km.toFixed(1).replace(".", ",") + " km de você";
+            });
+        });
+    }
+
+    mostrarDistancias();
+</script>
+
+<!-- BARRA LATERAL NOTIFICAÇÕES -->
+<aside class="sidebar-notificacoes" id="sidebarNotificacoes" style="display: none">
+
+    <div class="notificacoes-titulo">
+        <img src="/images/botao_voltar.png" id="btn-voltarSideBar" onclick=sideBar() alt="Fechar aba">
+        <span>Notificações</span>
+    </div>
+
+</aside>
+
+<!-- BARRA LATERAL CHATS -->
+<aside class="sidebar-conversas" id="sidebarConversas" style="display: none">
+    <div class="conversas-titulo">
+        <img src="/images/botao_voltar.png" id="btn-voltarSideBarmsg" onclick=sideBar() alt="Fechar aba">
+        <span>Conversas</span>
+    </div>
+
+    <!-- LISTA DE CHATS/CONVERSAS -->
+    <section class="lista-conversas">
+        <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
+            <img src="/images/foto_perfil.png" alt="Foto">
+            <span th:text="${c.nomeOutraPessoa}">Nome</span>
+        </a>
+
+        <p th:if="${#lists.isEmpty(conversas)}">Você ainda não tem conversas.</p>
+    </section>
+</aside>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita" id="sidebar">
+
+</aside>
+
+<script>
+    const notificacoes = document.getElementById("sidebarNotificacoes");
+    const barraLateralDireita = document.getElementById("sidebar");
+    const conversas = document.getElementById("sidebarConversas");
+
+    async function carregarNotificacoes() {
+        notificacoes.style.display = "flex";
+        barraLateralDireita.style.display = "none";
+        conversas.style.display = "none";
+    }
+
+    async function sideBar() {
+        notificacoes.style.display = "none";
+        barraLateralDireita.style.display = "flex";
+        conversas.style.display = "none";
+    }
+
+    async function carregarConversas() {
+        notificacoes.style.display = "none";
+        barraLateralDireita.style.display = "none";
+        conversas.style.display = "flex";
+    }
+
+</script>
+
+<script>
+    async function logout() {
+        const resposta = await fetch("/login/logout", {method: "POST"});
+
+        if (resposta.ok) {
+            window.location.href = "/";
+        } else {
+            alert("Erro ao encerrar a sessão");
+        }
+    }
+</script>
+
+<script>
+    function carregarNavPerfil() {
+        document.getElementById("dropdownNavPerfil").classList.toggle("aberto");
+    }
+</script>
+
+</body>
+
+</html>

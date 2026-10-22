@@ -111,6 +111,10 @@ public class DemandaService {
         return demandaRepository.findByTrabalhadorIdAndStatusOrderByDataSolicitacaoDesc(idTrabalhador, StatusDemanda.PENDENTE);
     }
 
+    public List<Demanda> buscarServicosAceitos(Long idTrabalhador) {
+        return demandaRepository.findByTrabalhadorIdAndStatusOrderByDataSolicitacaoDesc(idTrabalhador, StatusDemanda.ACEITA);
+    }
+
     public boolean temServicoEmAndamento(Pessoa pessoa) {
         if (pessoa instanceof Cliente)
             return demandaRepository.existsByClienteIdAndStatus(pessoa.getId(), StatusDemanda.ACEITA);

@@ -288,12 +288,8 @@
     gap: 15px;
 }
 
-#btn-recusar {
-    background-color: red;
-}
-
-#btn-aceitar {
-    background-color: blue;
+.btn-concluir {
+    background-color: indigo;
 }
 
 /* =========================

@@ -97,8 +97,10 @@ body {
 }
 
 .usuario {
-    height: 50px;
-    min-width: 150px;
+    height: 55px;
+    min-width: fit-content;
+
+    padding: 10px;
 
     text-decoration: none;
     color: #ffb000;
@@ -141,7 +143,7 @@ body {
     top: 135%;
     right: 0;
 
-    width: 300px;
+    width: fit-content;
 
     background: #286bb5;
 
@@ -153,7 +155,9 @@ body {
 }
 
 .dropdown-navegacao-perfil ul {
-    width: 100%;
+    width: max-content;
+
+    font-size: 20px;
 }
 
 .dropdown-navegacao-perfil ul li a {
@@ -201,14 +205,6 @@ body {
     max-width: 45px;
 
     position: absolute;
-}
-
-#logout-hover {
-    opacity: 0;
-}
-
-#logout-hover:hover {
-    opacity: 1;
 }
 
 .sidebar-notificacoes, .sidebar-conversas {

@@ -162,6 +162,17 @@ public class PaginaController {
         return "formExcluirConta";
     }
 
+    @GetMapping("/demandasAceitas")
+    public String demandasAceitas(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+
+        model.addAttribute("nome", pessoa.getNome());
+        model.addAttribute("demandas", demandaService.buscarServicosAceitos(pessoa.getId()));
+        model.addAttribute("conversas", conversas(pessoa)); // para sidebar de chats
+
+        return "demandasAceitas";
+    }
+
     // função paga pegar a conta do usuário logada
     private Pessoa pessoaLogada(Authentication auth) {
         return pessoaService.buscarPorEmail(auth.getName());
