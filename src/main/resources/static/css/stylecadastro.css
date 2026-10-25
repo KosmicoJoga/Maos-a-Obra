@@ -71,7 +71,9 @@ select {
     width: 130px;
     text-align: right;
 }
-
+#servico{
+    width: 167px;
+}
 #mei{
 
     width: 234px;
