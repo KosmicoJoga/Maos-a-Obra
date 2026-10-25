@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mãos à Obra</title>
+
+    <link rel="stylesheet" href="/css/styleformavaliacao.css">
+    <link rel="stylesheet" href="/css/geral.css">
+
+    <link rel="icon" type="/image/png" href="/images/logo_TCC.png">
+</head>
+<body>
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+<div class="pagina">
+    <header class="header">
+        <div class="logo">
+            <img src="/images/logo_titulo_horizontal.png" alt="logo">
+        </div>
+    </header>
+    <main class="conteudo">
+        <form class="form-avaliacao" id="avaliacaoForm" method="post">
+            <div class="texto">
+                <h1>Avaliar *Nome*</h1>
+            </div>
+
+            <div class="cadastro-avaliacao">
+
+                <div class="nota">
+                   <label  id="nota">Nota:</label>
+                    <img src="images/EstrelaAmarela.png" id="EA1"  onclick=Estrela_um() style="display: none">
+                    <img src="images/EstrelaTransparente.png" id="ET1" onclick=Estrela_um()>
+                    <img src="images/EstrelaAmarela.png" id="EA2"  onclick=Estrela_dois()  style="display: none">
+                    <img src="images/EstrelaTransparente.png" id="ET2" onclick=Estrela_dois()>
+                    <img src="images/EstrelaAmarela.png" id="EA3" onclick=Estrela_tres()  style="display: none">
+                    <img src="images/EstrelaTransparente.png" id="ET3" onclick=Estrela_tres()>
+                    <img src="images/EstrelaAmarela.png" id="EA4"  onclick=Estrela_quatro() style="display: none">
+                    <img src="images/EstrelaTransparente.png" id="ET4" onclick=Estrela_quatro()>
+                    <img src="images/EstrelaAmarela.png" id="EA5"  onclick=Estrela_cinco() style="display: none">
+                    <img src="images/EstrelaTransparente.png" id="ET5" onclick=Estrela_cinco()>
+
+
+                </div>
+
+                <div class="observacoes">
+                    <label for="observacoes" id="observacoes">Observações:</label>
+                    <input type="text" name="observacoes">
+                </div>
+
+                <button class="btn-enviar">
+                    Enviar avaliação
+                </button>
+            </div>
+        </form>
+    </main>
+</div>
+
+<script>
+const EA1= document.getElementById("EA1");
+const ET1= document.getElementById("ET1");
+const EA2= document.getElementById("EA2");
+const ET2= document.getElementById("ET2");
+const EA3= document.getElementById("EA3");
+const ET3= document.getElementById("ET3");
+const EA4= document.getElementById("EA4");
+const ET4= document.getElementById("ET4");
+const EA5= document.getElementById("EA5");
+const ET5= document.getElementById("ET5");
+
+
+function Estrela_um(){
+
+        EA1.style.display = "flex";
+        ET1.style.display = "none";
+        EA2.style.display = "none";
+        ET2.style.display = "flex";
+        EA3.style.display = "none";
+        ET3.style.display = "flex";
+        EA4.style.display = "none";
+        ET4.style.display = "flex";
+        EA5.style.display = "none";
+        ET5.style.display = "flex";
+}
+
+function Estrela_dois(){
+    EA1.style.display = "flex";
+    ET1.style.display = "none";
+    EA2.style.display = "flex";
+    ET2.style.display = "none";
+    EA3.style.display = "none";
+    ET3.style.display = "flex";
+    EA4.style.display = "none";
+    ET4.style.display = "flex";
+    EA5.style.display = "none";
+    ET5.style.display = "flex";
+}
+
+function Estrela_tres(){
+    EA1.style.display = "flex";
+    ET1.style.display = "none";
+    EA2.style.display = "flex";
+    ET2.style.display = "none";
+    EA3.style.display = "flex";
+    ET3.style.display = "none";
+    EA4.style.display = "none";
+    ET4.style.display = "flex";
+    EA5.style.display = "none";
+    ET5.style.display = "flex";
+}
+function Estrela_quatro(){
+    EA1.style.display = "flex";
+    ET1.style.display = "none";
+    EA2.style.display = "flex";
+    ET2.style.display = "none";
+    EA3.style.display = "flex";
+    ET3.style.display = "none";
+    EA4.style.display = "flex";
+    ET4.style.display = "none";
+    EA5.style.display = "none";
+    ET5.style.display = "flex";
+}
+function Estrela_cinco(){
+    EA1.style.display = "flex";
+    ET1.style.display = "none";
+    EA2.style.display = "flex";
+    ET2.style.display = "none";
+    EA3.style.display = "flex";
+    ET3.style.display = "none";
+    EA4.style.display = "flex";
+    ET4.style.display = "none";
+    EA5.style.display = "flex";
+    ET5.style.display = "none";
+}
+
+</script>
+<aside class="sidebar-direita">
+
+</aside>
+
+</body>
+</html>
