@@ -5,11 +5,9 @@ import org.example.maosaobra.model.Trabalhador;
 
 import java.time.LocalDateTime;
 
-public record AvaliacaoDTO(
-        Cliente cliente,
-        Trabalhador trabalhador,
+public record AvaliacaoRequestDTO(
+        Long idDemanda,
         Integer nota,
-        String descricao,
-        LocalDateTime dataAvaliacao
+        String descricao
 ) {
 }

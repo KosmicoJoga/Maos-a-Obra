@@ -14,6 +14,8 @@ public interface DemandaRepository extends JpaRepository<Demanda, Long> {
 
     List<Demanda> findByTrabalhadorIdAndStatusOrderByDataSolicitacaoDesc(Long idTrabalhador, StatusDemanda status);
 
+    List<Demanda> findByClienteIdOrderByDataSolicitacaoDesc(Long idCliente);
+
     boolean existsByClienteIdAndStatus(Long idCliente, StatusDemanda status);
 
     boolean existsByTrabalhadorIdAndStatus(Long idTrabalhador, StatusDemanda status);
@@ -21,4 +23,5 @@ public interface DemandaRepository extends JpaRepository<Demanda, Long> {
     List<Demanda> findByTrabalhadorId(Long idTrabalhador);
 
     void deleteByClienteId(Long idCliente);
+
 }

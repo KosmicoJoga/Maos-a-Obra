@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/conversas")
+@RequestMapping("/api/conversas")
 public class ChatController {
 
     private final ChatService chatService;
@@ -32,7 +32,9 @@ public class ChatController {
     public ResponseEntity<?> iniciar(@RequestBody IniciarConversaDTO dto, Authentication auth) {
 
         Pessoa logada = pessoaService.buscarPorEmail(auth.getName());
-        Conversa conversa = chatService.iniciarConversa(logada, dto.idCliente());
+        Pessoa outra = pessoaService.buscarPorId(dto.idOutro());
+
+        Conversa conversa = chatService.iniciarConversa(logada, outra);
         return ResponseEntity.ok(Map.of("id", conversa.getId()));
 
     }

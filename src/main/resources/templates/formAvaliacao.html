@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mãos à Obra</title>
+
+    <link rel="stylesheet" href="/css/styleformavaliacao.css">
+    <link rel="stylesheet" href="/css/geral.css">
+
+    <link rel="icon" type="/image/png" href="/images/logo_TCC.png">
+</head>
+<body>
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+<div class="pagina">
+
+    <header class="header">
+
+        <div class="logo">
+            <img src="/images/logo_titulo_horizontal.png" alt="logo">
+        </div>
+
+    </header>
+
+    <main class="conteudo">
+
+        <form class="form-avaliacao" id="formAvaliacao" th:data-demanda="${idDemanda}" th:data-voltar="${voltar}">
+
+            <div class="texto">
+                <h1 th:text="'Avaliar ' + ${nomeAvaliado}">Avaliar *Nome*</h1>
+            </div>
+
+            <div class="cadastro-avaliacao">
+
+                <div class="nota">
+                    <label>Nota:</label>
+                    <img class="estrela" th:each="i : ${#numbers.sequence(1, 5)}" th:data-valor="${i}"
+                         src="/images/estrela_transparente.png" alt="Estrela">
+                </div>
+
+                <div class="observacoes">
+                    <label for="observacoes">Observações:</label>
+                    <input type="text" id="observacoes">
+                </div>
+
+                <button class="btn-enviar" type="submit">
+                    Enviar avaliação
+                </button>
+            </div>
+        </form>
+    </main>
+</div>
+
+<aside class="sidebar-direita">
+
+</aside>
+
+<script>
+    const form = document.getElementById("formAvaliacao");
+    const estrelas = document.querySelectorAll(".estrela");
+    let nota = 0;
+
+    function desenharEstrelas(n) {
+        estrelas.forEach(e => {
+            e.src = Number(e.dataset.valor) <= n
+                ? "/images/estrela_amarela.png"
+                : "/images/estrela_transparente.png";
+        });
+    }
+
+    estrelas.forEach(e => e.addEventListener("click", () => {
+        nota = Number(e.dataset.valor); // agora a nota é guardada, não só desenhada
+        desenharEstrelas(nota);
+    }));
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (nota === 0) {
+            alert("Escolha uma nota de 1 a 5 estrelas!");
+            return;
+        }
+
+        try {
+            const resposta = await fetch("/api/avaliacoes", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    idDemanda: Number(form.dataset.demanda),
+                    nota: nota,
+                    descricao: document.getElementById("observacoes").value
+                })
+            });
+
+            if (resposta.ok) {
+                alert("Avaliação enviada!");
+                window.location.href = form.dataset.voltar;
+            } else if (resposta.status === 400) {
+                const erro = await resposta.json();
+                alert(erro.erro);
+            } else {
+                alert("Não foi possível enviar a avaliação!");
+            }
+        } catch (error) {
+            alert("Não foi possível conectar ao servidor!")
+        }
+    });
+</script>
+
+</body>
+
+</html>

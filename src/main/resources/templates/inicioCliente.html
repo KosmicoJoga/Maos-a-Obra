@@ -57,9 +57,9 @@
                     <ul style="list-style: none;">
 
                         <li>
-                            <a href="#">
+                            <a href="/minhasDemandas">
                                 <img src="/images/icone_demanda_aceita.png" alt="Icone demandas">
-                                Demandas em andamento</a>
+                                Minhas demandas</a>
                         </li>
 
                         <li>
@@ -192,46 +192,11 @@
 
 </aside>
 
-<script>
-    const notificacoes = document.getElementById("sidebarNotificacoes");
-    const barraLateralDireita = document.getElementById("sidebar");
-    const conversas = document.getElementById("sidebarConversas");
+<script src="/js/logout.js"></script>
 
-    async function carregarNotificacoes() {
-        notificacoes.style.display = "flex";
-        barraLateralDireita.style.display = "none";
-        conversas.style.display = "none";
-    }
+<script src="/js/navegacao.js"></script>
 
-    async function sideBar() {
-        notificacoes.style.display = "none";
-        barraLateralDireita.style.display = "flex";
-        conversas.style.display = "none";
-    }
-
-    async function carregarConversas() {
-        notificacoes.style.display = "none";
-        barraLateralDireita.style.display = "none";
-        conversas.style.display = "flex";
-    }
-
-</script>
-
-<script>
-    async function logout() {
-        const resposta = await fetch("/login/logout", {method: "POST"});
-
-        if (resposta.ok) {
-            window.location.href = "/";
-        } else {
-            alert("Erro ao encerrar a sessão");
-        }
-    }
-
-    function carregarNavPerfil() {
-        document.getElementById("dropdownNavPerfil").classList.toggle("aberto");
-    }
-</script>
+<script src="/js/sidebar.js"></script>
 
 </body>
 

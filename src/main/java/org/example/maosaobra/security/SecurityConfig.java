@@ -23,12 +23,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/","/login", "/clientes", "/trabalhadores", "/css/**", "/images/**", "/*.html")
+                .requestMatchers("/","/login", "/clientes", "/trabalhadores", "/css/**", "/js/**","/images/**", "/*.html")
                 .permitAll()
                         .requestMatchers("/demandas", "/demandas/direta").hasRole("CLIENTE")
                         .requestMatchers("/solicitarDemanda/**").hasRole("CLIENTE")
-                        .requestMatchers("/solicitacoesDemanda").hasRole("TRABALHADOR")
                         .requestMatchers("/inicioCliente").hasRole("CLIENTE")
+                        .requestMatchers("/minhasDemandas").hasRole("CLIENTE")
+                        .requestMatchers("/solicitacoesDemanda").hasRole("TRABALHADOR")
                         .requestMatchers("/inicioPrestador").hasRole("TRABALHADOR")
                         .requestMatchers("/demandasAceitas").hasRole("TRABALHADOR")
                         .requestMatchers("/demandas/*/aceitar", "/demandas/*/recusar").hasRole("TRABALHADOR")

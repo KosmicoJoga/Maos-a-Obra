@@ -89,7 +89,7 @@
             </div>
 
             <div class="status">
-                <button type="button" class="botao-verde" th:if="${podeConversar}" th:data-cliente="${perfil.id}"
+                <button type="button" class="botao-verde" th:data-outro="${perfil.id}" th:if="${podeConversar}"
                         onclick="iniciarConversa(this)">
                     CONVERSAR
                 </button>
@@ -306,30 +306,11 @@
 
 </aside>
 
-<script>
-    const notificacoes = document.getElementById("sidebarNotificacoes");
-    const barraLateralDireita = document.getElementById("sidebar");
-    const conversas = document.getElementById("sidebarConversas");
+<script src="/js/chat.js"></script>
 
-    async function carregarNotificacoes() {
-        notificacoes.style.display = "flex";
-        barraLateralDireita.style.display = "none";
-        conversas.style.display = "none";
-    }
+<script src="/js/logout.js"></script>
 
-    async function sideBar() {
-        notificacoes.style.display = "none";
-        barraLateralDireita.style.display = "flex";
-        conversas.style.display = "none";
-    }
-
-    async function carregarConversas() {
-        notificacoes.style.display = "none";
-        barraLateralDireita.style.display = "none";
-        conversas.style.display = "flex";
-    }
-
-</script>
+<script src="/js/sidebar.js"></script>
 
 <script>
 
@@ -381,33 +362,6 @@
         historico.style.display = "flex"
     }
 
-</script>
-
-<script>
-    async function logout() {
-        const resposta = await fetch("/login/logout", {method: "POST"});
-
-        if (resposta.ok) {
-            window.location.href = "/";
-        } else {
-            alert("Erro ao encerrar a sessão");
-        }
-    }
-
-    async function iniciarConversa(botao) {
-        const resposta = await fetch("/api/conversas", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({idCliente: Number(botao.dataset.cliente)})
-        });
-
-        if (resposta.ok) {
-            const conversa = await resposta.json();
-            window.location.href = "/chat/" + conversa.id;
-        } else {
-            alert("Não foi possível iniciar a conversa.");
-        }
-    }
 </script>
 
 </body>

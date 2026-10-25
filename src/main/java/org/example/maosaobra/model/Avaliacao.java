@@ -21,12 +21,20 @@ public class Avaliacao {
     @Column(name = "id_avaliacao")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_demanda")
+    private Demanda demanda;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Avaliador avaliador;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "trabalhador", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_trabalhador")
     private Trabalhador trabalhador;
 
     @Column(nullable = false)

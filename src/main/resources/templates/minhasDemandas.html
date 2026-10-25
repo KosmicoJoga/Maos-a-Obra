@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos à obra</title>
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/styleminhasDemandas.css">
+    <link rel="icon" type="image/png" href="/images/logo_TCC.png">
+</head>
+<body>
+
+
+<!-- BARRA LATERAL ESQUERDA-->
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+
+
+<!-- ÁREA PRINCIPAL -->
+<div class="pagina">
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="/images/logo_titulo_horizontal.png" alt="Mãos à Obra">
+        </div>
+
+        <!-- AÇÕES DO USUÁRIO -->
+        <div class="acoes">
+
+            <a class="notificações" onclick=carregarNotificacoes()>
+                <img src="/images/notificacoes.png" alt="Notificações">
+            </a>
+            <a class="mensagens" onclick="carregarConversas()">
+                <img src="/images/mensagens.png" alt="Mensagens">
+            </a>
+            <a class="usuario" href="/perfil/logado">
+                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <span th:text="${nome}">Nome</span>
+            </a>
+
+            <div class="navegacao-perfil">
+
+                <button class="btn-navegacao-perfil" onclick="carregarNavPerfil()">
+                    <img src="/images/icone_nav.png" alt="Navegacoes do perfil">
+                </button>
+
+                <div class="dropdown-navegacao-perfil" id="dropdownNavPerfil">
+
+                    <ul style="list-style: none;">
+
+                        <li>
+                            <a href="/minhasDemandas">
+                                <img src="/images/icone_demanda_aceita.png" alt="Icone demandas">
+                                Minhas demandas</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
+                                Minhas avaliações</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_historico.png" alt="Icone histórico">
+                                Histórico de demandas</a>
+                        </li>
+
+                        <li>
+                            <a onclick="logout()">
+                                <img src="/images/sair.png" alt="Icone sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+        <!-- PESQUISA -->
+        <section class="pesquisa">
+
+            <button class="btn-filtro">
+                <img src="/images/filtro.png" alt="Filtros">
+            </button>
+
+            <label for="pesquisa"></label>
+            <input id="pesquisa" class="campo-pesquisa" type="text" placeholder="Pesquise aqui...">
+
+            <button class="btn-pesquisar">
+                <img src="/images/lupa.png" alt="Pesquisar">
+            </button>
+
+        </section>
+
+        <div class="linha">
+            <span>Lista de demandas</span>
+        </div>
+
+        <section class="lista-demandas">
+
+            <article class="card-demanda" th:each="d : ${demandas}">
+
+                <div class="informacoes-demanda">
+
+                    <div class="dados-demanda">
+                        <p>
+                            <strong>STATUS DA DEMANDA: </strong>
+                            <span th:switch="${d.status.name()}">
+                                <span th:case="'ABERTA'">Pública</span>
+                                <span th:case="'PENDENTE'">Aguardando resposta</span>
+                                <span th:case="'ACEITA'">Em andamento</span>
+                            </span>
+                        </p>
+
+                        <p><strong>PRESTADOR: </strong>
+                            <span th:text="${d.trabalhador != null ? d.trabalhador.nome : 'Nenhum ainda'}">prestador</span>
+                        </p>
+
+                        <p><strong>DESCRIÇÃO: </strong>
+                            <span th:text="${d.obra.descricao}">descrição</span>
+                        </p>
+
+                        <p><strong>LOCAL: </strong>
+                            <span th:text="${d.obra.endereco}">local</span>
+                        </p>
+
+                        <p><strong>DATA E HORA: </strong>
+                            <span th:text="${#temporals.format(d.dataSolicitacao, 'dd/MM/yyyy HH:mm')}">data e hora</span>
+                        </p>
+                    </div>
+
+                    <div class="orcamento">
+                        <span th:text="'ORÇAMENTO: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
+                    </div>
+
+                    <div class="botoes-demanda">
+
+                        <button type="button" class="btn-demanda" th:if="${d.trabalhador != null}"
+                                th:data-outro="${d.trabalhador.id}"
+                                onclick="iniciarConversa(this)">
+                            CONVERSAR
+                        </button>
+
+                        <th:block th:if="${d.status.name() == 'ACEITA'}">
+
+                            <button type="button" class="btn-demanda btn-concluir" th:data-id="${d.id}"
+                                    th:unless="${d.clienteFinalizou}"
+                                    onclick="concluir(this)">
+                                CONCLUIR DEMANDA
+                            </button>
+
+                            <p th:if="${d.clienteFinalizou}">Você marcou como concluída. Aguardando o prestador.</p>
+
+                            <p th:if="${d.trabalhadorFinalizou and !d.clienteFinalizou}">O prestador já confirmou, falta
+                                você.</p>
+
+                        </th:block>
+
+                        <th:block th:if="${d.status.name() == 'CONCLUIDA'}">
+
+                            <a class="btn-demanda" th:unless="${avaliadas.contains(d.id)}"
+                               th:href="@{/avaliar/{id}(id=${d.id})}">
+                                AVALIAR
+                            </a>
+
+                            <p th:if="${avaliadas.contains(d.id)}">Avaliação enviada</p>
+
+                        </th:block>
+
+                    </div>
+                </div>
+            </article>
+
+            <p th:if="${#lists.isEmpty(demandas)}">Você ainda não criou nenhuma demanda...</p>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- BARRA LATERAL NOTIFICAÇÕES -->
+<aside class="sidebar-notificacoes" id="sidebarNotificacoes" style="display: none">
+
+    <div class="notificacoes-titulo">
+        <img src="/images/botao_voltar.png" id="btn-voltarSideBar" onclick=sideBar() alt="Fechar aba">
+        <span>Notificações</span>
+    </div>
+
+</aside>
+
+<!-- BARRA LATERAL CHATS -->
+<aside class="sidebar-conversas" id="sidebarConversas" style="display: none">
+    <div class="conversas-titulo">
+        <img src="/images/botao_voltar.png" id="btn-voltarSideBarmsg" onclick=sideBar() alt="Fechar aba">
+        <span>Conversas</span>
+    </div>
+
+    <!-- LISTA DE CHATS/CONVERSAS -->
+    <section class="lista-conversas">
+        <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
+            <img src="/images/foto_perfil.png" alt="Foto">
+            <span th:text="${c.nomeOutraPessoa}">Nome</span>
+        </a>
+
+        <p th:if="${#lists.isEmpty(conversas)}">Você ainda não tem conversas.</p>
+    </section>
+</aside>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita" id="sidebar">
+
+</aside>
+
+<script src="/js/chat.js"></script>
+
+<script src="/js/demandas.js"></script>
+
+<script src="/js/logout.js"></script>
+
+<script src="/js/navegacao.js"></script>
+
+<script src="/js/sidebar.js"></script>
+
+</body>
+
+</html>

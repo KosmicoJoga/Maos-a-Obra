@@ -1,10 +1,7 @@
 package org.example.maosaobra.controller;
 
 import org.example.maosaobra.dto.ConversaDTO;
-import org.example.maosaobra.model.Cliente;
-import org.example.maosaobra.model.Conversa;
-import org.example.maosaobra.model.Pessoa;
-import org.example.maosaobra.model.Trabalhador;
+import org.example.maosaobra.model.*;
 import org.example.maosaobra.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -14,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class PaginaController {
@@ -23,12 +22,14 @@ public class PaginaController {
     private final PessoaService pessoaService;
     private final ChatService chatService;
     private final TrabalhadorService trabalhadorService;
+    private final AvaliacaoService avaliacaoService;
 
-    public PaginaController(DemandaService demandaService, PessoaService pessoaService, ChatService chatService, TrabalhadorService trabalhadorService) {
+    public PaginaController(DemandaService demandaService, PessoaService pessoaService, ChatService chatService, TrabalhadorService trabalhadorService, AvaliacaoService avaliacaoService) {
         this.demandaService = demandaService;
         this.pessoaService = pessoaService;
         this.chatService = chatService;
         this.trabalhadorService = trabalhadorService;
+        this.avaliacaoService = avaliacaoService;
     }
 
     @GetMapping("/inicioCliente")
@@ -119,7 +120,7 @@ public class PaginaController {
         model.addAttribute("nome", logada.getNome());
         model.addAttribute("perfil", perfil);
         model.addAttribute("ehTrabalhador", perfil instanceof Trabalhador);
-        model.addAttribute("podeConversar", logada instanceof Trabalhador && perfil instanceof Cliente);
+        model.addAttribute("podeConversar", (logada instanceof Cliente) != (perfil instanceof Cliente));
         model.addAttribute("podeSolicitar", logada instanceof Cliente && perfil instanceof Trabalhador);
         model.addAttribute("conversas", conversas);
 
@@ -166,11 +167,58 @@ public class PaginaController {
     public String demandasAceitas(Authentication auth, Model model) {
         Pessoa pessoa = pessoaLogada(auth);
 
+        List<Demanda> demandas = demandaService.buscarServicosAceitos(pessoa.getId());
+
+        List<Demanda> concluidas = demandaService.buscarDemandasConcluidas(pessoa.getId());
+
+        Set<Long> avaliadas = avaliacaoService.idsJaAvaliadas(concluidas, Avaliador.TRABALHADOR);
+
+        List<Demanda> aguardandoAvaliacao = concluidas.stream()
+                .filter(d -> !avaliadas.contains(d.getId()))
+                .toList();
+
         model.addAttribute("nome", pessoa.getNome());
-        model.addAttribute("demandas", demandaService.buscarServicosAceitos(pessoa.getId()));
+        model.addAttribute("demandas", demandas);
+        model.addAttribute("demandasConcluidas", aguardandoAvaliacao);
         model.addAttribute("conversas", conversas(pessoa)); // para sidebar de chats
 
         return "demandasAceitas";
+    }
+
+    @GetMapping("/minhasDemandas")
+    public String minhasDemandas(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+
+        List<Demanda> demandas = demandaService.buscarTodasCliente(pessoa.getId());
+        model.addAttribute("nome", pessoa.getNome());
+        model.addAttribute("demandas", demandas);
+        model.addAttribute("avaliadas", avaliacaoService.idsJaAvaliadas(demandas, Avaliador.CLIENTE));
+        model.addAttribute("conversas", conversas(pessoa));
+
+        return "minhasDemandas";
+    }
+
+    @GetMapping("/avaliar/{idDemanda:\\d+}")
+    public String avaliar(@PathVariable Long idDemanda, Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+        String voltar = pessoa instanceof Cliente ? "/minhasDemandas" : "/demandasAceitas";
+
+        try {
+            Demanda demanda = avaliacaoService.podeAvaliar(idDemanda, pessoa);
+
+            // quem é avaliado é a outra parte
+            String nomeAvaliado = pessoa instanceof Cliente
+                    ? demanda.getTrabalhador().getNome()
+                    : demanda.getCliente().getNome();
+
+            model.addAttribute("idDemanda", idDemanda);
+            model.addAttribute("nomeAvaliado", nomeAvaliado);
+            model.addAttribute("voltar", voltar);
+
+            return "formAvaliacao";
+        } catch (IllegalArgumentException e) {
+            return "redirect:" + voltar; // ainda não concluída, ou você já avaliou
+        }
     }
 
     // função paga pegar a conta do usuário logada

@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -86,5 +88,11 @@ public class PessoaService {
 
         pessoa.setSenha(passwordEncoder.encode(dto.senhaNova()));
         pessoaRepository.save(pessoa);
+    }
+
+    @Transactional
+    public void atualizarMedia(Long idPessoa, Double media) {
+        Pessoa pessoa = buscarPorId(idPessoa);
+        pessoa.setAvaliacao(BigDecimal.valueOf(media).setScale(2, RoundingMode.HALF_UP));
     }
 }

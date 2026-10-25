@@ -115,6 +115,14 @@ public class DemandaService {
         return demandaRepository.findByTrabalhadorIdAndStatusOrderByDataSolicitacaoDesc(idTrabalhador, StatusDemanda.ACEITA);
     }
 
+    public List<Demanda> buscarDemandasConcluidas(Long idTrabalhador) {
+        return demandaRepository.findByTrabalhadorIdAndStatusOrderByDataSolicitacaoDesc(idTrabalhador, StatusDemanda.CONCLUIDA);
+    }
+
+    public List<Demanda> buscarTodasCliente(Long idCliente) {
+        return demandaRepository.findByClienteIdOrderByDataSolicitacaoDesc(idCliente);
+    }
+
     public boolean temServicoEmAndamento(Pessoa pessoa) {
         if (pessoa instanceof Cliente)
             return demandaRepository.existsByClienteIdAndStatus(pessoa.getId(), StatusDemanda.ACEITA);
@@ -158,5 +166,29 @@ public class DemandaService {
 
         return demandaRepository.save(demanda);
 
+    }
+
+    @Transactional
+    public Demanda finalizarDemanda(Long idDemanda, Pessoa pessoa) {
+
+        Demanda demanda = demandaRepository.findById(idDemanda).orElse(null);
+
+        boolean ehOCliente = demanda != null && demanda.getCliente().getId().equals(pessoa.getId());
+        boolean ehOTrabalhador = demanda != null && demanda.getTrabalhador() != null && demanda.getTrabalhador().getId().equals(pessoa.getId());
+
+        if (!ehOCliente && !ehOTrabalhador)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Demanda não encontrada!");
+
+        if (demanda.getStatus() != StatusDemanda.ACEITA)
+            throw new IllegalArgumentException("Só é possível finalizar uma demanda em andamento!");
+
+        if (ehOCliente)
+            demanda.setClienteFinalizou(true);
+        else demanda.setTrabalhadorFinalizou(true);
+
+        if (demanda.isClienteFinalizou() && demanda.isTrabalhadorFinalizou())
+            demanda.setStatus(StatusDemanda.CONCLUIDA);
+
+        return demandaRepository.save(demanda);
     }
 }

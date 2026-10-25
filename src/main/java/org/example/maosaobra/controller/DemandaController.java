@@ -4,9 +4,11 @@ import org.example.maosaobra.dto.DemandaDiretaDTO;
 import org.example.maosaobra.dto.DemandaRequestDTO;
 import org.example.maosaobra.model.Cliente;
 import org.example.maosaobra.model.Demanda;
+import org.example.maosaobra.model.Pessoa;
 import org.example.maosaobra.security.PessoaDetails;
 import org.example.maosaobra.service.ClienteService;
 import org.example.maosaobra.service.DemandaService;
+import org.example.maosaobra.service.PessoaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,10 +22,12 @@ public class DemandaController {
 
     private final DemandaService demandaService;
     private final ClienteService clienteService;
+    private final PessoaService pessoaService;
 
-    public DemandaController(DemandaService demandaService, ClienteService clienteService) {
+    public DemandaController(DemandaService demandaService, ClienteService clienteService, PessoaService pessoaService) {
         this.demandaService = demandaService;
         this.clienteService = clienteService;
+        this.pessoaService = pessoaService;
     }
 
     @PostMapping
@@ -62,6 +66,14 @@ public class DemandaController {
     @PostMapping("/{id}/recusar")
     public ResponseEntity<?> recusar(@PathVariable Long id, Authentication auth) {
         return responder(id, auth, false);
+    }
+
+    @PutMapping("/{id}/finalizar")
+    public ResponseEntity<?> finalizar(@PathVariable Long id, Authentication auth) {
+        Pessoa pessoa = pessoaService.buscarPorEmail(auth.getName());
+        Demanda demanda = demandaService.finalizarDemanda(id, pessoa);
+
+        return ResponseEntity.ok(Map.of("id", demanda.getId(), "status", demanda.getStatus()));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

@@ -17,27 +17,37 @@ public class ChatService {
     private final ConversaRepository conversaRepository;
     private final MensagemRepository mensagemRepository;
     private final ClienteService clienteService;
+    private final TrabalhadorService trabalhadorService;
 
-    public ChatService(ConversaRepository conversaRepository, MensagemRepository mensagemRepository, ClienteService clienteService) {
+    public ChatService(ConversaRepository conversaRepository, MensagemRepository mensagemRepository, ClienteService clienteService, TrabalhadorService trabalhadorService) {
         this.conversaRepository = conversaRepository;
         this.mensagemRepository = mensagemRepository;
         this.clienteService = clienteService;
+        this.trabalhadorService = trabalhadorService;
     }
 
     // o trabalhador inicia (ou retoma) a conversa com um cliente
     @Transactional
-    public Conversa iniciarConversa(Pessoa logada, Long idCliente) {
+    public Conversa iniciarConversa(Pessoa logada, Pessoa outra) {
 
-        if (!(logada instanceof Trabalhador trabalhador))
-            throw new IllegalArgumentException("Apenas trabalhadores podem iniciar conversa!");
+        if (outra == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!");
 
-        Cliente cliente = clienteService.buscarPorId(idCliente);
-        if (cliente == null)
-            throw new IllegalArgumentException("Cliente não encontrado!");
+        Cliente cliente;
+        Trabalhador trabalhador;
+
+        if (logada instanceof Cliente c && outra instanceof Trabalhador t) {
+            cliente = c;
+            trabalhador = t;
+        } else if (logada instanceof Trabalhador t && outra instanceof Cliente c) {
+            cliente = c;
+            trabalhador = t;
+        } else
+            throw new IllegalArgumentException("A conversa precisa ser entre um cliente e um prestador de serviços!");
 
         return conversaRepository.findByClienteIdAndTrabalhadorId(cliente.getId(), trabalhador.getId())
                 .orElseGet(() -> {
-                    Conversa nova =  new Conversa();
+                    Conversa nova = new Conversa();
                     nova.setCliente(cliente);
                     nova.setTrabalhador(trabalhador);
                     nova.setDataCriacao(LocalDateTime.now());
@@ -50,7 +60,7 @@ public class ChatService {
 
         Conversa conversa = conversaRepository.findById(idConversa).orElse(null);
 
-        boolean participa =  conversa != null
+        boolean participa = conversa != null
                 && (conversa.getCliente().getId().equals(pessoa.getId())
                 || conversa.getTrabalhador().getId().equals(pessoa.getId()));
 

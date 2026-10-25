@@ -38,4 +38,10 @@ public class Demanda {
 
     @Column(name = "data_solicitacao")
     private LocalDateTime dataSolicitacao;
+
+    @Column(name = "cliente_finalizou")
+    private boolean clienteFinalizou;
+
+    @Column(name = "trabalhador_finalizou")
+    private boolean trabalhadorFinalizou;
 }

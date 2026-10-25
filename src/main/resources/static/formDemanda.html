@@ -75,6 +75,7 @@
     async function carregarServicos() {
         const response = await fetch("/servicos");
         if (!response.ok) return;
+
         const servicos = await response.json();
         selectTipo.innerHTML = "";
         servicos.forEach(s => {

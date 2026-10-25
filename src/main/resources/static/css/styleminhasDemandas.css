@@ -1,0 +1,354 @@
+/* =========================
+   CONTEÚDO
+========================= */
+
+.conteudo {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 50px 30px;
+}
+
+
+/* =========================
+   BARRA DE PESQUISA
+========================= */
+
+.pesquisa {
+    width: min(730px, 90%);
+
+    height: 62px;
+
+    background-color: #002650;
+
+    border-radius: 35px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    margin-bottom: 40px;
+}
+
+
+/* BOTÃO FILTRO */
+
+.btn-filtro {
+    width: 55px;
+    height: 55px;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-filtro img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.linha {
+    width: calc(100% + 60px);
+
+    min-height: 55px;
+
+    background-color: #002650;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 20px 0 20px 0;
+
+    font-size: 30px;
+}
+
+/* CAMPO DE PESQUISA */
+
+.campo-pesquisa {
+    flex: 1;
+
+    height: 48px;
+
+    background-color: #001b3d;
+
+    border: none;
+    border-radius: 25px;
+
+    outline: none;
+
+    padding: 0 25px;
+
+    color: #ffb000;
+
+    font-size: 20px;
+}
+
+.campo-pesquisa::placeholder {
+    color: #9b7100;
+}
+
+
+/* LUPA */
+
+.btn-pesquisar {
+    width: 60px;
+    height: 55px;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-pesquisar img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+
+/* =========================
+   LISTA DE DEMANDAS
+========================= */
+
+.lista-demandas {
+    display: flex;
+    flex-direction: column;
+
+    gap: 28px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card-demanda {
+    width: 100%;
+    min-height: 210px;
+
+    background-color: #001d41;
+
+    border-radius: 65px;
+
+    padding: 20px 30px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+}
+
+/* =========================
+   INFORMAÇÕES DE DEMANDA
+========================= */
+
+.informacoes-demanda {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* DADOS DE DEMANDA */
+.dados-demanda {
+    width: 500px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+    border-right: solid 3px black;
+
+    padding: 0 10px 0 10px;
+}
+
+.dados-demanda p {
+    color: #ffb000;
+
+    font-size: 22px;
+}
+
+
+/* =========================
+   ORÇAMENTO
+========================= */
+
+.orcamento {
+    text-align: center;
+
+    height: stretch;
+    width: 190px;
+
+    font-size: 25px;
+    color: white;
+
+    align-content: center;
+
+    border-right: solid 3px black;
+
+    padding: 10px;
+}
+
+/* =========================
+   BOTÕES DA DEMANDA
+========================= */
+
+.btn-demanda {
+    width: 100%;
+    height: 60px;
+
+    background-color: #00731e;
+
+    border-radius: 40px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 25px;
+
+    padding: 10px;
+
+    text-align: center;
+    align-items: center;
+}
+
+.botoes-demanda {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+    margin-left: 15px;
+
+    align-items: center;
+}
+
+.btn-recusar-aceitar {
+    display: flex;
+    flex-direction: row;
+
+    gap: 15px;
+}
+
+.btn-concluir {
+    background-color: indigo;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 900px) {
+
+    .sidebar-direita,
+    .sidebar-esquerda {
+        width: 100px;
+    }
+
+    .pagina {
+        width: calc(100% - 100px);
+    }
+
+    .header {
+        padding-right: 15px;
+    }
+
+    .logo img {
+        max-width: 350px;
+    }
+
+    .acoes {
+        gap: 8px;
+    }
+
+    .acoes a {
+        min-width: 110px;
+        font-size: 16px;
+    }
+
+    .acoes a img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .sidebar-direita,
+    .sidebar-esquerda {
+        display: none;
+    }
+
+    .pagina {
+        width: 100%;
+    }
+
+    .header {
+        height: auto;
+        min-height: 70px;
+
+        flex-wrap: wrap;
+
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .logo {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .logo img {
+        max-width: 300px;
+    }
+
+    .acoes {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .card-trabalhador {
+        border-radius: 40px;
+
+        padding: 20px;
+
+        flex-direction: column;
+    }
+
+    .informacoes-demanda {
+        width: 100%;
+    }
+
+    .avaliacao {
+        font-size: 20px;
+    }
+
+    .btn-demanda {
+        width: 100%;
+    }
+}
+
+
