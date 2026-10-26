@@ -74,6 +74,12 @@
 
         </section>
 
+        <div class="linha">
+
+            <span>Trabalhadores recomendados</span>
+
+        </div>
+
 
         <!-- LISTA DE TRABALHADORES -->
         <section class="lista-trabalhadores">
@@ -94,7 +100,9 @@
                 <div class="informacoes-trabalhador">
 
                     <div class="dados-trabalhador">
-                        <h2>*Nome* *Idade*</h2>
+                        <h2>*Nome*</h2>
+
+                        <h2>*Idade*</h2>
 
                         <p>*Tipo de serviço*</p>
                     </div>
@@ -199,7 +207,7 @@
             const usuario = await resposta.json();
 
             if (usuario.tipo === "TRABALHADOR")
-                window.location.href =  "/inicioPrestador";
+                window.location.href = "/inicioPrestador";
             else
                 window.location.href = "/inicioCliente";
         }

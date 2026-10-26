@@ -22,8 +22,4 @@ public class Trabalhador extends Pessoa{
     @ManyToOne
     @JoinColumn(name = "id_servico")
     private Servico servico;
-
-    @Lob
-    private byte[] certificados;
-
 }

@@ -43,15 +43,6 @@ VALUES (null, "Eletricista"),
        (null, "Fretes e mudanças"),
        (null, "Outro");
 
-create table certificado
-(
-    id_certificado INT PRIMARY KEY,
-    id_prestador   INT,
-    curso          varchar(150) not null,
-    foto           mediumblob,
-    foreign key (id_prestador) references pessoa (id_pessoa) ON DELETE CASCADE
-);
-
 CREATE TABLE trabalhador
 (
     id_pessoa  INT PRIMARY KEY,
@@ -71,6 +62,15 @@ CREATE TABLE mei
     id_mei INT PRIMARY KEY,
     cnpj   CHAR(14) NOT NULL UNIQUE,
     foreign key (id_mei) REFERENCES trabalhador (id_pessoa) ON DELETE CASCADE
+);
+
+create table certificado
+(
+    id_certificado INT PRIMARY KEY,
+    id_prestador   INT,
+    curso          varchar(150) not null,
+    foto           mediumblob,
+    foreign key (id_prestador) references trabalhador (id_pessoa) ON DELETE CASCADE
 );
 
 CREATE TABLE obra
