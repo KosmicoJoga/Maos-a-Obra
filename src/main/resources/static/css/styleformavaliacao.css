@@ -20,10 +20,6 @@
     align-items: center;
 }
 
-.form-avaliacao div {
-    gap: 15px;
-}
-
 .cadastro-avaliacao {
     display: flex;
     flex-direction: column;
@@ -31,6 +27,8 @@
     background-color: #002650;
     padding: 12px 20px;
     border-radius: 35px;
+
+    gap: 15px;
 }
 
 form {
@@ -44,40 +42,47 @@ label {
     gap: 5px;
 }
 
-.cadastro-avaliacao input{
-    background-color:#001531;
-    color:#ffb000;
+.cadastro-avaliacao input {
+    background-color: #001531;
+    color: #ffb000;
 }
 
 .nota,
 .observacoes {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 15px;
     width: 100%;
 }
 
 .nota > label,
 .observacoes > label {
-    width: 85px;
+    width: 100px;
     text-align: right;
     flex-shrink: 0;
 }
 
-.nota img{
+.nota img {
     width: 25px;
     height: 25px;
     object-fit: contain;
 
 }
 
+#observacao {
+    background-color: #001531;
+    color: #ffb000;
+    width: 100%;
+}
+
 .btn-enviar {
     border-radius: 25px;
     background-color: green;
-    width: 60%;
+    width: 70%;
     align-items: center;
     color: white;
     height: 50px;
     font-size: 20px;
     margin-top: 20px;
+    padding: 10px;
 }

@@ -250,6 +250,7 @@
 
     text-align: center;
     align-items: center;
+    align-content: center;
 }
 
 .botoes-demanda {
@@ -272,6 +273,11 @@
 
 .btn-concluir {
     background-color: indigo;
+}
+
+#descricao {
+    background-color:#001531;
+    color:#ffb000;
 }
 
 /* =========================
