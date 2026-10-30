@@ -55,7 +55,37 @@
 
                 <div class="dropdown-navegacao-perfil" id="dropdownNavPerfil">
 
-                    <ul style="list-style: none;">
+                    <!--OPÇÕES SE FOR CLIENTE    -->
+                    <ul style="list-style: none;" th:unless="${ehTrabalhador}">
+
+                        <li>
+                            <a href="/minhasDemandas">
+                                <img src="/images/icone_demanda_aceita.png" alt="Icone demandas">
+                                Minhas demandas</a>
+                        </li>
+
+                        <li>
+                            <a href="/avaliar/listar">
+                                <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
+                                Minhas avaliações</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_historico.png" alt="Icone histórico">
+                                Histórico de demandas</a>
+                        </li>
+
+                        <li>
+                            <a onclick="logout()">
+                                <img src="/images/sair.png" alt="Icone sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!--OPÇÕES SE FOR TRABALHADOR-->
+                    <ul style="list-style: none;" th:if="${ehTrabalhador}">
 
                         <li>
                             <a href="/demandasAceitas">
@@ -70,9 +100,9 @@
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/avaliar/listar">
                                 <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
-                                Minhas Avaliações</a>
+                                Minhas avaliações</a>
                         </li>
 
                         <li>

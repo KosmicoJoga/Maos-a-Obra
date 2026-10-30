@@ -54,7 +54,8 @@
 
                 <div class="dropdown-navegacao-perfil" id="dropdownNavPerfil">
 
-                    <ul style="list-style: none;">
+                    <!--OPÇÕES SE FOR CLIENTE    -->
+                    <ul style="list-style: none;" th:unless="${ehTrabalhador}">
 
                         <li>
                             <a href="/minhasDemandas">
@@ -63,7 +64,42 @@
                         </li>
 
                         <li>
+                            <a href="/avaliar/listar">
+                                <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
+                                Minhas avaliações</a>
+                        </li>
+
+                        <li>
                             <a href="#">
+                                <img src="/images/icone_historico.png" alt="Icone histórico">
+                                Histórico de demandas</a>
+                        </li>
+
+                        <li>
+                            <a onclick="logout()">
+                                <img src="/images/sair.png" alt="Icone sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!--OPÇÕES SE FOR TRABALHADOR-->
+                    <ul style="list-style: none;" th:if="${ehTrabalhador}">
+
+                        <li>
+                            <a href="/demandasAceitas">
+                                <img src="/images/icone_demanda_aceita.png" alt="Icone demandas">
+                                Demandas aceitas</a>
+                        </li>
+
+                        <li>
+                            <a href="/solicitacoesDemanda">
+                                <img src="/images/icone_solicitacoes.png" alt="Icone demandas">
+                                Solicitações de clientes</a>
+                        </li>
+
+                        <li>
+                            <a href="/avaliar/listar">
                                 <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
                                 Minhas avaliações</a>
                         </li>

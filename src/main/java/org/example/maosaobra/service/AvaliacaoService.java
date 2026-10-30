@@ -41,6 +41,13 @@ public class AvaliacaoService {
         return this.avaliacaoRepository.findById(id).orElse(null);
     }
 
+    public List<Avaliacao> buscarTodosPeloAvaliador(Long idPessoa, Avaliador a) {
+        if (a == Avaliador.CLIENTE)
+            return avaliacaoRepository.findByCliente_IdAndAvaliador(idPessoa, a);
+
+        return avaliacaoRepository.findByTrabalhador_IdAndAvaliador(idPessoa, a);
+    }
+
     public Demanda podeAvaliar(Long idDemanda, Pessoa pessoa) {
 
         Demanda demanda = demandaService.buscarPorId(idDemanda);

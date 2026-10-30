@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mãos à obra</title>
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/stylehistoricoAvaliacoes.css">
+    <link rel="icon" type="image/png" href="/images/logo_TCC.png">
+</head>
+<body>
+
+
+<!-- BARRA LATERAL ESQUERDA-->
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+
+
+<!-- ÁREA PRINCIPAL -->
+<div class="pagina">
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="/images/logo_titulo_horizontal.png" alt="Mãos à Obra">
+        </div>
+
+        <!-- AÇÕES DO USUÁRIO -->
+        <div class="acoes">
+
+            <a class="notificações" onclick=carregarNotificacoes()>
+                <img src="/images/notificacoes.png" alt="Notificações">
+            </a>
+            <a class="mensagens" onclick="carregarConversas()">
+                <img src="/images/mensagens.png" alt="Mensagens">
+            </a>
+            <a class="usuario" href="/perfil/logado">
+                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <span th:text="${nome}">Nome</span>
+            </a>
+
+            <div class="navegacao-perfil">
+
+                <button class="btn-navegacao-perfil" onclick="carregarNavPerfil()">
+                    <img src="/images/icone_nav.png" alt="Navegacoes do perfil">
+                </button>
+
+                <div class="dropdown-navegacao-perfil" id="dropdownNavPerfil">
+
+                    <!--OPÇÕES SE FOR CLIENTE    -->
+                    <ul style="list-style: none;" th:unless="${ehTrabalhador}">
+
+                        <li>
+                            <a href="/minhasDemandas">
+                                <img src="/images/icone_demanda_aceita.png" alt="Icone demandas">
+                                Minhas demandas</a>
+                        </li>
+
+                        <li>
+                            <a href="/avaliar/listar">
+                                <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
+                                Minhas avaliações</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_historico.png" alt="Icone histórico">
+                                Histórico de demandas</a>
+                        </li>
+
+                        <li>
+                            <a onclick="logout()">
+                                <img src="/images/sair.png" alt="Icone sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!--OPÇÕES SE FOR TRABALHADOR-->
+                    <ul style="list-style: none;" th:if="${ehTrabalhador}">
+
+                        <li>
+                            <a href="/demandasAceitas">
+                                <img src="/images/icone_demanda_aceita.png" alt="Icone demandas">
+                                Demandas aceitas</a>
+                        </li>
+
+                        <li>
+                            <a href="/solicitacoesDemanda">
+                                <img src="/images/icone_solicitacoes.png" alt="Icone demandas">
+                                Solicitações de clientes</a>
+                        </li>
+
+                        <li>
+                            <a href="/avaliar/listar">
+                                <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
+                                Minhas avaliações</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_historico.png" alt="Icone histórico">
+                                Histórico de demandas</a>
+                        </li>
+
+                        <li>
+                            <a onclick="logout()">
+                                <img src="/images/sair.png" alt="Icone sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+        <!-- PESQUISA -->
+        <section class="pesquisa">
+
+            <button class="btn-filtro">
+                <img src="/images/filtro.png" alt="Filtros">
+            </button>
+
+            <label for="pesquisa"></label>
+            <input id="pesquisa" class="campo-pesquisa" type="text" placeholder="Pesquise aqui...">
+
+            <button class="btn-pesquisar">
+                <img src="/images/lupa.png" alt="Pesquisar">
+            </button>
+
+        </section>
+
+        <div class="linha">
+            <span>Suas avaliações registradas</span>
+        </div>
+
+        <section class="lista-avaliacoes">
+
+            <div class="card-avaliacao" th:each="a : ${avaliacoes}">
+
+                <div class="pessoa-avaliada">
+                    <img src="/images/foto_perfil.png" alt="Foto do usuário">
+
+                    <div>
+                        <span>Pessoa avaliada: </span>
+                        <h4 th:if="${a.avaliador.name() == 'TRABALHADOR'}" th:text="${a.cliente.nome}"></h4>
+                        <h4 th:unless="${a.avaliador.name() == 'TRABALHADOR'}" th:text="${a.trabalhador.nome}"></h4>
+                    </div>
+
+                    <div class="nota">
+                        <strong th:text="'Nota: ' + ${a.nota} + ',0'">nota</strong>
+                    </div>
+
+                </div>
+
+                <div class="estrelas">
+                    <img src="/images/estrela_amarela.png" alt="Estrelas" th:each="i : ${#numbers.sequence(1, a.nota)}" class="estrela">
+                </div>
+
+                <div class="descricao">
+                    <span>Descrição da avaliação: </span>
+                    <p th:text="${a.descricao}"></p>
+                </div>
+
+                <div class="data">
+                    <span th:text="${#temporals.format(a.dataAvaliacao, 'dd/MM/yyyy - HH:mm')}"></span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- BARRA LATERAL NOTIFICAÇÕES -->
+<aside class="sidebar-notificacoes" id="sidebarNotificacoes" style="display: none">
+
+    <div class="notificacoes-titulo">
+        <img src="/images/botao_voltar.png" id="btn-voltarSideBar" onclick=sideBar() alt="Fechar aba">
+        <span>Notificações</span>
+    </div>
+
+</aside>
+
+<!-- BARRA LATERAL CHATS -->
+<aside class="sidebar-conversas" id="sidebarConversas" style="display: none">
+    <div class="conversas-titulo">
+        <img src="/images/botao_voltar.png" id="btn-voltarSideBarmsg" onclick=sideBar() alt="Fechar aba">
+        <span>Conversas</span>
+    </div>
+
+    <!-- LISTA DE CHATS/CONVERSAS -->
+    <section class="lista-conversas">
+        <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
+            <img src="/images/foto_perfil.png" alt="Foto">
+            <span th:text="${c.nomeOutraPessoa}">Nome</span>
+        </a>
+
+        <p th:if="${#lists.isEmpty(conversas)}">Você ainda não tem conversas.</p>
+    </section>
+</aside>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita" id="sidebar">
+
+</aside>
+
+<script src="/js/chat.js"></script>
+
+<script src="/js/demandas.js"></script>
+
+<script src="/js/logout.js"></script>
+
+<script src="/js/distancia.js"></script>
+
+<script src="/js/navegacao.js"></script>
+
+<script src="/js/sidebar.js"></script>
+
+</body>
+
+</html>

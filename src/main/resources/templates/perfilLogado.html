@@ -67,7 +67,7 @@
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/avaliar/listar">
                                 <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
                                 Minhas avaliações</a>
                         </li>
@@ -102,9 +102,9 @@
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/avaliar/listar">
                                 <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
-                                Minhas Avaliações</a>
+                                Minhas avaliações</a>
                         </li>
 
                         <li>
@@ -142,7 +142,7 @@
                     <p class="idade-perfil" th:text="${pessoa.idade} + ' anos'">*idade*</p>
                 </div>
 
-                <p class="tipo-servico">*tipo de serviço*</p>
+                <p class="tipo-servico" th:if="${ehTrabalhador}" th:text="${pessoa.servico.tipo}">*tipo de serviço*</p>
 
                 <div class="avaliacao-servico">
                     <th:block th:if="${pessoa.avaliacao != null}">

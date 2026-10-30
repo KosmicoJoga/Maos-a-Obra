@@ -1,0 +1,280 @@
+/* =========================
+   CONTEÚDO
+========================= */
+
+.conteudo {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 50px 30px;
+}
+
+
+/* =========================
+   BARRA DE PESQUISA
+========================= */
+
+.pesquisa {
+    width: min(730px, 90%);
+
+    height: 62px;
+
+    background-color: #002650;
+
+    border-radius: 35px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    margin-bottom: 40px;
+}
+
+
+/* BOTÃO FILTRO */
+
+.btn-filtro {
+    width: 55px;
+    height: 55px;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-filtro img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+/* CAMPO DE PESQUISA */
+
+.campo-pesquisa {
+    flex: 1;
+
+    height: 48px;
+
+    background-color: #001b3d;
+
+    border: none;
+    border-radius: 25px;
+
+    outline: none;
+
+    padding: 0 25px;
+
+    color: #ffb000;
+
+    font-size: 20px;
+}
+
+.campo-pesquisa::placeholder {
+    color: #9b7100;
+}
+
+
+/* LUPA */
+
+.btn-pesquisar {
+    width: 60px;
+    height: 55px;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-pesquisar img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.lista-avaliacoes {
+    display: flex;
+    flex-direction: column;
+
+    gap: 28px;
+}
+
+.card-avaliacao {
+    background: #001b3d;
+    border: 1px solid #e2e5ef;
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: 0 3px 10px #0000000a;
+}
+
+.pessoa-avaliada {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pessoa-avaliada img {
+    width: 55px;
+    height: 55px;
+    border-radius: 20%;
+    object-fit: cover;
+}
+
+.pessoa-avaliada h4 {
+    margin: 0;
+    color: #ffbd00;
+}
+
+.pessoa-avaliada span {
+    font-size: 15px;
+    color: #858ba0;
+}
+
+.nota {
+    margin-left: auto;
+    font-size: 22px;
+    color: #ffbd00;
+}
+
+.estrelas {
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.estrela {
+    width: 67px;
+}
+
+.descricao span {
+    font-size: 17px;
+    color: #98b3ff;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+}
+
+.descricao p {
+    color: #ebc34f;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 7px;
+}
+
+.data {
+    border-top: 1px solid #e8eaf0;
+    padding-top: 12px;
+    color: #858ba0;
+    font-size: 12px;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 900px) {
+
+    .sidebar-direita,
+    .sidebar-esquerda {
+        width: 100px;
+    }
+
+    .pagina {
+        width: calc(100% - 100px);
+    }
+
+    .header {
+        padding-right: 15px;
+    }
+
+    .logo img {
+        max-width: 350px;
+    }
+
+    .acoes {
+        gap: 8px;
+    }
+
+    .acoes a {
+        min-width: 110px;
+        font-size: 16px;
+    }
+
+    .acoes a img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .sidebar-direita,
+    .sidebar-esquerda {
+        display: none;
+    }
+
+    .pagina {
+        width: 100%;
+    }
+
+    .header {
+        height: auto;
+        min-height: 70px;
+
+        flex-wrap: wrap;
+
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .logo {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .logo img {
+        max-width: 300px;
+    }
+
+    .acoes {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .card-trabalhador {
+        border-radius: 40px;
+
+        padding: 20px;
+
+        flex-direction: column;
+    }
+
+    .informacoes-demanda {
+        width: 100%;
+    }
+
+    .avaliacao {
+        font-size: 20px;
+    }
+
+    .btn-demanda {
+        width: 100%;
+    }
+}
+
+

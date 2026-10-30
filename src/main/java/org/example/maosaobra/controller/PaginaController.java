@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +39,7 @@ public class PaginaController {
 
         model.addAttribute("nome",  pessoa.getNome());
         model.addAttribute("trabalhadores",  trabalhadorService.buscarTodosPorAvaliacao());
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("conversas", conversas);
 
         return "inicioCliente"; // nome do arquivo na pasta templates, e sem o ".html"
@@ -53,6 +53,7 @@ public class PaginaController {
 
         model.addAttribute("nome",  pessoa.getNome());
         model.addAttribute("demandas", demandaService.buscarAbertas());
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("conversas", conversas);
 
         return "inicioPrestador";
@@ -66,6 +67,7 @@ public class PaginaController {
 
         model.addAttribute("nome",  pessoa.getNome());
         model.addAttribute("demandas", demandaService.buscarSolicitacoesPendentes(pessoa.getId()));
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("conversas", conversas);
 
         return "solicitacoesDemanda";
@@ -97,7 +99,9 @@ public class PaginaController {
 
     @GetMapping("/perfil/senha")
     public String alterarSenha(Authentication auth, Model model) {
+
         model.addAttribute("nome", pessoaLogada(auth).getNome());
+
         return "formAlterarSenha";
     }
 
@@ -141,6 +145,7 @@ public class PaginaController {
 
         model.addAttribute("nome", pessoa.getNome());
         model.addAttribute("idConversa", conversa.getId());
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("outraPessoa", outra);
         model.addAttribute("conversas", conversas);
 
@@ -181,6 +186,7 @@ public class PaginaController {
 
         model.addAttribute("nome", pessoa.getNome());
         model.addAttribute("demandas", demandas);
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("demandasConcluidas", aguardandoAvaliacao);
         model.addAttribute("conversas", conversas(pessoa)); // para sidebar de chats
 
@@ -195,6 +201,7 @@ public class PaginaController {
         model.addAttribute("nome", pessoa.getNome());
         model.addAttribute("demandas", demandas);
         model.addAttribute("avaliadas", avaliacaoService.idsJaAvaliadas(demandas, Avaliador.CLIENTE));
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("conversas", conversas(pessoa));
 
         return "minhasDemandas";
@@ -221,6 +228,24 @@ public class PaginaController {
         } catch (IllegalArgumentException e) {
             return "redirect:" + voltar; // ainda não concluída, ou você já avaliou
         }
+    }
+
+    @GetMapping("/avaliar/listar")
+    public String listarAvaliacoesPorAvaliador(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+
+        List<Avaliacao> avaliacoes;
+
+        if (pessoa instanceof Cliente)
+            avaliacoes = avaliacaoService.buscarTodosPeloAvaliador(pessoa.getId(), Avaliador.CLIENTE);
+        else
+            avaliacoes = avaliacaoService.buscarTodosPeloAvaliador(pessoa.getId(), Avaliador.TRABALHADOR);
+
+        model.addAttribute("avaliacoes", avaliacoes);
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
+        model.addAttribute("nome", pessoa.getNome());
+
+        return "historicoAvaliacoes";
     }
 
     // função paga pegar a conta do usuário logada

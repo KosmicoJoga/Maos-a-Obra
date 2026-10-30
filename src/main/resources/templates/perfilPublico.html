@@ -59,7 +59,7 @@
                 <div class="dropdown-navegacao-perfil" id="dropdownNavPerfil">
 
                     <!--OPÇÕES SE FOR CLIENTE    -->
-                    <ul style="list-style: none;" th:unless="${ehTrabalhadorLogado}">
+                    <ul style="list-style: none;" th:unless="${ehTrabalhador}">
 
                         <li>
                             <a href="/minhasDemandas">
@@ -68,7 +68,7 @@
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/avaliar/listar">
                                 <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
                                 Minhas avaliações</a>
                         </li>
@@ -88,7 +88,7 @@
                     </ul>
 
                     <!--OPÇÕES SE FOR TRABALHADOR-->
-                    <ul style="list-style: none;" th:if="${ehTrabalhadorLogado}">
+                    <ul style="list-style: none;" th:if="${ehTrabalhador}">
 
                         <li>
                             <a href="/demandasAceitas">
@@ -103,9 +103,9 @@
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="/avaliar/listar">
                                 <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
-                                Minhas Avaliações</a>
+                                Minhas avaliações</a>
                         </li>
 
                         <li>

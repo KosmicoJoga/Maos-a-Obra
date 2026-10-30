@@ -24,4 +24,8 @@ public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
     @Query("select avg(a.nota) from Avaliacao a where a.cliente.id = :id "
             + "and a.avaliador = org.example.maosaobra.model.Avaliador.TRABALHADOR")
     Double mediaDoCliente(@Param("id") Long id);
+
+    List<Avaliacao> findByCliente_IdAndAvaliador(Long idPessoa, Avaliador avaliador);
+
+    List<Avaliacao> findByTrabalhador_IdAndAvaliador(Long idPessoa, Avaliador avaliador);
 }
