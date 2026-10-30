@@ -19,7 +19,7 @@ public class ServicoController {
     }
 
     @GetMapping
-    public List<Servico> listar() {
-        return servicoService.buscarTodos();
+    public List<Servico> listarOrdemAlfabetica() {
+        return servicoService.buscarPorOrdemAlfabetico();
     }
 }

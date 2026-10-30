@@ -30,4 +30,8 @@ public class ServicoService {
     public Servico buscarPorId(Long id) {
         return servicoRepository.findById(id).orElse(null);
     }
+
+    public List<Servico> buscarPorOrdemAlfabetico() {
+        return servicoRepository.findAllByOrderByTipoAsc();
+    }
 }

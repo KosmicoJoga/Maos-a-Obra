@@ -78,6 +78,7 @@ public class PaginaController {
         List<ConversaDTO> conversas = conversas(pessoa);
 
         model.addAttribute("nome",  pessoa.getNome());
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("pessoa",  pessoa);
         model.addAttribute("conversas", conversas);
 
@@ -120,6 +121,7 @@ public class PaginaController {
         model.addAttribute("nome", logada.getNome());
         model.addAttribute("perfil", perfil);
         model.addAttribute("ehTrabalhador", perfil instanceof Trabalhador);
+        model.addAttribute("ehTrabalhadorLogado", logada instanceof Trabalhador);
         model.addAttribute("podeConversar", (logada instanceof Cliente) != (perfil instanceof Cliente));
         model.addAttribute("podeSolicitar", logada instanceof Cliente && perfil instanceof Trabalhador);
         model.addAttribute("conversas", conversas);

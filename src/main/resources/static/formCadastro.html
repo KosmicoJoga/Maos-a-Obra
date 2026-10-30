@@ -39,25 +39,23 @@
                     <span> Tipo de conta:</span>
                     <label>
                         <input type="radio" name="tipoConta" value="cliente" onclick="MostrarTipo(false)">
-                        Cliente
+                        Contratante
                     </label>
                     <label>
                         <input type="radio" name="tipoConta" value="prestador" onclick="MostrarTipo(true)">
                         Prestador
                     </label>
                 </div>
-                    <div class="tipoDaConta" id="mei" style="display: none">
-                        <span> Possui MEI:</span>
-                        <label>
-                            <input type="radio" name="emei" value="emei">
-                            Sim
-                        </label>
-                        <label>
-                            <div class="tipoDaConta" id="semmei">
-                            <input type="radio" name="emei" value="naomei">
-                            Não
-                            </div>
-                        </label>
+                <div class="tipoDaConta" id="temmei" style="display: none">
+                    <span> Possui MEI:</span>
+                    <label>
+                        <input type="radio" value="emei">
+                        Sim
+                    </label>
+                    <label>
+                        <input type="radio" value="naomei">
+                        Não
+                    </label>
                 </div>
 
                 <div class="nome">
@@ -107,7 +105,7 @@
 
     function MostrarTipo(mostrar) {
         const campo = document.getElementById("tipoPrestador");
-      const mei=    document.getElementById("mei")
+        const mei = document.getElementById("temmei")
         if (mostrar) {
             campo.style.display = "flex";
             mei.style.display = "flex";
@@ -162,7 +160,7 @@
         } else {
             url = "/trabalhadores";
 
-            dados.servico = { id: Number(selectServico.value) };
+            dados.servico = {id: Number(selectServico.value)};
         }
 
         try {
@@ -201,6 +199,7 @@
             selectServico.appendChild(option);
         });
     }
+
     carregarServicos();
 
 </script>

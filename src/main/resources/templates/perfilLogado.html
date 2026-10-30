@@ -49,10 +49,79 @@
                 <span th:text="${nome}">Nome</span>
             </a>
 
-            <button class="logout" onclick="logout()">
-                <img src="/images/sair.png" alt="Logout" id="logout">
-            </button>
+            <div class="navegacao-perfil">
 
+                <button class="btn-navegacao-perfil" onclick="carregarNavPerfil()">
+                    <img src="/images/icone_nav.png" alt="Navegacoes do perfil">
+                </button>
+
+                <div class="dropdown-navegacao-perfil" id="dropdownNavPerfil">
+
+                    <!--OPÇÕES SE FOR CLIENTE    -->
+                    <ul style="list-style: none;" th:unless="${ehTrabalhador}">
+
+                        <li>
+                            <a href="/minhasDemandas">
+                                <img src="/images/icone_demanda_aceita.png" alt="Icone demandas">
+                                Minhas demandas</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
+                                Minhas avaliações</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_historico.png" alt="Icone histórico">
+                                Histórico de demandas</a>
+                        </li>
+
+                        <li>
+                            <a onclick="logout()">
+                                <img src="/images/sair.png" alt="Icone sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!--OPÇÕES SE FOR TRABALHADOR-->
+                    <ul style="list-style: none;" th:if="${ehTrabalhador}">
+
+                        <li>
+                            <a href="/demandasAceitas">
+                                <img src="/images/icone_demanda_aceita.png" alt="Icone demandas">
+                                Demandas aceitas</a>
+                        </li>
+
+                        <li>
+                            <a href="/solicitacoesDemanda">
+                                <img src="/images/icone_solicitacoes.png" alt="Icone demandas">
+                                Solicitações de clientes</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_avaliacoes.png" alt="Icone avaliações">
+                                Minhas Avaliações</a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img src="/images/icone_historico.png" alt="Icone histórico">
+                                Histórico de demandas</a>
+                        </li>
+
+                        <li>
+                            <a onclick="logout()">
+                                <img src="/images/sair.png" alt="Icone sair">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -109,7 +178,7 @@
             <span onclick=mostrarMidias()>Mídias</span>
             <span onclick=mostrarAvaliacoes()>Avaliações</span>
             <span onclick=mostrarHistorico()>Histórico de pedidos</span>
-            <span onclick=mostrarCertificados()>Certificados</span>
+            <span onclick=mostrarCertificados()>Certificados/Expeciências</span>
         </nav>
 
 
@@ -326,6 +395,8 @@
 <script src="/js/logout.js"></script>
 
 <script src="/js/sidebar.js"></script>
+
+<script src="/js/navegacao.js"></script>
 
 <script>
 
