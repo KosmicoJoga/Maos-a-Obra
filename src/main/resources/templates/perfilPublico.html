@@ -59,7 +59,7 @@
                 <div class="dropdown-navegacao-perfil" id="dropdownNavPerfil">
 
                     <!--OPÇÕES SE FOR CLIENTE    -->
-                    <ul style="list-style: none;" th:unless="${ehTrabalhador}">
+                    <ul style="list-style: none;" th:unless="${ehTrabalhadorLogado}">
 
                         <li>
                             <a href="/minhasDemandas">
@@ -88,7 +88,7 @@
                     </ul>
 
                     <!--OPÇÕES SE FOR TRABALHADOR-->
-                    <ul style="list-style: none;" th:if="${ehTrabalhador}">
+                    <ul style="list-style: none;" th:if="${ehTrabalhadorLogado}">
 
                         <li>
                             <a href="/demandasAceitas">
