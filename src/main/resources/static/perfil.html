@@ -24,7 +24,6 @@
 
 </aside>
 
-
 <!-- ÁREA PRINCIPAL -->
 <div class="pagina">
 
@@ -69,6 +68,7 @@
             </button>
 
         </div>
+
     </header>
 
     <!-- CONTEÚDO PRINCIPAL -->
@@ -118,7 +118,6 @@
             <span onclick=mostrarHistorico()>Histórico de pedidos</span>
             <span onclick=mostrarCertificados()>Certificados</span>
         </nav>
-
 
         <section class="informacoes" id="informacoes" style="display: flex;">
 
@@ -348,34 +347,25 @@
 
 </script>
 
-<script>
-
-    async function logout() {
-        const resposta = await fetch("/login/logout", {method: "POST"});
-
-        if (resposta.ok) {
-            window.location.href = "login.html";
-        } else {
-            alert("Erro ao encerrar a sessão");
-        }
-    }
-
-</script>
-
 <aside class="sidebar-notifica" id="mostraNotificacao" style="display: none">
-    <img src="/images/botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar()>
-    <span> Notificações</span>
+
+    <img src="/images/botao_voltar.png" id="btn-voltarSideBar" onclick=SideBar() alt="Voltar">
+    <span>Notificações</span>
+
 </aside>
+
 <aside class="sidebar-direita" id="sidebar">
 
 </aside>
+
 <aside class="sidebar-mensagen" id="mostraMensagen" style="display: none">
-    <img src="/images/botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar()>
-    <span> Mensagens</span>
+
+    <img src="/images/botao_voltar.png" id="btn-voltarSideBarmsg" onclick=SideBar() alt="Voltar">
+    <span>Mensagens</span>
+
 </aside>
 
-
-</body>
+<script src="/js/logout.js"></script>
 
 <script>
     const notificacoes = document.getElementById("mostraNotificacao");
@@ -401,5 +391,7 @@
         mensagen.style.display = "flex";
     }
 </script>
+
+</body>
 
 </html>
