@@ -244,8 +244,25 @@ public class PaginaController {
         model.addAttribute("avaliacoes", avaliacoes);
         model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("nome", pessoa.getNome());
+        model.addAttribute("conversas", conversas(pessoa));
 
         return "historicoAvaliacoes";
+    }
+
+    @GetMapping("/historicoDemandas")
+    public String historicoDemandas(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+
+        boolean ehTrabalhador = pessoa instanceof Trabalhador;
+
+        Avaliador papel = ehTrabalhador ? Avaliador.TRABALHADOR : Avaliador.CLIENTE;
+
+        model.addAttribute("historico", avaliacaoService.buscarTodosPeloAvaliador(pessoa.getId(), papel));
+        model.addAttribute("ehTrabalhador", ehTrabalhador);
+        model.addAttribute("nome", pessoa.getNome());
+        model.addAttribute("conversas", conversas(pessoa));
+
+        return "historicoDemandas";
     }
 
     // função paga pegar a conta do usuário logada

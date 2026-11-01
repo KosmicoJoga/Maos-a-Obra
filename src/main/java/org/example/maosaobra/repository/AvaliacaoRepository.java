@@ -25,7 +25,7 @@ public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
             + "and a.avaliador = org.example.maosaobra.model.Avaliador.TRABALHADOR")
     Double mediaDoCliente(@Param("id") Long id);
 
-    List<Avaliacao> findByCliente_IdAndAvaliador(Long idPessoa, Avaliador avaliador);
+    List<Avaliacao> findByCliente_IdAndAvaliadorOrderByDataAvaliacaoDesc(Long idPessoa, Avaliador avaliador);
 
-    List<Avaliacao> findByTrabalhador_IdAndAvaliador(Long idPessoa, Avaliador avaliador);
+    List<Avaliacao> findByTrabalhador_IdAndAvaliadorOrderByDataAvaliacaoDesc(Long idPessoa, Avaliador avaliador);
 }
