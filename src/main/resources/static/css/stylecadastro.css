@@ -43,23 +43,32 @@ form {
 label {
     gap: 5px;
 }
-.cadastro input{
-    background-color:#001531;
-    color:#ffb000;
+
+.cadastro input {
+    background-color: #001531;
+    color: #ffb000;
 }
+
+.cadastro input:not([type="radio"]) {
+    width: 175px;            /* a mesma largura do #servico */
+    box-sizing: border-box;  /* a largura inclui borda e padding, então todos ficam iguais */
+}
+
 .nome,
 .email,
 .idade,
 .ConfirmaEmail,
-.senha,.tipoPrestador {
+.senhaConfirmada,
+.senha,
+.tipoPrestador {
     gap: 5px;
-    display:flex;
+    display: flex;
     align-items: center;
 }
 
 select {
-    background-color:#001531;
-    color:#ffb000;
+    background-color: #001531;
+    color: #ffb000;
 }
 
 .nome > label,
@@ -67,34 +76,41 @@ select {
 .email > label,
 .ConfirmaEmail > label,
 .senha > label,
-.tipoPrestador >label{
+.senhaConfirmada > label,
+.tipoPrestador > label {
     width: 130px;
     text-align: right;
 }
-#servico{
-    width: 167px;
+
+#servico {
+    width: 175px;
 }
-#mei{
+
+#mei {
 
     width: 234px;
     gap: 5px;
 }
-#semmei{
+
+#semmei {
     margin-inline: 22px;
 }
 
-.jatemconta{
+.jatemconta {
     display: flex;
     align-items: center;
 }
-#texto-conta{
+
+#texto-conta {
     color: gray;
 }
-    #link-entrar a, #link-entrar a:visited {
 
-        text-decoration: underline;
-        color: #ffb000;
-    }
+#link-entrar a, #link-entrar a:visited {
+
+    text-decoration: underline;
+    color: #ffb000;
+}
+
 .btn-enviar {
     border-radius: 25px;
     background-color: green;
