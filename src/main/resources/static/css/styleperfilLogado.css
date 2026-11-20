@@ -77,18 +77,18 @@
 }
 
 #btn-redefinir{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        margin: 20px;
-        width: fit-content;
-        gap: 15px;
-        border-radius: 30px;
-        padding: 10px 15px;
-        font-size: 30px;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin: 20px;
+    width: fit-content;
+    gap: 15px;
+    border-radius: 30px;
+    padding: 10px 15px;
+    font-size: 30px;
+}
 
 #btn-informacoes{
     display: flex;
@@ -101,7 +101,7 @@
     gap: 15px;
 }
 
-#btn-midia{
+#btn-experiencias{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -174,3 +174,157 @@
 }
 
 
+
+/* Abas do perfil */
+.abas-perfil {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.abas-perfil span {
+    padding: 12px 16px;
+    border-radius: 9px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background .2s, color .2s;
+}
+
+.abas-perfil span:hover {
+    background: #286bb5;
+    color: #ffbd00;
+}
+
+/* Áreas de experiências e certificados */
+.certificados,
+.experiencias {
+    width: 100%;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    padding: 28px 32px 40px;
+    color: #fff;
+}
+
+.certificados > .botao-verde,
+.experiencias > .botao-verde {
+    align-self: flex-start;
+    margin: 0 0 6px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.certificados > .botao-verde:hover,
+.experiencias > .botao-verde:hover {
+    background: #009b35;
+}
+
+.certificados > h2,
+.experiencias > h2 {
+    margin: 0 0 4px;
+    color: #ffbd00;
+    font-size: 25px;
+}
+
+.item-certificado,
+.item-experiencia {
+    width: 100%;
+    padding: 22px 24px;
+    border: 1px solid #3676b5;
+    border-left: 5px solid #ffb000;
+    border-radius: 12px;
+    background: #002650;
+    box-shadow: 0 5px 14px rgb(0 0 0 / 15%);
+}
+
+.item-certificado h3,
+.item-experiencia h3 {
+    margin: 0 0 10px;
+    color: #ffbd00;
+    font-size: 21px;
+}
+
+.item-experiencia p {
+    margin: 7px 0;
+    color: #e3edf8;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.item-experiencia p:last-of-type {
+    margin-top: 14px;
+    color: #a9c9e8;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.item-certificado a {
+    display: inline-block;
+    margin-top: 5px;
+    color: #8fc8ff;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.item-certificado a:hover {
+    color: #ffbd00;
+    text-decoration: underline;
+}
+
+.item-certificado button,
+.item-experiencia button {
+    margin-top: 15px;
+    padding: 9px 16px;
+    border: 1px solid #d94a4a;
+    border-radius: 20px;
+    background: transparent;
+    color: #ff8c8c;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+.item-certificado button:hover,
+.item-experiencia button:hover {
+    background: #b52b2b;
+    color: white;
+}
+
+.mensagem-vazia {
+    width: 100%;
+    padding: 22px;
+    border: 1px dashed #5d83a9;
+    border-radius: 10px;
+    background: rgb(0 21 49 / 45%);
+    color: #d4e2f1;
+    text-align: center;
+}
+
+/* Mantém os cards de informações existentes independentes destas abas */
+@media (max-width: 700px) {
+    .abas-perfil {
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .abas-perfil span {
+        font-size: 15px;
+        padding: 9px 11px;
+    }
+
+    .certificados,
+    .experiencias {
+        padding: 20px 15px 30px;
+    }
+
+    .item-certificado,
+    .item-experiencia {
+        padding: 18px;
+    }
+}

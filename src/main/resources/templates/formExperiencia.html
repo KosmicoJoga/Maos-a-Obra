@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mãos à Obra</title>
+
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/styleformcertificado.css">
+    <link rel="icon" type="image/png" href="/images/logo_TCC.png">
+</head>
+
+<body>
+
+<aside class="sidebar-esquerda">
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/botao_voltar.png" alt="Voltar">
+    </button>
+</aside>
+
+<div class="pagina">
+
+    <header class="header">
+        <div class="logo">
+            <a href="/perfil/logado">
+                <img src="/images/logo_titulo_horizontal.png" alt="Mãos à Obra">
+            </a>
+        </div>
+    </header>
+
+    <main class="conteudo">
+
+        <h1>Cadastrar experiência profissional</h1>
+
+        <form class="form-perfil" id="formExperiencia">
+
+            <div>
+                <label for="cargo">Cargo ou função:</label>
+                <input type="text" id="cargo" name="cargo" maxlength="150" required>
+            </div>
+
+            <div>
+                <label for="empresa">Empresa ou local de trabalho:</label>
+                <input type="text" id="empresa" name="empresa" maxlength="150">
+            </div>
+
+            <div>
+                <label for="descricao">Descrição das atividades:</label>
+                <textarea id="descricao" name="descricao" rows="5"></textarea>
+            </div>
+
+            <div>
+                <label for="dataInicio">Data de início:</label>
+                <input type="date" id="dataInicio" name="dataInicio" required>
+            </div>
+
+            <div>
+                <label for="dataFim">Data de término:</label>
+                <input type="date" id="dataFim" name="dataFim">
+                <small>Deixe em branco caso ainda esteja trabalhando nessa função.</small>
+            </div>
+
+            <button type="submit">Cadastrar experiência</button>
+
+        </form>
+
+    </main>
+</div>
+
+<aside class="sidebar-direita">
+
+</aside>
+
+<script>
+    document.getElementById("formExperiencia").addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+        const dados = new FormData(form);
+
+        try {
+            const resposta = await fetch("/api/perfil/experiencias", {
+                method: "POST",
+                body: dados
+            });
+
+            if (resposta.ok) {
+                alert("Experiência cadastrada com sucesso!");
+                window.location.href = "/perfil/logado";
+            } else if (resposta.status === 400) {
+                const erro = await resposta.json();
+                alert(erro.erro);
+            } else {
+                alert("Não foi possível cadastrar a experiência!");
+            }
+
+        } catch (e) {
+            alert("Não foi possível conectar ao servidor!");
+        }
+    });
+</script>
+
+</body>
+</html>

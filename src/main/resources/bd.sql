@@ -7,7 +7,7 @@ MAOSAOBRA;
 
 CREATE TABLE pessoa
 (
-    id_pessoa INT PRIMARY KEY auto_increment,
+    id_pessoa INT PRIMARY KEY AUTO_INCREMENT,
     nome      VARCHAR(100)        NOT NULL,
     idade     INT                 NOT NULL,
     email     VARCHAR(255) UNIQUE NOT NULL,
@@ -68,11 +68,25 @@ CREATE TABLE mei
 
 create table certificado
 (
-    id_certificado INT PRIMARY KEY,
-    id_prestador   INT,
-    curso          varchar(150) not null,
-    foto           mediumblob,
-    foreign key (id_prestador) references trabalhador (id_pessoa) ON DELETE CASCADE
+    id_certificado INT PRIMARY KEY AUTO_INCREMENT,
+    id_prestador   INT NOT NULL,
+    curso          VARCHAR(150) NOT NULL,
+    foto           MEDIUMBLOB NOT NULL,
+    nome_arquivo   VARCHAR(255) NOT NULL,
+    tipo_conteudo  VARCHAR(100) NOT NULL,
+    FOREIGN KEY (id_prestador) REFERENCES trabalhador (id_pessoa) ON DELETE CASCADE
+);
+
+CREATE TABLE experiencia
+(
+	id_experiencia INT PRIMARY KEY AUTO_INCREMENT,
+    id_prestador INT NOT NULL,
+    cargo VARCHAR(150) NOT NULL,
+    empresa VARCHAR(150),
+    descricao TEXT,
+    data_inicio DATE NOT NULL,
+    data_fim DATE,
+    FOREIGN KEY (id_prestador) REFERENCES trabalhador (id_pessoa) ON DELETE CASCADE
 );
 
 CREATE TABLE obra
@@ -114,7 +128,7 @@ CREATE TABLE demanda
 
 CREATE TABLE avaliacao
 (
-    id_avaliacao   INT PRIMARY KEY auto_increment,
+    id_avaliacao   INT PRIMARY KEY AUTO_INCREMENT,
     id_demanda     INT NOT NULL,
     avaliador      ENUM('CLIENTE','TRABALHADOR') NOT NULL,
     id_cliente     INT NOT NULL,

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mãos à Obra</title>
+
+    <link rel="stylesheet" href="/css/styleformcertificado.css?v=3">
+    <link rel="stylesheet" href="/css/geral.css">
+
+    <link rel="icon" type="image/png" href="/images/logo_TCC.png">
+</head>
+
+<body>
+
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+
+<div class="pagina">
+
+    <header class="header">
+
+        <div class="logo">
+            <a href="/index.html">
+                <img src="/images/logo_titulo_horizontal.png" alt="Mãos à Obra">
+            </a>
+        </div>
+
+    </header>
+
+    <main class="conteudo">
+
+        <div class="texto">
+            <h1>Cadastrar certificado</h1>
+        </div>
+
+        <form class="form-perfil form-certificado" id="formCertificado" enctype="multipart/form-data">
+
+            <div>
+                <label for="curso">Nome do certificado:</label>
+                <input type="text" id="curso" name="curso" maxlength="150" required>
+            </div>
+
+            <div>
+                <label for="arquivo">Arquivo do certificado:</label>
+                <input type="file" id="arquivo" name="arquivo" accept=".pdf,.png,.jpg,.jpeg" required>
+            </div>
+
+            <button type="submit" class="botao">Cadastrar certificado</button>
+
+        </form>
+
+    </main>
+
+</div>
+
+<aside class="sidebar-direita">
+
+</aside>
+
+<script>
+
+    document.getElementById("formCertificado").addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+        const dados = new FormData(form);
+
+        try {
+            const resposta = await fetch("/api/perfil/certificados", {
+                method: "POST",
+                body: dados
+            });
+
+            if (resposta.ok) {
+                alert("Certificado cadastrado com sucesso!");
+                window.location.href = "/perfil/logado";
+            } else if (resposta.status === 400) {
+                const erro = await resposta.json();
+                alert(erro.erro);
+            } else
+                alert("Não foi possível cadastrar o certificado!");
+        } catch (e) {
+            alert("Não foi possível conectar ao servidor!");
+        }
+    });
+
+</script>
+
+</body>
+
+</html>

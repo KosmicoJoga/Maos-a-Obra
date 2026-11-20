@@ -22,13 +22,17 @@ public class PaginaController {
     private final ChatService chatService;
     private final TrabalhadorService trabalhadorService;
     private final AvaliacaoService avaliacaoService;
+    private final CertificadoService certificadoService;
+    private final ExperienciaService experienciaService;
 
-    public PaginaController(DemandaService demandaService, PessoaService pessoaService, ChatService chatService, TrabalhadorService trabalhadorService, AvaliacaoService avaliacaoService) {
+    public PaginaController(DemandaService demandaService, PessoaService pessoaService, ChatService chatService, TrabalhadorService trabalhadorService, AvaliacaoService avaliacaoService, CertificadoService certificadoService, ExperienciaService experienciaService) {
         this.demandaService = demandaService;
         this.pessoaService = pessoaService;
         this.chatService = chatService;
         this.trabalhadorService = trabalhadorService;
         this.avaliacaoService = avaliacaoService;
+        this.certificadoService = certificadoService;
+        this.experienciaService = experienciaService;
     }
 
     @GetMapping("/inicioCliente")
@@ -73,20 +77,6 @@ public class PaginaController {
         return "solicitacoesDemanda";
     }
 
-    @GetMapping("/perfil/logado")
-    public String perfilLogado(Authentication auth, Model model) {
-        Pessoa pessoa = pessoaLogada(auth);
-
-        List<ConversaDTO> conversas = conversas(pessoa);
-
-        model.addAttribute("nome",  pessoa.getNome());
-        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
-        model.addAttribute("pessoa",  pessoa);
-        model.addAttribute("conversas", conversas);
-
-        return "perfilLogado";
-    }
-
     @GetMapping("/perfil/editar")
     public String editarPerfil(Authentication auth, Model model) {
         Pessoa pessoa = pessoaLogada(auth);
@@ -103,6 +93,25 @@ public class PaginaController {
         model.addAttribute("nome", pessoaLogada(auth).getNome());
 
         return "formAlterarSenha";
+    }
+
+    @GetMapping("/perfil/logado")
+    public String perfilLogado(Authentication auth, Model model) {
+        Pessoa pessoa = pessoaLogada(auth);
+
+        List<ConversaDTO> conversas = conversas(pessoa);
+
+        model.addAttribute("nome",  pessoa.getNome());
+        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
+        model.addAttribute("pessoa",  pessoa);
+        model.addAttribute("conversas", conversas);
+
+        if (pessoa instanceof Trabalhador trabalhador) {
+            model.addAttribute("certificados", certificadoService.buscarPorTrabalhador(trabalhador.getId()));
+            model.addAttribute("experiencias", experienciaService.buscarPorTrabalhador(trabalhador.getId()));
+        }
+
+        return "perfilLogado";
     }
 
     // {id:\\d+} restringe o id apenas a números, para não dar conflito com outros caminhos de /perfil
@@ -129,6 +138,11 @@ public class PaginaController {
         model.addAttribute("podeConversar", (logada instanceof Cliente) != (perfil instanceof Cliente));
         model.addAttribute("podeSolicitar", logada instanceof Cliente && perfil instanceof Trabalhador);
         model.addAttribute("conversas", conversas);
+
+        if (perfil instanceof Trabalhador trabalhador) {
+            model.addAttribute("certificados", certificadoService.buscarPorTrabalhador(trabalhador.getId()));
+            model.addAttribute("experiencias", experienciaService.buscarPorTrabalhador(trabalhador.getId()));
+        }
 
         return "perfilPublico";
     }
@@ -263,6 +277,32 @@ public class PaginaController {
         model.addAttribute("conversas", conversas(pessoa));
 
         return "historicoDemandas";
+    }
+
+    @GetMapping("/perfil/experiencia/cadastrar")
+    public String cadastrarExperiencia(Authentication auth, Model model) {
+
+        Pessoa pessoa = pessoaLogada(auth);
+
+        if (!(pessoa instanceof Trabalhador))
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Somente trabalhadores podem cadastrar experiências!");
+
+        model.addAttribute("nome", pessoa.getNome());
+
+        return "formExperiencia";
+    }
+
+    @GetMapping("/perfil/certificado/cadastrar")
+    public String cadastrarCertificado(Authentication auth, Model model) {
+
+        Pessoa pessoa = pessoaLogada(auth);
+
+        if (!(pessoa instanceof Trabalhador))
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Somente trabalhadores podem cadastrar certificados!");
+
+        model.addAttribute("nome", pessoa.getNome());
+
+        return "formCertificado";
     }
 
     // função paga pegar a conta do usuário logada

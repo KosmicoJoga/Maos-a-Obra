@@ -175,7 +175,7 @@
         <!-- ABAS DO PERFIL -->
         <nav class="abas-perfil">
             <span onclick=mostrarInformacoes()>Informações</span>
-            <span onclick=mostrarMidias()>Mídias</span>
+            <span onclick=mostrarExperiencias()>Experiências</span>
             <span onclick=mostrarAvaliacoes()>Avaliações</span>
             <span onclick=mostrarHistorico()>Histórico de pedidos</span>
             <span onclick=mostrarCertificados()>Certificados</span>
@@ -230,30 +230,51 @@
         </section>
 
         <section class="certificados" id="certificados" style="display: none">
+            <h2>Certificados</h2>
+
+            <p class="mensagem-vazia" th:if="${#lists.isEmpty(certificados)}">
+                Este trabalhador ainda não cadastrou certificados no perfil.
+            </p>
+
+            <article class="item-certificado" th:each="certificado : ${certificados}">
+                <h3 th:text="${certificado.curso}"></h3>
+
+                <a th:href="@{/api/perfil/certificados/{id}/arquivo(id=${certificado.id})}"
+                   target="_blank">
+                    Visualizar certificado
+                </a>
+            </article>
 
         </section>
 
-        <section class="mídia" id="midia" style="display: none">
-            O nosso time mostra a sua raça no jogo
-            É o América, América
-            Vai conquistando o coração do povo no jogo
-            E na torcida eu sou América
+        <section class="experiencias" id="experiencias" style="display: none">
+            <h2>Experiências</h2>
 
-            Eu sou América e tenho orgulho de ser
-            Porque o América em tudo é o melhor
-            É alegria no esporte e no futebol
-            América, América
+            <p class="mensagem-vazia" th:if="${#lists.isEmpty(experiencias)}">
+                Este trabalhador ainda não cadastrou experiências no perfil.
+            </p>
 
-            Meu coração vibra nas suas cores
-            Eu sou, eu sou América, América
-            E uma canção que canta mil amores, enfim
+            <article class="item-experiencia" th:each="experiencia : ${experiencias}">
 
-            Cantou América, América
-            Vamos em frente gente Americana
-            Mostrar que o nosso time entrou pra valer
-            Bola pra frente, quero ver jogando pra ganhar
-            América, América
+                <h3 th:text="${experiencia.cargo}"></h3>
+
+                <p th:if="${experiencia.empresa != null}" th:text="${experiencia.empresa}"></p>
+
+                <p th:if="${experiencia.descricao != null}" th:text="${experiencia.descricao}"></p>
+
+                <p>
+                    <span th:text="${#temporals.format(experiencia.dataInicio, 'MM/yyyy')}"></span>
+                    até
+                    <span th:if="${experiencia.dataFim != null}" th:text="${#temporals.format(experiencia.dataFim, 'MM/yyyy')}"></span>
+
+                    <span th:if="${experiencia.dataFim == null}">
+                    Atualmente
+                    </span>
+                </p>
+            </article>
+
         </section>
+
         <section class="Avaliações" id="avaliacoes" style="display: none">
             O meu coração entra em campo
             Com o Mirassol
@@ -389,7 +410,7 @@
 
     const informacoes = document.getElementById("informacoes");
     const certificados = document.getElementById("certificados");
-    const midia = document.getElementById("midia")
+    const experiencias = document.getElementById("experiencias")
     const avaliacoes = document.getElementById("avaliacoes")
     const historico = document.getElementById("historico");
 
@@ -398,7 +419,7 @@
     function mostrarInformacoes() {
         informacoes.style.display = "flex";
         certificados.style.display = "none";
-        midia.style.display = "none";
+        experiencias.style.display = "none";
         historico.style.display = "none";
         avaliacoes.style.display = "none";
     }
@@ -406,15 +427,15 @@
     function mostrarCertificados() {
         informacoes.style.display = "none";
         certificados.style.display = "flex";
-        midia.style.display = "none";
+        experiencias.style.display = "none";
         historico.style.display = "none";
         avaliacoes.style.display = "none";
     }
 
-    function mostrarMidias() {
+    function mostrarExperiencias() {
         certificados.style.display = "none";
         informacoes.style.display = "none";
-        midia.style.display = "flex";
+        experiencias.style.display = "flex";
         historico.style.display = "none";
         avaliacoes.style.display = "none";
     }
@@ -422,7 +443,7 @@
     function mostrarAvaliacoes() {
         certificados.style.display = "none";
         informacoes.style.display = "none";
-        midia.style.display = "none";
+        experiencias.style.display = "none";
         avaliacoes.style.display = "flex";
         historico.style.display = "none";
     }
@@ -430,7 +451,7 @@
     function mostrarHistorico() {
         certificados.style.display = "none";
         informacoes.style.display = "none";
-        midia.style.display = "none";
+        experiencias.style.display = "none";
         avaliacoes.style.display = "none";
         historico.style.display = "flex"
     }
