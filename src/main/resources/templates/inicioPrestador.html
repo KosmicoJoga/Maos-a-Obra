@@ -130,10 +130,40 @@
         <!-- PESQUISA -->
         <section class="pesquisa">
 
-            <button class="btn-filtro">
-                <img src="/images/filtro.png" alt="Filtros">
-            </button>
+            <div class="area-filtro">
+                <button class="btn-filtro" onclick="MostraFiltro()">
+                    <img src="/images/filtro.png" alt="Filtros">
+                </button>
 
+                <div id="opcoesFiltro" style="display: none">
+                    Serviços:
+                    <div class="servico">
+                        <label><input type="checkbox" name="servicos" value="Eletricista"> Eletricista</label>
+                        <label><input type="checkbox" name="servicos" value="Faxineiro"> Faxineiro</label>
+                        <label><input type="checkbox" name="servicos" value="Encanador"> Encanador</label>
+                        <label><input type="checkbox" name="servicos" value="Pintor"> Pintor</label>
+                        <label><input type="checkbox" name="servicos" value="Construtor"> Construtor</label>
+                        <label><input type="checkbox" name="servicos" value="Pedreiro"> Pedreiro</label>
+                        <label><input type="checkbox" name="servicos" value="Babá"> Babá</label>
+                        <label><input type="checkbox" name="servicos" value="Auxiliar de cozinha"> Auxiliar de cozinha</label>
+                        <label><input type="checkbox" name="servicos" value="Marceneiro"> Marceneiro</label>
+                        <label><input type="checkbox" name="servicos" value="Diarista"> Diarista</label>
+                        <label><input type="checkbox" name="servicos" value="Jardineiro"> Jardineiro</label>
+                        <label><input type="checkbox" name="servicos" value="Chaveiro"> Chaveiro</label>
+                        <label><input type="checkbox" name="servicos" value="Montador de móveis"> Montador de móveis</label>
+                        <label><input type="checkbox" name="servicos" value="Técnico de eletrodomésticos"> Técnico de eletrodomésticos</label>
+                        <label><input type="checkbox" name="servicos" value="Instalador de ar-condicionado"> Instalador de ar-condicionado</label>
+                        <label><input type="checkbox" name="servicos" value="Vidraceiro"> Vidraceiro</label>
+                        <label><input type="checkbox" name="servicos" value="Passeador de cães"> Passeador de cães</label>
+                        <label><input type="checkbox" name="servicos" value="Fretes e mudanças"> Fretes e mudanças</label>
+                    </div>
+                    <div class="botao">
+                        <button class="botao-verde" id="btn-aplicarFiltros" type="button">
+                            Aplicar
+                        </button>
+                    </div>
+                </div>
+            </div>
             <label for="pesquisa"></label>
             <input id="pesquisa" class="campo-pesquisa" type="text" placeholder="Pesquise aqui...">
 
@@ -225,6 +255,14 @@
 <aside class="sidebar-direita" id="sidebar">
 
 </aside>
+
+<script>
+    const filtro= document.getElementById("opcoesFiltro");
+
+    function MostraFiltro(){
+        filtro.style.display= "flex";
+    }
+</script>
 
 <script src="/js/logout.js"></script>
 

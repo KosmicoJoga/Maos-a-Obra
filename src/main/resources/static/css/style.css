@@ -1,5 +1,5 @@
 
-/* BOTÕES DO HEADER */
+
 
 .acoes {
     height: 100%;
@@ -17,9 +17,6 @@
 }
 
 
-/* =========================
-   CONTEÚDO
-========================= */
 
 .conteudo {
     width: 100%;
@@ -32,9 +29,6 @@
 }
 
 
-/* =========================
-   PESQUISA
-========================= */
 
 .pesquisa {
     width: min(730px, 90%);
@@ -54,7 +48,6 @@
 }
 
 
-/* BOTÃO FILTRO */
 
 .btn-filtro {
     width: 55px;
@@ -69,15 +62,56 @@
     align-items: center;
     justify-content: center;
 }
-
 .btn-filtro img {
     width: 45px;
     height: 45px;
     object-fit: contain;
 }
+.area-filtro {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#opcoesFiltro {
+    display: none;
+    position: absolute;
 
 
-/* CAMPO */
+    top: calc(100% + 10px);
+    left: 0;
+
+    width: 370px;
+    box-sizing: border-box;
+
+    background-color: #001d41;
+    color: #ffb000;
+
+
+    border-radius: 15px;
+
+    padding: 15px;
+
+    z-index: 10;
+}
+.servico label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+#opcoesFiltro {
+    flex-direction: column;
+}
+
+.botao {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+
+
 
 .campo-pesquisa {
     flex: 1;
@@ -103,7 +137,6 @@
 }
 
 
-/* LUPA */
 
 .btn-pesquisar {
     width: 60px;
@@ -126,9 +159,6 @@
 }
 
 
-/* =========================
-   LISTA DE TRABALHADORES
-========================= */
 
 .lista-trabalhadores {
     width: min(630px, 90%);
@@ -140,9 +170,6 @@
 }
 
 
-/* =========================
-   CARD
-========================= */
 
 .card-trabalhador {
     width: 100%;
@@ -161,9 +188,6 @@
 }
 
 
-/* =========================
-   FOTO
-========================= */
 
 .foto-trabalhador {
     width: 170px;
@@ -190,9 +214,6 @@
 }
 
 
-/* =========================
-   INFORMAÇÕES
-========================= */
 
 .informacoes-trabalhador {
     flex: 1;
@@ -207,7 +228,6 @@
 }
 
 
-/* NOME E SERVIÇO */
 
 .dados-trabalhador {
     grid-column: 1;
@@ -232,9 +252,6 @@
 }
 
 
-/* =========================
-   AVALIAÇÃO
-========================= */
 
 .avaliacao {
     grid-column: 2;
@@ -258,9 +275,6 @@
 }
 
 
-/* =========================
-   BOTÃO VER PERFIL
-========================= */
 
 .btn-perfil {
     grid-column: 1 / 3;
@@ -297,9 +311,6 @@
 }
 
 
-/* =========================
-   RESPONSIVIDADE
-========================= */
 
 @media (max-width: 900px) {
 
