@@ -43,7 +43,10 @@
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario" href="/perfil/logado">
-                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <img th:src="${pessoaLogada.fotoPerfil != null
+                ? '/perfil/foto/' + pessoaLogada.id
+                : '/images/foto_perfil.png'}"
+                     alt="Foto do usuário">
                 <span th:text="${nome}">Nome</span>
             </a>
 
@@ -128,14 +131,21 @@
     <main class="conteudo">
 
         <!-- CHAT -->
-        <h2 class="titulo" th:text="'Conversa com ' + ${outraPessoa}">Conversa</h2>
+        <div class="titulo-conversa">
+            <img th:src="@{/perfil/foto/{id}(id=${idOutraPessoa})}"
+                 onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                 alt="Foto da pessoa">
+
+            <h2 th:text="'Conversa com ' + ${outraPessoa}">Conversa</h2>
+        </div>
 
         <section class="mensagens-chat" id="listaMensagens" th:data-id="${idConversa}"></section>
 
         <form class="form-mensagem" id="formMensagem">
 
             <label for="conteudo"></label>
-            <input type="text" id="conteudo" maxlength="1000" autocomplete="off" placeholder="Digite sua mensagem..." required>
+            <input type="text" id="conteudo" maxlength="1000" autocomplete="off" placeholder="Digite sua mensagem..."
+                   required>
 
             <button type="submit" class="btn-enviar">Enviar Mensagem</button>
 
@@ -164,12 +174,17 @@
 
     <!-- LISTA DE CHATS/CONVERSAS -->
     <section class="lista-conversas">
+
         <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
-            <img src="/images/foto_perfil.png" alt="Foto">
+            <img th:src="@{/perfil/foto/{id}(id=${c.idOutraPessoa})}"
+                 onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                 alt="Foto">
+
             <span th:text="${c.nomeOutraPessoa}">Nome</span>
         </a>
 
         <p th:if="${#lists.isEmpty(conversas)}">Você ainda não tem conversas.</p>
+
     </section>
 </aside>
 

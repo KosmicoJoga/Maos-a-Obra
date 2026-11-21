@@ -2,18 +2,27 @@
     text-align: center;
 }
 
-.titulo {
-    text-align: center;
-
-    margin: 20px;
-    padding: 10px;
-
-    background-color: #001b3d;
+.titulo-conversa {
+    display: flex;
 
     width: fit-content;
 
+    align-items: center;
+    text-align: center;
+
+    gap: 15px;
+    margin: 20px;
+    padding: 10px;
     border-radius: 20px;
 
+    background-color: #001b3d;
+}
+
+.titulo-conversa img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25%;
+    object-fit: cover;
 }
 
 .mensagens-chat {

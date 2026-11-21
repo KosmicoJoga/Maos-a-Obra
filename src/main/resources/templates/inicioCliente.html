@@ -42,8 +42,12 @@
             <a class="mensagens" onclick="carregarConversas()">
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
+
             <a class="usuario" href="/perfil/logado">
-                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <img th:src="${pessoaLogada.fotoPerfil != null
+                ? '/perfil/foto/' + pessoaLogada.id
+                : '/images/foto_perfil.png'}"
+                     alt="Foto do usuário">
                 <span th:text="${nome}">Nome</span>
             </a>
 
@@ -145,17 +149,23 @@
                         <label><input type="checkbox" name="servicos" value="Construtor"> Construtor</label>
                         <label><input type="checkbox" name="servicos" value="Pedreiro"> Pedreiro</label>
                         <label><input type="checkbox" name="servicos" value="Babá"> Babá</label>
-                        <label><input type="checkbox" name="servicos" value="Auxiliar de cozinha"> Auxiliar de cozinha</label>
+                        <label><input type="checkbox" name="servicos" value="Auxiliar de cozinha"> Auxiliar de
+                            cozinha</label>
                         <label><input type="checkbox" name="servicos" value="Marceneiro"> Marceneiro</label>
                         <label><input type="checkbox" name="servicos" value="Diarista"> Diarista</label>
                         <label><input type="checkbox" name="servicos" value="Jardineiro"> Jardineiro</label>
                         <label><input type="checkbox" name="servicos" value="Chaveiro"> Chaveiro</label>
-                        <label><input type="checkbox" name="servicos" value="Montador de móveis"> Montador de móveis</label>
-                        <label><input type="checkbox" name="servicos" value="Técnico de eletrodomésticos"> Técnico de eletrodomésticos</label>
-                        <label><input type="checkbox" name="servicos" value="Instalador de ar-condicionado"> Instalador de ar-condicionado</label>
+                        <label><input type="checkbox" name="servicos" value="Montador de móveis"> Montador de
+                            móveis</label>
+                        <label><input type="checkbox" name="servicos" value="Técnico de eletrodomésticos"> Técnico de
+                            eletrodomésticos</label>
+                        <label><input type="checkbox" name="servicos" value="Instalador de ar-condicionado"> Instalador
+                            de ar-condicionado</label>
                         <label><input type="checkbox" name="servicos" value="Vidraceiro"> Vidraceiro</label>
-                        <label><input type="checkbox" name="servicos" value="Passeador de cães"> Passeador de cães</label>
-                        <label><input type="checkbox" name="servicos" value="Fretes e mudanças"> Fretes e mudanças</label>
+                        <label><input type="checkbox" name="servicos" value="Passeador de cães"> Passeador de
+                            cães</label>
+                        <label><input type="checkbox" name="servicos" value="Fretes e mudanças"> Fretes e
+                            mudanças</label>
                     </div>
                     <div class="botao">
                         <button class="botao-verde" id="btn-aplicarFiltros" type="button">
@@ -191,7 +201,9 @@
             <article class="card-trabalhador" th:each="t : ${trabalhadores}">
 
                 <div class="foto-trabalhador">
-                    <img src="/images/foto_perfil.png" alt="Foto do Trabalhador">
+                    <img th:src="@{/perfil/foto/{id}(id=${t.id})}"
+                         onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                         alt="Foto do Trabalhador">
                 </div>
 
                 <div class="informacoes-trabalhador">
@@ -244,7 +256,9 @@
     <!-- LISTA DE CHATS/CONVERSAS -->
     <section class="lista-conversas">
         <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
-            <img src="/images/foto_perfil.png" alt="Foto">
+            <img th:src="@{/perfil/foto/{id}(id=${c.idOutraPessoa})}"
+                 onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                 alt="Foto da pessoa">
             <span th:text="${c.nomeOutraPessoa}">Nome</span>
         </a>
 
@@ -258,10 +272,10 @@
 </aside>
 
 <script>
-    const filtro= document.getElementById("opcoesFiltro");
+    const filtro = document.getElementById("opcoesFiltro");
 
-    function MostraFiltro(){
-        filtro.style.display= "flex";
+    function MostraFiltro() {
+        filtro.style.display = "flex";
     }
 </script>
 

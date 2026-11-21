@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -159,14 +160,15 @@ public class PaginaController {
         Conversa conversa = chatService.buscarSeParticipa(id, pessoa);  // 404 se não participa
         List<ConversaDTO> conversas = conversas(pessoa);
 
-        String outra = conversa.getCliente().getId().equals(pessoa.getId())
-                ? conversa.getTrabalhador().getNome()
-                : conversa.getCliente().getNome();
+        Pessoa outra = conversa.getCliente().getId().equals(pessoa.getId())
+                ? conversa.getTrabalhador()
+                : conversa.getCliente();
 
         model.addAttribute("nome", pessoa.getNome());
         model.addAttribute("idConversa", conversa.getId());
         model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
-        model.addAttribute("outraPessoa", outra);
+        model.addAttribute("outraPessoa", outra.getNome());
+        model.addAttribute("idOutraPessoa", outra.getId());
         model.addAttribute("conversas", conversas);
 
         return "chat";
@@ -320,6 +322,16 @@ public class PaginaController {
         return "formCertificado";
     }
 
+    @ModelAttribute("pessoaLogada")
+    public Pessoa adicionarPessoaLogada(Authentication auth) {
+        if (auth == null)
+            return null;
+
+        return pessoaService.buscarPorEmail(auth.getName());
+    }
+
+    // FUNÇÕES PRIVADAS USADAS SOMENTE NESTE CONTROLLER
+
     // função paga pegar a conta do usuário logada
     private Pessoa pessoaLogada(Authentication auth) {
         return pessoaService.buscarPorEmail(auth.getName());
@@ -329,9 +341,16 @@ public class PaginaController {
     private List<ConversaDTO> conversas(Pessoa pessoa) {
 
         return chatService.minhasConversas(pessoa).stream()
-                .map(c -> new ConversaDTO(c.getId(), c.getCliente().getId().equals(pessoa.getId())
-                        ? c.getTrabalhador().getNome()
-                        : c.getCliente().getNome()))
-                .toList();
+                .map(c -> {
+                    Pessoa outra = c.getCliente().getId().equals(pessoa.getId())
+                            ? c.getTrabalhador()
+                            : c.getCliente();
+
+                    return new ConversaDTO(
+                            c.getId(),
+                            outra.getId(),
+                            outra.getNome()
+                    );
+                }).toList();
     }
 }

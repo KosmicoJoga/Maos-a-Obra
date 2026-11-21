@@ -43,7 +43,10 @@
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario" href="/perfil/logado">
-                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <img th:src="${pessoaLogada.fotoPerfil != null
+                ? '/perfil/foto/' + pessoaLogada.id
+                : '/images/foto_perfil.png'}"
+                     alt="Foto do usuário">
                 <span th:text="${nome}">Nome</span>
             </a>
 
@@ -166,9 +169,17 @@
                             </span>
                         </p>
 
-                        <p><strong>PRESTADOR: </strong>
-                            <span th:text="${d.trabalhador != null ? d.trabalhador.nome : 'Nenhum ainda'}">prestador</span>
-                        </p>
+                        <div class="trabalhador" th:if="${d.trabalhador != null}">
+
+                            <p><strong>PRESTADOR: </strong>
+                                <span th:text="${d.trabalhador != null ? d.trabalhador.nome : 'Nenhum ainda'}">prestador</span>
+                            </p>
+
+                            <img th:src="@{/perfil/foto/{id}(id=${d.trabalhador.id})}"
+                                 onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                                 alt="Foto do prestador">
+
+                        </div>
 
                         <p><strong>DESCRIÇÃO: </strong>
                             <span th:text="${d.obra.descricao}">descrição</span>
@@ -227,7 +238,7 @@
 
                         <strong>CANDIDATOS:</strong>
 
-                        <p th:if="${candidatos[d.id] == null}">Nenhum prestador se candidatou ainda.</p>
+                        <p th:if="${candidatos[d.id] == null}">Nenhum candidato ainda.</p>
 
                         <div class="candidato" th:each="c : ${candidatos[d.id]}">
 
@@ -289,7 +300,9 @@
     <!-- LISTA DE CHATS/CONVERSAS -->
     <section class="lista-conversas">
         <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
-            <img src="/images/foto_perfil.png" alt="Foto">
+                        <img th:src="@{/perfil/foto/{id}(id=${c.idOutraPessoa})}"
+                 onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                 alt="Foto da pessoa">
             <span th:text="${c.nomeOutraPessoa}">Nome</span>
         </a>
 

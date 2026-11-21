@@ -43,7 +43,10 @@
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario" href="/perfil/logado">
-                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <img th:src="${pessoaLogada.fotoPerfil != null
+                ? '/perfil/foto/' + pessoaLogada.id
+                : '/images/foto_perfil.png'}"
+                     alt="Foto do usuário">
                 <span th:text="${nome}">Nome</span>
             </a>
 
@@ -153,7 +156,14 @@
             <div class="card-avaliacao" th:each="a : ${avaliacoes}">
 
                 <div class="pessoa-avaliada">
-                    <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                    <img th:src="${a.avaliador.name() == 'TRABALHADOR'
+        ? (a.cliente.fotoPerfil != null
+            ? '/perfil/foto/' + a.cliente.id
+            : '/images/foto_perfil.png')
+        : (a.trabalhador.fotoPerfil != null
+            ? '/perfil/foto/' + a.trabalhador.id
+            : '/images/foto_perfil.png')}"
+                         alt="Foto da pessoa avaliada">
 
                     <div>
                         <span>Pessoa avaliada: </span>
@@ -168,7 +178,8 @@
                 </div>
 
                 <div class="estrelas">
-                    <img src="/images/estrela_amarela.png" alt="Estrelas" th:each="i : ${#numbers.sequence(1, a.nota)}" class="estrela">
+                    <img src="/images/estrela_amarela.png" alt="Estrelas" th:each="i : ${#numbers.sequence(1, a.nota)}"
+                         class="estrela">
                 </div>
 
                 <div class="descricao">
@@ -185,7 +196,8 @@
         </section>
 
         <p th:if="${#lists.isEmpty(avaliacoes)}">
-            Você ainda não tem avaliações registradas. Elas aparecem aqui depois uma demanda que você participa é concluída!
+            Você ainda não tem avaliações registradas. Elas aparecem aqui depois uma demanda que você participa é
+            concluída!
         </p>
 
     </main>
@@ -213,7 +225,9 @@
     <!-- LISTA DE CHATS/CONVERSAS -->
     <section class="lista-conversas">
         <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
-            <img src="/images/foto_perfil.png" alt="Foto">
+                        <img th:src="@{/perfil/foto/{id}(id=${c.idOutraPessoa})}"
+                 onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                 alt="Foto da pessoa">
             <span th:text="${c.nomeOutraPessoa}">Nome</span>
         </a>
 

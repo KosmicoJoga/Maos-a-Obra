@@ -1,5 +1,3 @@
-
-
 .conteudo {
     width: 100%;
     display: flex;
@@ -18,12 +16,43 @@
 .foto-perfil {
     width: fit-content;
     margin: 20px;
+    justify-items: center;
 }
 
-.foto-perfil img{
+.foto-perfil h5 {
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+.foto-perfil label {
+    cursor: pointer;
+    display: block;
+}
+
+.foto-perfil img {
     display: block;
     width: 200px;
-    border-radius: 20%;
+    border-radius: 15%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: 0.2s;
+}
+
+.foto-perfil img:hover {
+    filter: brightness(0.7);
+}
+
+.foto-perfil-publico {
+    width: fit-content;
+    margin: 20px;
+}
+
+.foto-perfil-publico img {
+    display: block;
+    width: 200px;
+    border-radius: 15%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
 }
 
 .dados-perfil {
@@ -172,8 +201,6 @@
 .card-detalhes li{
     list-style: none;
 }
-
-
 
 /* Abas do perfil */
 .abas-perfil {

@@ -99,6 +99,11 @@ body {
     object-fit: contain;
 }
 
+.acoes a.usuario img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
 .usuario {
     height: 55px;
     min-width: fit-content;

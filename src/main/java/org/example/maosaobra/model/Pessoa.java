@@ -38,4 +38,11 @@ public class Pessoa {
 
     @Column(name = "sobre_mim", columnDefinition = "TEXT")
     private String sobreMim;
+
+    @Lob
+    @Column(name = "foto_perfil", columnDefinition = "MEDIUMBLOB")
+    private byte[] fotoPerfil;
+
+    @Column(name = "tipo_foto_perfil", length = 50)
+    private String tipoFotoPerfil;
 }

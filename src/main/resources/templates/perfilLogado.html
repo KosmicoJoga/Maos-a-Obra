@@ -46,7 +46,10 @@
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario" href="/perfil/logado">
-                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <img th:src="${pessoaLogada.fotoPerfil != null
+                ? '/perfil/foto/' + pessoaLogada.id
+                : '/images/foto_perfil.png'}"
+                     alt="Foto do usuário">
                 <span th:text="${nome}">Nome</span>
             </a>
 
@@ -133,7 +136,21 @@
         <section class="perfil">
 
             <div class="foto-perfil">
-                <img src="/images/foto_perfil.png" alt="Foto do perfil">
+
+                <label for="inputFotoPerfil" title="Alterar foto de perfil">
+                    <img th:src="${pessoa.fotoPerfil != null
+                    ? '/perfil/foto/' + pessoa.id
+                    : '/images/foto_perfil.png'}"
+                         th:attr="data-id=${pessoa.id}"
+                         alt="Foto de perfil"
+                         id="imagemPerfil">
+                </label>
+
+                <input type="file" id="inputFotoPerfil"
+                       accept="image/png, image/jpeg, image/webp"
+                       hidden>
+
+                <h5>clique na foto pra alterá-la</h5>
             </div>
 
             <div class="dados-perfil">
@@ -282,7 +299,8 @@
                 <p>
                     <span th:text="${#temporals.format(experiencia.dataInicio, 'MM/yyyy')}"></span>
                     até
-                    <span th:if="${experiencia.dataFim != null}" th:text="${#temporals.format(experiencia.dataFim, 'MM/yyyy')}"></span>
+                    <span th:if="${experiencia.dataFim != null}"
+                          th:text="${#temporals.format(experiencia.dataFim, 'MM/yyyy')}"></span>
 
                     <span th:if="${experiencia.dataFim == null}">
                     Atualmente
@@ -329,7 +347,9 @@
     <!-- LISTA DE CHATS/CONVERSAS -->
     <section class="lista-conversas">
         <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
-            <img src="/images/foto_perfil.png" alt="Foto">
+                        <img th:src="@{/perfil/foto/{id}(id=${c.idOutraPessoa})}"
+                 onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                 alt="Foto da pessoa">
             <span th:text="${c.nomeOutraPessoa}">Nome</span>
         </a>
 
@@ -347,6 +367,8 @@
 <script src="/js/sidebar.js"></script>
 
 <script src="/js/navegacao.js"></script>
+
+<script src="/js/fotoPerfil.js"></script>
 
 <script>
     async function excluirCertificado(botao) {

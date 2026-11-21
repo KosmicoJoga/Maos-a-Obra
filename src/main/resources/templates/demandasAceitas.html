@@ -43,7 +43,10 @@
                 <img src="/images/mensagens.png" alt="Mensagens">
             </a>
             <a class="usuario" href="/perfil/logado">
-                <img src="/images/foto_perfil.png" alt="Foto do usuário">
+                <img th:src="${pessoaLogada.fotoPerfil != null
+                ? '/perfil/foto/' + pessoaLogada.id
+                : '/images/foto_perfil.png'}"
+                     alt="Foto do usuário">
                 <span th:text="${nome}">Nome</span>
             </a>
 
@@ -154,7 +157,9 @@
                      th:data-lng="${d.obra.longitude}">
 
                 <div class="foto-cliente">
-                    <img src="/images/foto_perfil.png" alt="Foto do cliente">
+                    <img th:src="@{/perfil/foto/{id}(id=${d.cliente.id})}"
+                         onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                         alt="Foto do cliente">
                 </div>
 
                 <div class="informacoes-demanda">
@@ -205,6 +210,12 @@
             <article class="card-demanda" th:each="d : ${demandasConcluidas}">
 
                 <div class="informacoes-demanda">
+
+                    <div class="foto-cliente">
+                        <img th:src="@{/perfil/foto/{id}(id=${d.cliente.id})}"
+                             onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                             alt="Foto do cliente">
+                    </div>
 
                     <div class="dados-demanda">
 
@@ -268,7 +279,9 @@
     <!-- LISTA DE CHATS/CONVERSAS -->
     <section class="lista-conversas">
         <a class="card-conversa" th:each="c : ${conversas}" th:href="@{/chat/{id}(id=${c.id})}">
-            <img src="/images/foto_perfil.png" alt="Foto">
+            <img th:src="@{/perfil/foto/{id}(id=${c.idOutraPessoa})}"
+                 onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                 alt="Foto da pessoa">
             <span th:text="${c.nomeOutraPessoa}">Nome</span>
         </a>
 

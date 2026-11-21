@@ -91,6 +91,17 @@ public class PessoaService {
     }
 
     @Transactional
+    public void atualizarFotoPerfil(String email, byte[] foto, String tipo) {
+
+        Pessoa pessoa = buscarPorEmail(email);
+
+        pessoa.setFotoPerfil(foto);
+        pessoa.setTipoFotoPerfil(tipo);
+
+        pessoaRepository.save(pessoa);
+    }
+
+    @Transactional
     public void atualizarMedia(Long idPessoa, Double media) {
         Pessoa pessoa = buscarPorId(idPessoa);
         pessoa.setAvaliacao(BigDecimal.valueOf(media).setScale(2, RoundingMode.HALF_UP));
