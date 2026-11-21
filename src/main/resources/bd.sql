@@ -13,9 +13,10 @@ CREATE TABLE pessoa
     email     VARCHAR(255) UNIQUE NOT NULL,
     senha     VARCHAR(255)        NOT NULL,
     avaliacao DECIMAL(3, 2) UNSIGNED DEFAULT 0.00,
-    foto      mediumblob,
-    sobre_mim text,
-    horarios  datetime
+    sobre_mim TEXT,
+    horarios  DATETIME,
+    foto_perfil MEDIUMBLOB,	
+    tipo_foto_perfil VARCHAR(50)
 );
 
 CREATE TABLE servico
