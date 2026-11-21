@@ -126,6 +126,16 @@ CREATE TABLE demanda
     foreign key (id_obra) REFERENCES obra (id_obra)
 );
 
+CREATE TABLE candidatura (
+	id_candidatura		INT PRIMARY KEY AUTO_INCREMENT,
+    id_demanda			INT NOT NULL,
+    id_trabalhador		INT NOT NULL,
+    data_candidatura	DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (id_demanda, id_trabalhador),
+    FOREIGN KEY (id_demanda)     REFERENCES demanda (id_demanda)    ON DELETE CASCADE,
+    FOREIGN KEY (id_trabalhador) REFERENCES trabalhador (id_pessoa) ON DELETE CASCADE
+);
+
 CREATE TABLE avaliacao
 (
     id_avaliacao   INT PRIMARY KEY AUTO_INCREMENT,

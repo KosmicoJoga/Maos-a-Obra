@@ -145,17 +145,23 @@
                         <label><input type="checkbox" name="servicos" value="Construtor"> Construtor</label>
                         <label><input type="checkbox" name="servicos" value="Pedreiro"> Pedreiro</label>
                         <label><input type="checkbox" name="servicos" value="Babá"> Babá</label>
-                        <label><input type="checkbox" name="servicos" value="Auxiliar de cozinha"> Auxiliar de cozinha</label>
+                        <label><input type="checkbox" name="servicos" value="Auxiliar de cozinha"> Auxiliar de
+                            cozinha</label>
                         <label><input type="checkbox" name="servicos" value="Marceneiro"> Marceneiro</label>
                         <label><input type="checkbox" name="servicos" value="Diarista"> Diarista</label>
                         <label><input type="checkbox" name="servicos" value="Jardineiro"> Jardineiro</label>
                         <label><input type="checkbox" name="servicos" value="Chaveiro"> Chaveiro</label>
-                        <label><input type="checkbox" name="servicos" value="Montador de móveis"> Montador de móveis</label>
-                        <label><input type="checkbox" name="servicos" value="Técnico de eletrodomésticos"> Técnico de eletrodomésticos</label>
-                        <label><input type="checkbox" name="servicos" value="Instalador de ar-condicionado"> Instalador de ar-condicionado</label>
+                        <label><input type="checkbox" name="servicos" value="Montador de móveis"> Montador de
+                            móveis</label>
+                        <label><input type="checkbox" name="servicos" value="Técnico de eletrodomésticos"> Técnico de
+                            eletrodomésticos</label>
+                        <label><input type="checkbox" name="servicos" value="Instalador de ar-condicionado"> Instalador
+                            de ar-condicionado</label>
                         <label><input type="checkbox" name="servicos" value="Vidraceiro"> Vidraceiro</label>
-                        <label><input type="checkbox" name="servicos" value="Passeador de cães"> Passeador de cães</label>
-                        <label><input type="checkbox" name="servicos" value="Fretes e mudanças"> Fretes e mudanças</label>
+                        <label><input type="checkbox" name="servicos" value="Passeador de cães"> Passeador de
+                            cães</label>
+                        <label><input type="checkbox" name="servicos" value="Fretes e mudanças"> Fretes e
+                            mudanças</label>
                     </div>
                     <div class="botao">
                         <button class="botao-verde" id="btn-aplicarFiltros" type="button">
@@ -211,6 +217,13 @@
                                 onclick="iniciarConversa(this)">
                             CONVERSAR
                         </button>
+                        <button type="button" class="btn-demanda btn-candidatar"
+                                th:unless="${candidatadas.contains(d.id)}" th:data-id="${d.id}"
+                                onclick="candidatar(this)">
+                            TENHO INTERESSE
+                        </button>
+
+                        <p th:if="${candidatadas.contains(d.id)}">Candidatura enviada</p>
                     </div>
                 </div>
             </article>
@@ -257,10 +270,10 @@
 </aside>
 
 <script>
-    const filtro= document.getElementById("opcoesFiltro");
+    const filtro = document.getElementById("opcoesFiltro");
 
-    function MostraFiltro(){
-        filtro.style.display= "flex";
+    function MostraFiltro() {
+        filtro.style.display = "flex";
     }
 </script>
 
@@ -273,6 +286,8 @@
 <script src="/js/navegacao.js"></script>
 
 <script src="/js/sidebar.js"></script>
+
+<script src="/js/demandas.js"></script>
 
 </body>
 

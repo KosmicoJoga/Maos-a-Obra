@@ -24,8 +24,9 @@ public class PaginaController {
     private final AvaliacaoService avaliacaoService;
     private final CertificadoService certificadoService;
     private final ExperienciaService experienciaService;
+    private final CandidaturaService candidaturaService;
 
-    public PaginaController(DemandaService demandaService, PessoaService pessoaService, ChatService chatService, TrabalhadorService trabalhadorService, AvaliacaoService avaliacaoService, CertificadoService certificadoService, ExperienciaService experienciaService) {
+    public PaginaController(DemandaService demandaService, CandidaturaService candidaturaService, PessoaService pessoaService, ChatService chatService, TrabalhadorService trabalhadorService, AvaliacaoService avaliacaoService, CertificadoService certificadoService, ExperienciaService experienciaService) {
         this.demandaService = demandaService;
         this.pessoaService = pessoaService;
         this.chatService = chatService;
@@ -33,6 +34,7 @@ public class PaginaController {
         this.avaliacaoService = avaliacaoService;
         this.certificadoService = certificadoService;
         this.experienciaService = experienciaService;
+        this.candidaturaService = candidaturaService;
     }
 
     @GetMapping("/inicioCliente")
@@ -41,8 +43,8 @@ public class PaginaController {
 
         List<ConversaDTO> conversas = conversas(pessoa);
 
-        model.addAttribute("nome",  pessoa.getNome());
-        model.addAttribute("trabalhadores",  trabalhadorService.buscarTodosPorAvaliacao());
+        model.addAttribute("nome", pessoa.getNome());
+        model.addAttribute("trabalhadores", trabalhadorService.buscarTodosPorAvaliacao());
         model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("conversas", conversas);
 
@@ -55,10 +57,14 @@ public class PaginaController {
 
         List<ConversaDTO> conversas = conversas(pessoa);
 
-        model.addAttribute("nome",  pessoa.getNome());
+        List<Demanda> demandas = demandaService.buscarAbertas();
+
+        model.addAttribute("nome", pessoa.getNome());
         model.addAttribute("demandas", demandaService.buscarAbertas());
         model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("conversas", conversas);
+        model.addAttribute("demandas", demandas);
+        model.addAttribute("candidatadas", candidaturaService.idsJaCandidatados(pessoa.getId(), demandas));
 
         return "inicioPrestador";
     }
@@ -69,7 +75,7 @@ public class PaginaController {
 
         List<ConversaDTO> conversas = conversas(pessoa);
 
-        model.addAttribute("nome",  pessoa.getNome());
+        model.addAttribute("nome", pessoa.getNome());
         model.addAttribute("demandas", demandaService.buscarSolicitacoesPendentes(pessoa.getId()));
         model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("conversas", conversas);
@@ -101,9 +107,9 @@ public class PaginaController {
 
         List<ConversaDTO> conversas = conversas(pessoa);
 
-        model.addAttribute("nome",  pessoa.getNome());
+        model.addAttribute("nome", pessoa.getNome());
         model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
-        model.addAttribute("pessoa",  pessoa);
+        model.addAttribute("pessoa", pessoa);
         model.addAttribute("conversas", conversas);
 
         if (pessoa instanceof Trabalhador trabalhador) {
@@ -211,12 +217,21 @@ public class PaginaController {
     public String minhasDemandas(Authentication auth, Model model) {
         Pessoa pessoa = pessoaLogada(auth);
 
-        List<Demanda> demandas = demandaService.buscarTodasCliente(pessoa.getId());
+        List<Demanda> todasDemandas = demandaService.buscarTodasCliente(pessoa.getId());
+
+        // Identifica as demandas avaliadas pelo cliente
+        Set<Long> avaliadas = avaliacaoService.idsJaAvaliadas(todasDemandas, Avaliador.CLIENTE);
+
+        // Remove da lista as demandas concluídas que já foram avaliadas pelo cliente
+        List<Demanda> demandas = todasDemandas.stream().filter(d -> d.getStatus() != StatusDemanda.CONCLUIDA
+                || !avaliadas.contains(d.getId())).toList();
+
         model.addAttribute("nome", pessoa.getNome());
         model.addAttribute("demandas", demandas);
         model.addAttribute("avaliadas", avaliacaoService.idsJaAvaliadas(demandas, Avaliador.CLIENTE));
         model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("conversas", conversas(pessoa));
+        model.addAttribute("candidatos", candidaturaService.candidatosPorDemanda(demandas));
 
         return "minhasDemandas";
     }

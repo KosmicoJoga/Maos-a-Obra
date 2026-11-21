@@ -6,6 +6,7 @@ import org.example.maosaobra.model.Cliente;
 import org.example.maosaobra.model.Demanda;
 import org.example.maosaobra.model.Pessoa;
 import org.example.maosaobra.security.PessoaDetails;
+import org.example.maosaobra.service.CandidaturaService;
 import org.example.maosaobra.service.ClienteService;
 import org.example.maosaobra.service.DemandaService;
 import org.example.maosaobra.service.PessoaService;
@@ -23,11 +24,13 @@ public class DemandaController {
     private final DemandaService demandaService;
     private final ClienteService clienteService;
     private final PessoaService pessoaService;
+    private final CandidaturaService candidaturaService;
 
-    public DemandaController(DemandaService demandaService, ClienteService clienteService, PessoaService pessoaService) {
+    public DemandaController(DemandaService demandaService, CandidaturaService candidaturaService, ClienteService clienteService, PessoaService pessoaService) {
         this.demandaService = demandaService;
         this.clienteService = clienteService;
         this.pessoaService = pessoaService;
+        this.candidaturaService = candidaturaService;
     }
 
     @PostMapping
@@ -72,6 +75,24 @@ public class DemandaController {
     public ResponseEntity<?> finalizar(@PathVariable Long id, Authentication auth) {
         Pessoa pessoa = pessoaService.buscarPorEmail(auth.getName());
         Demanda demanda = demandaService.finalizarDemanda(id, pessoa);
+
+        return ResponseEntity.ok(Map.of("id", demanda.getId(), "status", demanda.getStatus()));
+    }
+
+    @PostMapping("/{id}/candidatar")
+    public ResponseEntity<?> candidatar(@PathVariable Long id, Authentication auth) {
+
+        PessoaDetails details = (PessoaDetails) auth.getPrincipal();
+        candidaturaService.candidatar(id, details.getPessoa().getId());
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/{id}/escolher/{idTrabalhador}")
+    public ResponseEntity<?> escolher(@PathVariable Long id, @PathVariable Long idTrabalhador, Authentication auth) {
+
+        PessoaDetails details = (PessoaDetails) auth.getPrincipal();
+        Demanda demanda = candidaturaService.escolher(id, idTrabalhador, details.getPessoa().getId());
 
         return ResponseEntity.ok(Map.of("id", demanda.getId(), "status", demanda.getStatus()));
     }

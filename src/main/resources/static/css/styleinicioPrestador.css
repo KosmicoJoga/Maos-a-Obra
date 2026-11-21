@@ -328,6 +328,10 @@
     gap: 20px;
 }
 
+.botoes-demanda p {
+    margin: auto;
+}
+
 
 /* =========================
    RESPONSIVIDADE

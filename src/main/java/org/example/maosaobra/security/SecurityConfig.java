@@ -25,14 +25,21 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/","/login", "/clientes", "/trabalhadores", "/css/**", "/js/**","/images/**", "/*.html")
                 .permitAll()
+
+                        // PÁGINAS SOMENTE DE CLIENTES
                         .requestMatchers("/demandas", "/demandas/direta").hasRole("CLIENTE")
                         .requestMatchers("/solicitarDemanda/**").hasRole("CLIENTE")
                         .requestMatchers("/inicioCliente").hasRole("CLIENTE")
                         .requestMatchers("/minhasDemandas").hasRole("CLIENTE")
+                        .requestMatchers("/demandas/*/escolher/*").hasRole("CLIENTE")
+
+                        // PÁGINAS SOMENTE DE TRABALHADORES
                         .requestMatchers("/solicitacoesDemanda").hasRole("TRABALHADOR")
                         .requestMatchers("/inicioPrestador").hasRole("TRABALHADOR")
                         .requestMatchers("/demandasAceitas").hasRole("TRABALHADOR")
+                        .requestMatchers("/demandas/*/candidatar").hasRole("TRABALHADOR")
                         .requestMatchers("/demandas/*/aceitar", "/demandas/*/recusar").hasRole("TRABALHADOR")
+
                         .requestMatchers(HttpMethod.GET, "/servicos").permitAll()
                 .anyRequest()
                 .authenticated())

@@ -7,11 +7,11 @@ async function concluir(botao) {
             method: "PUT"
         });
 
-        if(resposta.ok) {
+        if (resposta.ok) {
             window.location.reload();
-        } else if(resposta.status === 400) {
+        } else if (resposta.status === 400) {
             const erro = await resposta.json();
-            alert (erro.erro);
+            alert(erro.erro);
             window.location.reload();
         } else {
             alert("Não foi possível finalizar a demanda!")
@@ -22,3 +22,44 @@ async function concluir(botao) {
     }
 
 }
+
+async function candidatar(botao) {
+    if (!confirm("Enviar sua candidatura para esta demanda? O cliente desta demanda poderá escolher você para o serviço")) return;
+
+    try {
+        const resposta = await fetch(`/demandas/${botao.dataset.id}/candidatar`, {method: "POST"});
+
+        if (resposta.ok)
+            window.location.reload();
+        else if (resposta.status === 400) {
+            const erro = await resposta.json();
+            alert(erro.erro);
+            window.location.reload();
+        } else
+            alert("Não foi possível enviar a candidatura!");
+    } catch (e) {
+        alert("Não foi possível conectar ao servidor!");
+    }
+}
+
+async function escolherPrestador(botao) {
+    if (!confirm("Escolher este prestador para a demanda? As outras candidaturas serão encerradas.")) return;
+
+    try {
+        const resposta = await fetch(`/demandas/${botao.dataset.demanda}/escolher/${botao.dataset.trabalhador}`, {method: "POST"});
+
+        if (resposta.ok)
+            window.location.reload();
+        else if (resposta.status === 400) {
+            const erro = await resposta.json();
+            alert(erro.erro);
+            window.location.reload();
+        } else
+            alert("Não foi possível escolher o prestador.");
+    } catch (e) {
+        alert("Não foi possível conectar ao servidor");
+    }
+}
+
+
+

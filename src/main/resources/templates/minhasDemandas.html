@@ -161,6 +161,8 @@
                                 <span th:case="'ABERTA'">Pública</span>
                                 <span th:case="'PENDENTE'">Aguardando resposta</span>
                                 <span th:case="'ACEITA'">Em andamento</span>
+                                <span th:case="'RECUSADA'">Recusada</span>
+                                <span th:case="'CONCLUIDA'">Concluída</span>
                             </span>
                         </p>
 
@@ -220,10 +222,46 @@
                         </th:block>
 
                     </div>
+
+                    <div class="candidatos" th:if="${d.status.name() == 'ABERTA'}">
+
+                        <strong>CANDIDATOS:</strong>
+
+                        <p th:if="${candidatos[d.id] == null}">Nenhum prestador se candidatou ainda.</p>
+
+                        <div class="candidato" th:each="c : ${candidatos[d.id]}">
+
+                            <div class="nome-avaliacao">
+                                <span th:text="${c.trabalhador.nome}">Nome</span>
+
+                                <span th:if="${c.trabalhador.avaliacao != null}"
+                                      th:text="'★ ' + ${#numbers.formatDecimal(c.trabalhador.avaliacao, 1, 1, 'COMMA')}">★</span>
+
+                                <span th:if="${c.trabalhador.avaliacao == null}">Sem avaliações</span>
+                            </div>
+
+                            <a class="btn-demanda" th:href="@{/perfil/{id}(id=${c.trabalhador.id})}">
+                                VER PERFIL
+                            </a>
+
+                            <button type="button" class="btn-demanda" th:data-outro="${c.trabalhador.id}"
+                                    onclick="iniciarConversa(this)">
+                                CONVERSAR
+                            </button>
+
+                            <button type="submit" class="btn-demanda" th:data-demanda="${d.id}"
+                                    th:data-trabalhador="${c.trabalhador.id}" onclick="escolherPrestador(this)">
+                                ESCOLHER
+                            </button>
+
+                        </div>
+
+                    </div>
                 </div>
             </article>
 
-            <p th:if="${#lists.isEmpty(demandas)}">Você ainda não criou nenhuma demanda...</p>
+            <p th:if="${#lists.isEmpty(demandas)}">Você ainda não tem nenhuma demanda criada (as já finalizadas e
+                avaliadas por você ficam salvas no seu histórico)</p>
 
         </section>
 
