@@ -20,6 +20,10 @@ spring.datasource.username = nome do usuário (geralmente sendo "root" por padr�
 
 spring.datasource.password = senha (geralmente sendo "root" por padrão, mas se você usa senha diferente no MYSQL, usa a sua senha!)
 
+5. Abra o projeto no IntelliJ e espere ele carregar o projeto todo antes de executar. Após carregar tudo, execute o arquivo [MaosaobraApplication](src/main/java/org/example/maosaobra/MaosaobraApplication.java) no IntelliJ.
+6. Quando o IntelliJ terminar de executar o projeto, inicie o seu navegador de preferência e abra uma nova página com o endereço URL "localhost:8080" e pronto, poderá usufruir do projeto MÃOS À OBRA!
+
+
 # Pré-requisitos
 
 - JDK 21
