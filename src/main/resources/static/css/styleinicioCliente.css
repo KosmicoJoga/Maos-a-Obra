@@ -173,6 +173,10 @@
     gap: 28px;
 }
 
+.mensagem-vazia {
+    text-align: center;
+}
+
 
 /* =========================
    CARD
