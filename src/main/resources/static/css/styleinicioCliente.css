@@ -34,6 +34,14 @@
     margin-bottom: 40px;
 }
 
+.pesquisa-form {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    width: 100%;
+}
 
 /* BOTÃO FILTRO */
 
@@ -77,6 +85,7 @@
     background-color: #001d41;
     color: #ffb000;
 
+    border: 1px solid #cf9e13;
 
     border-radius: 15px;
 
@@ -84,12 +93,14 @@
 
     z-index: 10;
 }
+
 .servico label {
     display: flex;
     align-items: center;
     gap: 5px;
     white-space: nowrap;
 }
+
 #opcoesFiltro {
     flex-direction: column;
 }

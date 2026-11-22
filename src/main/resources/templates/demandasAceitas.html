@@ -131,22 +131,6 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="conteudo">
 
-        <!-- PESQUISA -->
-        <section class="pesquisa">
-
-            <button class="btn-filtro">
-                <img src="/images/filtro.png" alt="Filtros">
-            </button>
-
-            <label for="pesquisa"></label>
-            <input id="pesquisa" class="campo-pesquisa" type="text" placeholder="Pesquise aqui...">
-
-            <button class="btn-pesquisar">
-                <img src="/images/lupa.png" alt="Pesquisar">
-            </button>
-
-        </section>
-
         <div class="linha">
             <span>Demandas aceitas</span>
         </div>
@@ -165,10 +149,10 @@
                 <div class="informacoes-demanda">
 
                     <div class="dados-demanda">
-                        <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>
-                        <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente •
-                            Local</p>
+                        <h2 th:text="'CLIENTE: ' + ${d.cliente.nome}">Cliente</h2>
+                        <p th:text="'LOCAL: ' + ${d.obra.endereco}">Endereço</p>
                         <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>
+                        <p th:text="'DATA DE SOLICITAÇÃO: ' + ${#temporals.format(d.dataSolicitacao, 'dd/MM/yyyy')}">Data Solicitação</p>
                         <p class="distancia"></p>
                     </div>
 
@@ -209,13 +193,13 @@
 
             <article class="card-demanda" th:each="d : ${demandasConcluidas}">
 
-                <div class="informacoes-demanda">
+                <div class="foto-cliente">
+                    <img th:src="@{/perfil/foto/{id}(id=${d.cliente.id})}"
+                         onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                         alt="Foto do cliente">
+                </div>
 
-                    <div class="foto-cliente">
-                        <img th:src="@{/perfil/foto/{id}(id=${d.cliente.id})}"
-                             onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
-                             alt="Foto do cliente">
-                    </div>
+                <div class="informacoes-demanda">
 
                     <div class="dados-demanda">
 
@@ -223,23 +207,21 @@
                             Cliente
                         </h2>
 
-                        <p th:text="${d.obra.servico.tipo}">
-                            Tipo de serviço
+                        <p th:text="'LOCAL: ' + ${d.obra.endereco}">
+                            Endereço
                         </p>
 
                         <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">
                             Descrição
                         </p>
 
-                        <p>
-                            <strong>STATUS: </strong>
-                            Finalizada
+                        <p th:text="'DATA DE SOLICITAÇÃO: ' + ${#temporals.format(d.dataSolicitacao, 'dd/MM/yyyy')}">
                         </p>
                     </div>
 
                     <div class="botoes-demanda">
 
-                        <a class="btn-demanda" th:href="@{/avaliar/{id}(id=${d.id})}">
+                        <a class="btn-demanda" th:href="@{/avaliar/{id}(id=${d.id})}" style="background-color: #b68300">
                             AVALIAR
                         </a>
 

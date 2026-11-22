@@ -24,4 +24,12 @@ public interface DemandaRepository extends JpaRepository<Demanda, Long> {
 
     void deleteByClienteId(Long idCliente);
 
+    List<Demanda> findByStatusAndObra_Servico_IdOrderByDataSolicitacaoDesc(StatusDemanda status, Long idServico);
+
+    List<Demanda> findByStatusAndObra_Servico_IdOrderByObra_OrcamentoDesc(StatusDemanda status, Long idServico);
+
+    List<Demanda> findByStatusAndObra_Servico_IdAndCliente_NomeContainingIgnoreCaseOrderByDataSolicitacaoDesc(StatusDemanda status, Long idServico, String nome);
+
+    List<Demanda> findByStatusAndObra_Servico_IdAndCliente_NomeContainingIgnoreCaseOrderByObra_OrcamentoDesc(StatusDemanda status, Long idServico, String nome);
+
 }

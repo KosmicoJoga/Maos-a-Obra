@@ -320,3 +320,57 @@ body {
 
     font-weight: bold;
 }
+
+/*Notificações nas páginas*/
+
+.badge-notificacoes {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 5px;
+    border-radius: 11px;
+    background-color: red;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+}
+
+.lista-notificacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 90%;
+}
+
+.item-notificacao {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+    background-color: #053772;
+    border-left: 6px solid transparent;
+    color: #ffbd00;
+    text-decoration: none;
+}
+
+.item-notificacao.nao-lida {
+    border-left-color: #ffbd00;
+    font-weight: bold;
+}
+
+.item-notificacao small {
+    color: #9fb7d6;
+    font-weight: normal;
+}
+
+.btn-marcar-lidas {
+    cursor: pointer;
+    background-color: transparent;
+    padding: 7px;
+    border: 1px solid #ffbd00;
+    color: white;
+}

@@ -23,7 +23,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/","/login", "/clientes", "/trabalhadores", "/css/**", "/js/**","/images/**", "/*.html")
+                .requestMatchers("/","/login", "/clientes", "/trabalhadores", "/css/**", "/js/**","/images/**", "/*.html",
+                        "/trabalhador/*", "/publico/**")
                 .permitAll()
 
                         // PÁGINAS SOMENTE DE CLIENTES

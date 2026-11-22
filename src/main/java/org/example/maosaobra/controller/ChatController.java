@@ -8,6 +8,7 @@ import org.example.maosaobra.model.Mensagem;
 import org.example.maosaobra.model.Pessoa;
 import org.example.maosaobra.repository.ConversaRepository;
 import org.example.maosaobra.service.ChatService;
+import org.example.maosaobra.service.NotificacaoService;
 import org.example.maosaobra.service.PessoaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,10 +23,12 @@ public class ChatController {
 
     private final ChatService chatService;
     private final PessoaService pessoaService;
+    private final NotificacaoService notificacaoService;
 
-    public ChatController(ChatService chatService, PessoaService pessoaService) {
+    public ChatController(ChatService chatService, PessoaService pessoaService, NotificacaoService notificacaoService) {
         this.chatService = chatService;
         this.pessoaService = pessoaService;
+        this.notificacaoService = notificacaoService;
     }
 
     @PostMapping
@@ -43,6 +46,9 @@ public class ChatController {
     public List<MensagemDTO> listar(@PathVariable Long id, @RequestParam(defaultValue = "0") Long depoisDe, Authentication auth) {
 
         Pessoa logada = pessoaService.buscarPorEmail(auth.getName());
+
+        notificacaoService.marcarLidasPorLink(logada.getId(), "/chat/" + id);
+
         return chatService.listarNovas(id, logada, depoisDe).stream()
                 .map(m -> paraDTO(m, logada)).toList();
     }

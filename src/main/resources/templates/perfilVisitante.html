@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mãos à obra</title>
+
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/styleperfilLogado.css">
+
+    <link rel="icon" type="image/png" href="/images/logo_TCC.png">
+</head>
+
+<body>
+
+<!-- BARRA LATERAL ESQUERDA-->
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar" onclick="history.back()">
+        <img src="/images/botao_voltar.png" alt="Voltar">
+    </button>
+
+</aside>
+
+<!-- ÁREA PRINCIPAL -->
+<div class="pagina">
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <a href="/index.html">
+                <img src="/images/logo_titulo_horizontal.png" alt="Mãos à Obra">
+            </a>
+        </div>
+
+        <!-- AÇÕES DO VISITANTE -->
+        <div class="acoes">
+
+            <a href="/formCadastro.html" class="usuario">
+                <img src="/images/cadastrar.png" alt="">
+                <span>Cadastrar</span>
+            </a>
+
+            <a href="/formLogin.html" class="usuario">
+                <img src="/images/entrar.png" alt="">
+                <span>Entrar</span>
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+        <!-- INFORMAÇÕES PRINCIPAIS DO PERFIL -->
+        <section class="perfil">
+
+            <div class="foto-perfil-publico">
+                <img th:src="${perfil.fotoPerfil != null
+            ? '/publico/foto/' + perfil.id
+            : '/images/foto_perfil.png'}"
+                     alt="Foto do perfil">
+            </div>
+
+            <div class="dados-perfil">
+
+                <div class="nome-idade">
+                    <h1 class="nome-perfil" th:text="${perfil.nome}">*nome completo*</h1>
+                    <p class="idade-perfil" th:text="${perfil.idade} + ' anos'">*idade*</p>
+                </div>
+
+                <p class="tipo-servico"
+                   th:text="${perfil.servico?.tipo} ?: 'Serviço não informado'">*tipo de serviço*</p>
+
+                <div class="avaliacao-servico">
+                    <th:block th:if="${perfil.avaliacao != null}">
+                        <span>★</span>
+                        <span th:text="${#numbers.formatDecimal(perfil.avaliacao, 1, 1, 'COMMA')}">4,7</span>
+                    </th:block>
+                    <span th:if="${perfil.avaliacao == null}">Sem avaliações</span>
+                </div>
+
+            </div>
+
+            <div class="status">
+                <a class="botao-verde" id="botao-solicitar" href="/formLogin.html">
+                    ENTRE PARA SOLICITAR
+                </a>
+            </div>
+
+        </section>
+
+        <!-- ABAS DO PERFIL -->
+        <nav class="abas-perfil">
+            <span onclick=mostrarInformacoes()>Sobre Mim</span>
+            <span onclick=mostrarExperiencias()>Experiências</span>
+            <span onclick=mostrarAvaliacoes()>Avaliações</span>
+            <span onclick=mostrarHistorico()>Histórico de pedidos</span>
+            <span onclick=mostrarCertificados()>Certificados</span>
+        </nav>
+
+        <section class="informacoes" id="informacoes">
+
+            <h2>SOBRE MIM</h2>
+
+            <p th:text="${perfil.sobreMim} ?: 'Esta pessoa ainda não escreveu nada sobre si.'">
+            </p>
+
+
+        </section>
+
+        <section class="certificados" id="certificados" style="display: none">
+            <h2>Certificados</h2>
+
+            <p class="mensagem-vazia" th:if="${#lists.isEmpty(certificados)}">
+                Este trabalhador ainda não cadastrou certificados no perfil.
+            </p>
+
+            <article class="item-certificado" th:each="certificado : ${certificados}">
+                <h3 th:text="${certificado.curso}"></h3>
+
+<a href="/formLogin.html">
+                    Entre para visualizar o certificado
+                </a>
+            </article>
+
+        </section>
+
+        <section class="experiencias" id="experiencias" style="display: none">
+            <h2>Experiências</h2>
+
+            <p class="mensagem-vazia" th:if="${#lists.isEmpty(experiencias)}">
+                Este trabalhador ainda não cadastrou experiências no perfil.
+            </p>
+
+            <article class="item-experiencia" th:each="experiencia : ${experiencias}">
+
+                <h3 th:text="${experiencia.cargo}"></h3>
+
+                <p th:if="${experiencia.empresa != null}" th:text="${experiencia.empresa}"></p>
+
+                <p th:if="${experiencia.descricao != null}" th:text="${experiencia.descricao}"></p>
+
+                <p>
+                    <span th:text="${#temporals.format(experiencia.dataInicio, 'MM/yyyy')}"></span>
+                    até
+                    <span th:if="${experiencia.dataFim != null}"
+                          th:text="${#temporals.format(experiencia.dataFim, 'MM/yyyy')}"></span>
+
+                    <span th:if="${experiencia.dataFim == null}">
+                    Atualmente
+                    </span>
+                </p>
+            </article>
+
+        </section>
+
+        <section class="avaliacoes" id="avaliacoes" style="display: none">
+
+            <h2>Avaliações recebidas:</h2>
+
+            <p class="mensagem-vazia" th:if="${#lists.isEmpty(avaliacoesRecebidas)}">
+                Este trabalhador ainda não recebeu avaliações.
+            </p>
+
+            <div class="lista-avaliacoes">
+
+                <article class="card-avaliacao" th:each="a : ${avaliacoesRecebidas}">
+
+                    <div class="pessoa-avaliada">
+
+                        <img src="/images/foto_perfil.png" alt="Foto do cliente">
+
+                        <div>
+                            <span>Avaliação de:</span>
+                            <h4 th:text="${a.cliente.nome.split(' ')[0]}">Nome do cliente</h4>
+                        </div>
+
+                        <div class="nota">
+                            <strong th:text="'Nota: ' + ${a.nota} + ',0'">Nota</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="estrelas">
+                        <img src="/images/estrela_amarela.png"
+                             alt="Estrela"
+                             th:each="i : ${#numbers.sequence(1, a.nota)}"
+                             class="estrela">
+                    </div>
+
+                    <div class="descricao">
+                        <span>Descrição da avaliação:</span>
+
+                        <p th:if="${a.descricao != null}" th:text="${a.descricao}"></p>
+
+                        <p th:if="${a.descricao == null}">
+                            Nenhuma descrição foi informada.
+                        </p>
+                    </div>
+
+                    <div class="data">
+                        <span th:text="${#temporals.format(a.dataAvaliacao, 'dd/MM/yyyy - HH:mm')}"></span>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section class="historico" id="historico" style="display: none">
+
+            <h2>Histórico de pedidos:</h2>
+
+            <p class="mensagem-vazia" th:if="${#lists.isEmpty(historicoPrestador)}">
+                Este trabalhador ainda não possui demandas concluídas.
+            </p>
+
+            <section class="lista-historico">
+
+                <article class="card-historico" th:each="d : ${historicoPrestador}">
+
+                    <div class="pessoa-avaliada">
+
+                        <img src="/images/foto_perfil.png" alt="Foto do cliente">
+
+                        <div>
+                            <span>Cliente:</span>
+                            <h4 th:text="${d.cliente.nome.split(' ')[0]}">Nome do cliente</h4>
+                        </div>
+
+                    </div>
+
+                    <div class="dados-demanda">
+
+                        <h3 th:text="'Orçamento inicial: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">Orçamento</h3>
+
+                        <p th:text="'Descrição: ' + ${d.obra.descricao}">Descrição</p>
+
+
+
+                    </div>
+
+                </article>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita">
+
+</aside>
+
+<script>
+
+    const informacoes = document.getElementById("informacoes");
+    const certificados = document.getElementById("certificados");
+    const experiencias = document.getElementById("experiencias")
+    const avaliacoes = document.getElementById("avaliacoes")
+    const historico = document.getElementById("historico");
+
+    mostrarInformacoes();
+
+    function mostrarInformacoes() {
+        informacoes.style.display = "flex";
+        certificados.style.display = "none";
+        experiencias.style.display = "none";
+        historico.style.display = "none";
+        avaliacoes.style.display = "none";
+    }
+
+    function mostrarCertificados() {
+        informacoes.style.display = "none";
+        certificados.style.display = "flex";
+        experiencias.style.display = "none";
+        historico.style.display = "none";
+        avaliacoes.style.display = "none";
+    }
+
+    function mostrarExperiencias() {
+        certificados.style.display = "none";
+        informacoes.style.display = "none";
+        experiencias.style.display = "flex";
+        historico.style.display = "none";
+        avaliacoes.style.display = "none";
+    }
+
+    function mostrarAvaliacoes() {
+        certificados.style.display = "none";
+        informacoes.style.display = "none";
+        experiencias.style.display = "none";
+        avaliacoes.style.display = "flex";
+        historico.style.display = "none";
+    }
+
+    function mostrarHistorico() {
+        certificados.style.display = "none";
+        informacoes.style.display = "none";
+        experiencias.style.display = "none";
+        avaliacoes.style.display = "none";
+        historico.style.display = "flex"
+    }
+
+</script>
+
+</body>
+
+</html>

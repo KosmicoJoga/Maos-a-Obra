@@ -46,21 +46,18 @@
 
                     <label for="tipo">Tipo:</label>
                     <select id="tipo" name="tipo">
-                        <option value="eletricista">Eletricista</option>
-                        <option value="faxineiro">Faxineiro</option>
-                        <option value="encanador">Encanador</option>
                     </select>
 
                 </div>
 
                 <div class="local">
-                    <label for="local">CEP do local:</label>
-                    <input type="text" id="local" name="Local" placeholder="Digite o endereço" required>
+                    <label for="local">Endereço do local:</label>
+                    <input type="text" id="local" name="Local" placeholder="Rua, número, bairro e cidade" required>
                 </div>
 
                 <div class="descricao">
                     <label for="descricao">Descrição:</label>
-                    <textarea id="descricao" name="Descricao" placeholder="Descreva o serviço detalhadamente" rows="3" required></textarea>
+                    <textarea id="descricao" name="Descricao" maxlength="100" placeholder="Descreva o serviço detalhadamente" rows="5" required></textarea>
                 </div>
 
                 <div class="orcamento">

@@ -177,6 +177,19 @@ CREATE TABLE mensagem
     INDEX        idx_mensagem_conversa (id_conversa, id_mensagem)
 );
 
+CREATE TABLE notificacao
+(
+    id_notificacao INT PRIMARY KEY AUTO_INCREMENT,
+    id_pessoa      INT NOT NULL,
+    tipo           ENUM ('MENSAGEM','CANDIDATURA','SOLICITACAO','RESPOSTA','ESCOLHA','CONCLUSAO','AVALIACAO') NOT NULL,
+    mensagem       VARCHAR(255) NOT NULL,
+    link           VARCHAR(255) NOT NULL,
+    lida           BOOLEAN      NOT NULL DEFAULT FALSE,
+    data_criacao   DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_pessoa) REFERENCES pessoa (id_pessoa) ON DELETE CASCADE,
+    INDEX idx_notificacao_pessoa (id_pessoa, lida, id_notificacao)
+);
+
 
 
 

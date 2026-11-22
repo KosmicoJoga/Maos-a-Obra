@@ -131,22 +131,6 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="conteudo">
 
-        <!-- PESQUISA -->
-        <section class="pesquisa">
-
-            <button class="btn-filtro">
-                <img src="/images/filtro.png" alt="Filtros">
-            </button>
-
-            <label for="pesquisa"></label>
-            <input id="pesquisa" class="campo-pesquisa" type="text" placeholder="Pesquise aqui...">
-
-            <button class="btn-pesquisar">
-                <img src="/images/lupa.png" alt="Pesquisar">
-            </button>
-
-        </section>
-
         <div class="linha">
             <span>Lista de demandas</span>
         </div>
@@ -181,6 +165,10 @@
 
                         </div>
 
+                        <p><strong>SERVIÇO: </strong>
+                            <span th:text="${d.obra.servico.tipo}">serviço</span>
+                        </p>
+
                         <p><strong>DESCRIÇÃO: </strong>
                             <span th:text="${d.obra.descricao}">descrição</span>
                         </p>
@@ -189,8 +177,8 @@
                             <span th:text="${d.obra.endereco}">local</span>
                         </p>
 
-                        <p><strong>DATA E HORA: </strong>
-                            <span th:text="${#temporals.format(d.dataSolicitacao, 'dd/MM/yyyy HH:mm')}">data e hora</span>
+                        <p><strong>DATA DE SOLICITAÇÃO: </strong>
+                            <span th:text="${#temporals.format(d.dataSolicitacao, 'dd/MM/yyyy')}">data e hora</span>
                         </p>
                     </div>
 
@@ -224,7 +212,7 @@
                         <th:block th:if="${d.status.name() == 'CONCLUIDA'}">
 
                             <a class="btn-demanda" th:unless="${avaliadas.contains(d.id)}"
-                               th:href="@{/avaliar/{id}(id=${d.id})}">
+                               th:href="@{/avaliar/{id}(id=${d.id})}" style="background-color: #b68300">
                                 AVALIAR
                             </a>
 

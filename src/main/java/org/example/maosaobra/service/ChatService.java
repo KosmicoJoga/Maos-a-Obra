@@ -18,12 +18,14 @@ public class ChatService {
     private final MensagemRepository mensagemRepository;
     private final ClienteService clienteService;
     private final TrabalhadorService trabalhadorService;
+    private final NotificacaoService notificacaoService;
 
-    public ChatService(ConversaRepository conversaRepository, MensagemRepository mensagemRepository, ClienteService clienteService, TrabalhadorService trabalhadorService) {
+    public ChatService(ConversaRepository conversaRepository, NotificacaoService notificacaoService, MensagemRepository mensagemRepository, ClienteService clienteService, TrabalhadorService trabalhadorService) {
         this.conversaRepository = conversaRepository;
         this.mensagemRepository = mensagemRepository;
         this.clienteService = clienteService;
         this.trabalhadorService = trabalhadorService;
+        this.notificacaoService = notificacaoService;
     }
 
     // o trabalhador inicia (ou retoma) a conversa com um cliente
@@ -85,7 +87,17 @@ public class ChatService {
         mensagem.setRemetente(remetente);
         mensagem.setConteudo(conteudo.trim());
         mensagem.setDataEnvio(LocalDateTime.now()); // o DEFAULT do banco não vale: o Hibernate manda null
-        return mensagemRepository.save(mensagem);
+
+        Mensagem salva = mensagemRepository.save(mensagem);
+
+        Pessoa destinatario = conversa.getCliente().getId().equals(remetente.getId())
+                ? conversa.getTrabalhador()
+                : conversa.getCliente();
+
+        notificacaoService.criarMensagem(destinatario,
+                "Nova mensagem de " + remetente.getNome(), "/chat/" + conversa.getId());
+
+        return salva;
     }
 
     public List<Mensagem> listarNovas(Long idConversa, Pessoa pessoa, Long depoisDe) {

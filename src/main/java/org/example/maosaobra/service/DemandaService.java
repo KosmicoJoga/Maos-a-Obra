@@ -22,13 +22,15 @@ public class DemandaService {
     private final ObraService obraService;
     private final GeocodingService geocodingService;
     private final TrabalhadorService trabalhadorService;
+    private final NotificacaoService notificacaoService;
 
-    public DemandaService(DemandaRepository demandaRepository, ServicoService servicoService, ObraService obraService, GeocodingService geocodingService, TrabalhadorService trabalhadorService) {
+    public DemandaService(DemandaRepository demandaRepository, NotificacaoService notificacaoService, ServicoService servicoService, ObraService obraService, GeocodingService geocodingService, TrabalhadorService trabalhadorService) {
         this.demandaRepository = demandaRepository;
         this.servicoService = servicoService;
         this.obraService = obraService;
         this.geocodingService = geocodingService;
         this.trabalhadorService = trabalhadorService;
+        this.notificacaoService = notificacaoService;
     }
 
     public Demanda salvar(Demanda demanda) {
@@ -70,7 +72,13 @@ public class DemandaService {
         Obra obra = criarObra(cliente, trabalhador.getServico(), dto.endereco(), dto.descricao(), dto.orcamento());
 
         // DEMANDA PENDENTE = demanda enviada ao prestador de serviços específico, aguardando a resposta do mesmo
-        return criarDemanda(cliente, trabalhador, obra, StatusDemanda.PENDENTE);
+        Demanda demanda = criarDemanda(cliente, trabalhador, obra, StatusDemanda.PENDENTE);
+
+        notificacaoService.criar(trabalhador, TipoNotificacao.SOLICITACAO,
+                cliente.getNome() + " enviou uma solicitação de " + trabalhador.getServico().getTipo() + " para você",
+                "/solicitacoesDemanda");
+
+        return demanda;
     }
 
     // MÉTODOS PRIVADOS USADOS SOMENTE NESTA CLASSE
@@ -164,7 +172,14 @@ public class DemandaService {
         } else
             demanda.setStatus(StatusDemanda.RECUSADA);
 
-        return demandaRepository.save(demanda);
+        Demanda salva = demandaRepository.save(demanda);
+
+        notificacaoService.criar(demanda.getCliente(), TipoNotificacao.RESPOSTA,
+                demanda.getTrabalhador().getNome() + (aceitar ? " aceitou" : " recusou")
+                        + " sua solicitação de " + demanda.getObra().getServico().getTipo(),
+                "/minhasDemandas");
+
+        return salva;
 
     }
 
@@ -189,6 +204,51 @@ public class DemandaService {
         if (demanda.isClienteFinalizou() && demanda.isTrabalhadorFinalizou())
             demanda.setStatus(StatusDemanda.CONCLUIDA);
 
-        return demandaRepository.save(demanda);
+        Demanda salva = demandaRepository.save(demanda);
+        String servico = demanda.getObra().getServico().getTipo();
+
+        if (salva.getStatus() == StatusDemanda.CONCLUIDA) {
+            // os dois confirmaram: avisa os dois que já podem avaliar
+            notificacaoService.criar(demanda.getCliente(), TipoNotificacao.CONCLUSAO,
+                    "A demanda de " + servico + " foi concluída! Avalie " + demanda.getTrabalhador().getNome(),
+                    "/minhasDemandas");
+            notificacaoService.criar(demanda.getTrabalhador(), TipoNotificacao.CONCLUSAO,
+                    "A demanda de " + servico + " foi concluída! Avalie " + demanda.getCliente().getNome(),
+                    "/demandasAceitas");
+
+        } else if (ehOCliente) {
+            notificacaoService.criar(demanda.getTrabalhador(), TipoNotificacao.CONCLUSAO,
+                    pessoa.getNome() + " marcou a demanda de " + servico + " como concluída. Confirme para finalizar",
+                    "/demandasAceitas");
+        } else {
+            notificacaoService.criar(demanda.getCliente(), TipoNotificacao.CONCLUSAO,
+                    pessoa.getNome() + " marcou a demanda de " + servico + " como concluída. Confirme para finalizar",
+                    "/minhasDemandas");
+        }
+
+        return salva;
     }
+
+    public List<Demanda> buscarDemandasPublicasPrestador(Long idServico, String pesquisa, String ordenacao) {
+
+        String nome = pesquisa == null ? "" : pesquisa.trim();
+
+        boolean pesquisarNome = !nome.isBlank();
+        boolean maiorOrcamento = "orcamento".equals(ordenacao);
+
+        if (pesquisarNome && maiorOrcamento) {
+            return demandaRepository.findByStatusAndObra_Servico_IdAndCliente_NomeContainingIgnoreCaseOrderByObra_OrcamentoDesc(StatusDemanda.ABERTA, idServico, nome);
+        }
+
+        if (pesquisarNome) {
+            return demandaRepository.findByStatusAndObra_Servico_IdAndCliente_NomeContainingIgnoreCaseOrderByDataSolicitacaoDesc(StatusDemanda.ABERTA, idServico, nome);
+        }
+
+        if (maiorOrcamento) {
+            return demandaRepository.findByStatusAndObra_Servico_IdOrderByObra_OrcamentoDesc(StatusDemanda.ABERTA, idServico);
+        }
+
+        return demandaRepository.findByStatusAndObra_Servico_IdOrderByDataSolicitacaoDesc(StatusDemanda.ABERTA, idServico);
+    }
+
 }

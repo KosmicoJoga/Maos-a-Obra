@@ -1,10 +1,7 @@
 package org.example.maosaobra.service;
 
 
-import org.example.maosaobra.model.Candidatura;
-import org.example.maosaobra.model.Demanda;
-import org.example.maosaobra.model.StatusDemanda;
-import org.example.maosaobra.model.Trabalhador;
+import org.example.maosaobra.model.*;
 import org.example.maosaobra.repository.CandidaturaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,17 +20,20 @@ public class CandidaturaService {
     private final CandidaturaRepository candidaturaRepository;
     private final DemandaService demandaService;
     private final TrabalhadorService trabalhadorService;
+    private final NotificacaoService notificacaoService;
 
-    public CandidaturaService(CandidaturaRepository c, DemandaService d, TrabalhadorService t) {
+    public CandidaturaService(CandidaturaRepository c, DemandaService d, TrabalhadorService t, NotificacaoService n) {
         this.candidaturaRepository = c;
         this.demandaService = d;
         this.trabalhadorService = t;
+        this.notificacaoService = n;
     }
 
     @Transactional
     public Candidatura candidatar(Long idDemanda, Long idTrabalhador) {
 
         Demanda demanda = demandaService.buscarPorId(idDemanda);
+        Trabalhador trabalhador = trabalhadorService.buscarPorId(idTrabalhador);
 
         if (demanda == null || demanda.getStatus() != StatusDemanda.ABERTA)
             throw new IllegalArgumentException("Esta demanda não está mais aberta!");
@@ -43,8 +43,12 @@ public class CandidaturaService {
 
         Candidatura candidatura = new Candidatura();
         candidatura.setDemanda(demanda);
-        candidatura.setTrabalhador(trabalhadorService.buscarPorId(idTrabalhador));
+        candidatura.setTrabalhador(trabalhador);
         candidatura.setDataCandidatura(LocalDateTime.now());
+
+        notificacaoService.criar(demanda.getCliente(), TipoNotificacao.CANDIDATURA,
+                trabalhador.getNome() + " se candidatou à sua demanda de " + demanda.getObra().getServico().getTipo(),
+                "/minhasDemandas");
 
         return candidaturaRepository.save(candidatura);
     }
@@ -69,7 +73,13 @@ public class CandidaturaService {
         demanda.setStatus(StatusDemanda.ACEITA);
         demanda.getObra().setTrabalhador(escolhido); // a obra da demanda ganha o candidato escolhido pelo cliente
 
-        return demandaService.salvar(demanda);
+        Demanda salva = demandaService.salvar(demanda);
+
+        notificacaoService.criar(escolhido, TipoNotificacao.ESCOLHA,
+                demanda.getCliente().getNome() + " escolheu você para a demanda de " + demanda.getObra().getServico().getTipo(),
+                "/demandasAceitas");
+
+        return salva;
     }
 
     // para a tela do prestador: em quais destas demandas ele já se candidatou

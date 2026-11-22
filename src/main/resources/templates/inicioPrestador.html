@@ -130,57 +130,59 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="conteudo">
 
-        <!-- PESQUISA -->
-        <section class="pesquisa">
+            <!-- PESQUISA -->
+            <section class="pesquisa">
 
-            <div class="area-filtro">
-                <button class="btn-filtro" onclick="MostraFiltro()">
-                    <img src="/images/filtro.png" alt="Filtros">
-                </button>
+                <form th:action="@{/inicioPrestador}" method="get" id="formPesquisa" class="pesquisa-form">
 
-                <div id="opcoesFiltro" style="display: none">
-                    Serviços:
-                    <div class="servico">
-                        <label><input type="checkbox" name="servicos" value="Eletricista"> Eletricista</label>
-                        <label><input type="checkbox" name="servicos" value="Faxineiro"> Faxineiro</label>
-                        <label><input type="checkbox" name="servicos" value="Encanador"> Encanador</label>
-                        <label><input type="checkbox" name="servicos" value="Pintor"> Pintor</label>
-                        <label><input type="checkbox" name="servicos" value="Construtor"> Construtor</label>
-                        <label><input type="checkbox" name="servicos" value="Pedreiro"> Pedreiro</label>
-                        <label><input type="checkbox" name="servicos" value="Babá"> Babá</label>
-                        <label><input type="checkbox" name="servicos" value="Auxiliar de cozinha"> Auxiliar de
-                            cozinha</label>
-                        <label><input type="checkbox" name="servicos" value="Marceneiro"> Marceneiro</label>
-                        <label><input type="checkbox" name="servicos" value="Diarista"> Diarista</label>
-                        <label><input type="checkbox" name="servicos" value="Jardineiro"> Jardineiro</label>
-                        <label><input type="checkbox" name="servicos" value="Chaveiro"> Chaveiro</label>
-                        <label><input type="checkbox" name="servicos" value="Montador de móveis"> Montador de
-                            móveis</label>
-                        <label><input type="checkbox" name="servicos" value="Técnico de eletrodomésticos"> Técnico de
-                            eletrodomésticos</label>
-                        <label><input type="checkbox" name="servicos" value="Instalador de ar-condicionado"> Instalador
-                            de ar-condicionado</label>
-                        <label><input type="checkbox" name="servicos" value="Vidraceiro"> Vidraceiro</label>
-                        <label><input type="checkbox" name="servicos" value="Passeador de cães"> Passeador de
-                            cães</label>
-                        <label><input type="checkbox" name="servicos" value="Fretes e mudanças"> Fretes e
-                            mudanças</label>
-                    </div>
-                    <div class="botao">
-                        <button class="botao-verde" id="btn-aplicarFiltros" type="button">
-                            Aplicar
+                    <div class="area-filtro">
+
+                        <button class="btn-filtro" type="button" onclick="MostraFiltro()">
+                            <img src="/images/filtro.png" alt="Filtros">
                         </button>
+
+                        <div id="opcoesFiltro" style="display: none">
+
+                            <label>
+                                <input type="radio" name="ordenacao"
+                                       value="recentes"
+                                       th:checked="${ordenacao == null or ordenacao == 'recentes'}">
+                                Mais recentes
+                            </label>
+
+                            <label>
+                                <input type="radio" name="ordenacao"
+                                       value="orcamento"
+                                       th:checked="${ordenacao == 'orcamento'}">
+                                Maior orçamento
+                            </label>
+
+                            <div class="botao">
+                                <button class="botao-verde" type="submit">
+                                    Aplicar
+                                </button>
+                            </div>
+
+                        </div>
+
                     </div>
-                </div>
-            </div>
-            <label for="pesquisa"></label>
-            <input id="pesquisa" class="campo-pesquisa" type="text" placeholder="Pesquise aqui...">
 
-            <button class="btn-pesquisar">
-                <img src="/images/lupa.png" alt="Pesquisar">
-            </button>
+                    <label for="pesquisa"></label>
 
-        </section>
+                    <input id="pesquisa"
+                           name="pesquisa"
+                           class="campo-pesquisa"
+                           type="text"
+                           placeholder="Pesquise pelo nome do cliente..."
+                           th:value="${pesquisa}">
+
+                    <button class="btn-pesquisar" type="submit">
+                        <img src="/images/lupa.png" alt="Pesquisar">
+                    </button>
+
+                </form>
+
+            </section>
 
         <div class="linha">
 
@@ -206,10 +208,9 @@
                 <div class="informacoes-demanda">
 
                     <div class="dados-demanda">
-                        <h2 th:text="'TIPO DE SERVIÇO: ' + ${d.obra.servico.tipo}">Tipo de serviço</h2>
-                        <p th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente •
-                            Local</p>
+                        <h2 th:text="'NOME E LOCAL: ' + ${d.cliente.nome} + ' • ' + ${d.obra.endereco}">Cliente • Local</h2>
                         <p th:text="'DESCRIÇÃO: ' + ${d.obra.descricao}">Descrição</p>
+                        <p th:text="'DATA DE SOLICITAÇÃO: ' + ${#temporals.format(d.dataSolicitacao, 'dd/MM/yyyy')}">Data Solicitação</p>
                         <p class="distancia"></p>
                     </div>
 
@@ -233,7 +234,7 @@
                 </div>
             </article>
 
-            <p th:if="${#lists.isEmpty(demandas)}">Nenhuma solicitação de demanda no momento.</p>
+            <p th:if="${#lists.isEmpty(demandas)}">Não há nenhuma demanda pública do seu tipo de serviço no momento.</p>
 
         </section>
 
@@ -280,7 +281,7 @@
     const filtro = document.getElementById("opcoesFiltro");
 
     function MostraFiltro() {
-        filtro.style.display = "flex";
+        filtro.style.display = filtro.style.display === "none" ? "flex" : "none";
     }
 </script>
 

@@ -18,11 +18,13 @@ public class AvaliacaoService {
     private final AvaliacaoRepository avaliacaoRepository;
     private final PessoaService pessoaService;
     private final DemandaService demandaService;
+    private final NotificacaoService notificacaoService;
 
-    public AvaliacaoService(AvaliacaoRepository avaliacaoRepository, PessoaService pessoaService, DemandaService demandaService) {
+    public AvaliacaoService(AvaliacaoRepository avaliacaoRepository, PessoaService pessoaService, DemandaService demandaService, NotificacaoService notificacaoService) {
         this.avaliacaoRepository = avaliacaoRepository;
         this.pessoaService = pessoaService;
         this.demandaService = demandaService;
+        this.notificacaoService = notificacaoService;
     }
 
     public Avaliacao salvar(Avaliacao avaliacao) {
@@ -96,6 +98,11 @@ public class AvaliacaoService {
             pessoaService.atualizarMedia(id, avaliacaoRepository.mediaDoCliente(id));
         }
 
+        Pessoa avaliado = papel == Avaliador.CLIENTE ? demanda.getTrabalhador() : demanda.getCliente();
+
+        notificacaoService.criar(avaliado, TipoNotificacao.AVALIACAO,
+                pessoa.getNome() + " avaliou você com nota " + nota, "/perfil/logado");
+
         return a;
     }
 
@@ -107,6 +114,10 @@ public class AvaliacaoService {
         return avaliacaoRepository.findByDemandaIdInAndAvaliador(ids, papel).stream()
                 .map(a -> a.getDemanda().getId())
                 .collect(Collectors.toSet());
+    }
+
+    public List<Avaliacao> buscarRecebidasPeloTrabalhador(Long idTrabalhador) {
+        return avaliacaoRepository.findByTrabalhador_IdAndAvaliadorOrderByDataAvaliacaoDesc(idTrabalhador, Avaliador.CLIENTE);
     }
 
     // Quem é a pessoa nesta demanda? (null = não participa)

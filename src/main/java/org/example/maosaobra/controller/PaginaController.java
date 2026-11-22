@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -39,13 +41,19 @@ public class PaginaController {
     }
 
     @GetMapping("/inicioCliente")
-    public String inicioCliente(Authentication auth, Model model) {
+    public String inicioCliente(Authentication auth, Model model, @RequestParam(required = false) String pesquisa, @RequestParam(required = false) List<String> servicos) {
         Pessoa pessoa = pessoaLogada(auth);
 
         List<ConversaDTO> conversas = conversas(pessoa);
 
+        if (servicos == null) {
+            servicos = new ArrayList<>();
+        }
+
         model.addAttribute("nome", pessoa.getNome());
-        model.addAttribute("trabalhadores", trabalhadorService.buscarTodosPorAvaliacao());
+        model.addAttribute("trabalhadores", trabalhadorService.buscarComFiltros(pesquisa, servicos));
+        model.addAttribute("pesquisa", pesquisa);
+        model.addAttribute("servicosSelecionados", servicos);
         model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
         model.addAttribute("conversas", conversas);
 
@@ -53,19 +61,28 @@ public class PaginaController {
     }
 
     @GetMapping("/inicioPrestador")
-    public String inicioPrestador(Authentication auth, Model model) {
+    public String inicioPrestador(Authentication auth, Model model, @RequestParam(required = false) String pesquisa, @RequestParam(required = false) String ordenacao) {
         Pessoa pessoa = pessoaLogada(auth);
 
         List<ConversaDTO> conversas = conversas(pessoa);
 
-        List<Demanda> demandas = demandaService.buscarAbertas();
+        Trabalhador t = (Trabalhador) pessoa;
+
+        List<Demanda> demandas;
+
+        if (t.getServico() != null)
+            demandas = demandaService.buscarDemandasPublicasPrestador(t.getServico().getId(), pesquisa, ordenacao);
+        else
+            demandas = List.of();
 
         model.addAttribute("nome", pessoa.getNome());
-        model.addAttribute("demandas", demandaService.buscarAbertas());
-        model.addAttribute("ehTrabalhador", pessoa instanceof Trabalhador);
+        model.addAttribute("pessoaLogada", pessoa);
+        model.addAttribute("ehTrabalhador", true);
         model.addAttribute("conversas", conversas);
         model.addAttribute("demandas", demandas);
         model.addAttribute("candidatadas", candidaturaService.idsJaCandidatados(pessoa.getId(), demandas));
+        model.addAttribute("pesquisa", pesquisa);
+        model.addAttribute("ordenacao", ordenacao == null ? "recentes" : ordenacao);
 
         return "inicioPrestador";
     }
@@ -149,6 +166,8 @@ public class PaginaController {
         if (perfil instanceof Trabalhador trabalhador) {
             model.addAttribute("certificados", certificadoService.buscarPorTrabalhador(trabalhador.getId()));
             model.addAttribute("experiencias", experienciaService.buscarPorTrabalhador(trabalhador.getId()));
+            model.addAttribute("avaliacoesRecebidas", avaliacaoService.buscarRecebidasPeloTrabalhador(trabalhador.getId()));
+            model.addAttribute("historicoPrestador", demandaService.buscarDemandasConcluidas(trabalhador.getId()));
         }
 
         return "perfilPublico";

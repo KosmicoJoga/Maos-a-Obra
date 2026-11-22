@@ -169,11 +169,6 @@
                     </th:block>
                     <span th:if="${pessoa.avaliacao == null}">Sem avaliações</span>
                 </div>
-
-                <p class="localizacao">
-                    📍 Sapucaia do Sul - RS
-                </p>
-
             </div>
 
             <div class="status">
@@ -192,10 +187,10 @@
 
         <!-- ABAS DO PERFIL -->
         <nav class="abas-perfil">
-            <span onclick=mostrarInformacoes()>Informações</span>
+            <span onclick=mostrarInformacoes()>Sobre Mim</span>
             <span onclick=mostrarExperiencias()>Experiências</span>
-            <span onclick=mostrarAvaliacoes()>Avaliações</span>
-            <span onclick=mostrarHistorico()>Histórico de pedidos</span>
+            <span onclick="window.location.href='/avaliar/listar'">Avaliações</span>
+            <span onclick="window.location.href='/historicoDemandas'">Histórico de pedidos</span>
             <span onclick=mostrarCertificados()>Certificados</span>
         </nav>
 
@@ -207,46 +202,8 @@
 
             <h2>SOBRE MIM</h2>
 
-            <p th:text="${pessoa.sobreMim} ?: 'Você ainda não escreveu nada sobre você.'"></p>
-
-            <div class="info-juntas">
-                <div class="detalhes">
-                    <div class="card-detalhes">
-                        <section>
-                            <h2>Serviços Oferecidos</h2>
-
-                            <ul>
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
-                            </ul>
-                        </section>
-                    </div>
-                </div>
-                <div class="card-detalhes">
-                    <section>
-                        <h2>Experiência</h2>
-
-                        <ul>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                        </ul>
-                    </section>
-                </div>
-
-                <div class="card-detalhes">
-                    <section>
-                        <h2>Horários disponíveis</h2>
-
-                        <ul>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                        </ul>
-                    </section>
-                </div>
-            </div>
+            <p th:text="${pessoa.sobreMim} ?: 'Você ainda não escreveu nada sobre você.'">
+            </p>
 
         </section>
 
@@ -421,7 +378,7 @@
     const avaliacoes = document.getElementById("avaliacoes")
     const historico = document.getElementById("historico");
 
-    mostrarCertificados();
+    mostrarInformacoes();
 
     function mostrarInformacoes() {
         informacoes.style.display = "flex";
@@ -445,22 +402,6 @@
         experiencias.style.display = "flex";
         historico.style.display = "none";
         avaliacoes.style.display = "none";
-    }
-
-    function mostrarAvaliacoes() {
-        certificados.style.display = "none";
-        informacoes.style.display = "none";
-        experiencias.style.display = "none";
-        avaliacoes.style.display = "flex";
-        historico.style.display = "none";
-    }
-
-    function mostrarHistorico() {
-        certificados.style.display = "none";
-        informacoes.style.display = "none";
-        experiencias.style.display = "none";
-        avaliacoes.style.display = "none";
-        historico.style.display = "flex"
     }
 
 </script>

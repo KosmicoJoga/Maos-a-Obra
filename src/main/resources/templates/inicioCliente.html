@@ -134,52 +134,96 @@
         <!-- PESQUISA -->
         <section class="pesquisa">
 
-            <div class="area-filtro">
-                <button class="btn-filtro" onclick="MostraFiltro()">
-                    <img src="/images/filtro.png" alt="Filtros">
-                </button>
+            <form th:action="@{/inicioCliente}" method="get" class="pesquisa-form">
 
-                <div id="opcoesFiltro" style="display: none">
-                    Serviços:
-                    <div class="servico">
-                        <label><input type="checkbox" name="servicos" value="Eletricista"> Eletricista</label>
-                        <label><input type="checkbox" name="servicos" value="Faxineiro"> Faxineiro</label>
-                        <label><input type="checkbox" name="servicos" value="Encanador"> Encanador</label>
-                        <label><input type="checkbox" name="servicos" value="Pintor"> Pintor</label>
-                        <label><input type="checkbox" name="servicos" value="Construtor"> Construtor</label>
-                        <label><input type="checkbox" name="servicos" value="Pedreiro"> Pedreiro</label>
-                        <label><input type="checkbox" name="servicos" value="Babá"> Babá</label>
-                        <label><input type="checkbox" name="servicos" value="Auxiliar de cozinha"> Auxiliar de
-                            cozinha</label>
-                        <label><input type="checkbox" name="servicos" value="Marceneiro"> Marceneiro</label>
-                        <label><input type="checkbox" name="servicos" value="Diarista"> Diarista</label>
-                        <label><input type="checkbox" name="servicos" value="Jardineiro"> Jardineiro</label>
-                        <label><input type="checkbox" name="servicos" value="Chaveiro"> Chaveiro</label>
-                        <label><input type="checkbox" name="servicos" value="Montador de móveis"> Montador de
-                            móveis</label>
-                        <label><input type="checkbox" name="servicos" value="Técnico de eletrodomésticos"> Técnico de
-                            eletrodomésticos</label>
-                        <label><input type="checkbox" name="servicos" value="Instalador de ar-condicionado"> Instalador
-                            de ar-condicionado</label>
-                        <label><input type="checkbox" name="servicos" value="Vidraceiro"> Vidraceiro</label>
-                        <label><input type="checkbox" name="servicos" value="Passeador de cães"> Passeador de
-                            cães</label>
-                        <label><input type="checkbox" name="servicos" value="Fretes e mudanças"> Fretes e
-                            mudanças</label>
-                    </div>
-                    <div class="botao">
-                        <button class="botao-verde" id="btn-aplicarFiltros" type="button">
-                            Aplicar
-                        </button>
+                <div class="area-filtro">
+                    <button class="btn-filtro" onclick="MostraFiltro()" type="button">
+                        <img src="/images/filtro.png" alt="Filtros">
+                    </button>
+
+                    <div id="opcoesFiltro" style="display: none">
+
+                        Serviços:
+
+                        <div class="servico">
+                            <label><input type="checkbox" name="servicos" value="Eletricista"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Eletricista')}">
+                                Eletricista</label>
+                            <label><input type="checkbox" name="servicos" value="Faxineiro"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Faxineiro')}"> Faxineiro</label>
+                            <label><input type="checkbox" name="servicos" value="Encanador"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Encanador')}"> Encanador</label>
+                            <label><input type="checkbox" name="servicos" value="Pintor"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Pintor')}">
+                                Pintor</label>
+                            <label><input type="checkbox" name="servicos" value="Construtor"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Construtor')}">
+                                Construtor</label>
+                            <label><input type="checkbox" name="servicos" value="Pedreiro"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Pedreiro')}">
+                                Pedreiro</label>
+                            <label><input type="checkbox" name="servicos" value="Babá"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Babá')}"> Babá</label>
+                            <label><input type="checkbox" name="servicos" value="Auxiliar de cozinha"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Auxiliar de cozinha')}">
+                                Auxiliar de
+                                cozinha</label>
+                            <label><input type="checkbox" name="servicos" value="Marceneiro"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Marceneiro')}">
+                                Marceneiro</label>
+                            <label><input type="checkbox" name="servicos" value="Diarista"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Diarista')}">
+                                Diarista</label>
+                            <label><input type="checkbox" name="servicos" value="Jardineiro"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Jardineiro')}">
+                                Jardineiro</label>
+                            <label><input type="checkbox" name="servicos" value="Chaveiro"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Chaveiro')}">
+                                Chaveiro</label>
+                            <label><input type="checkbox" name="servicos" value="Montador de móveis"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Montador de móveis')}">
+                                Montador de móveis</label>
+                            <label><input type="checkbox" name="servicos" value="Técnico de eletrodomésticos"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Técnico de eletrodomésticos')}">
+                                Técnico
+                                de eletrodomésticos</label>
+                            <label><input type="checkbox" name="servicos" value="Instalador de ar-condicionado"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Instalador de ar-condicionado')}">
+                                Instalador de ar-condicionado</label>
+                            <label><input type="checkbox" name="servicos" value="Vidraceiro"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Vidraceiro')}">
+                                Vidraceiro</label>
+                            <label><input type="checkbox" name="servicos" value="Passeador de cães"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Passeador de cães')}">
+                                Passeador
+                                de cães</label>
+                            <label><input type="checkbox" name="servicos" value="Fretes e mudanças"
+                                          th:checked="${#lists.contains(servicosSelecionados, 'Fretes e mudanças')}">
+                                Fretes e
+                                mudanças</label>
+                        </div>
+
+                        <div class="botao">
+                            <button class="botao-verde" id="btn-aplicarFiltros" type="submit">
+                                Aplicar
+                            </button>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-            <label for="pesquisa"></label>
-            <input id="pesquisa" class="campo-pesquisa" type="text" placeholder="Pesquise aqui...">
 
-            <button class="btn-pesquisar">
-                <img src="/images/lupa.png" alt="Pesquisar">
-            </button>
+                <label for="pesquisa"></label>
+                <input id="pesquisa" name="pesquisa"
+                       class="campo-pesquisa"
+                       type="text"
+                       placeholder="Pesquise pelo nome do trabalhador..."
+                       th:value="${pesquisa}">
+
+                <button class="btn-pesquisar" type="submit">
+                    <img src="/images/lupa.png" alt="Pesquisar">
+                </button>
+
+            </form>
 
         </section>
 
@@ -272,10 +316,15 @@
 </aside>
 
 <script>
-    const filtro = document.getElementById("opcoesFiltro");
-
     function MostraFiltro() {
-        filtro.style.display = "flex";
+        const filtro = document.getElementById("opcoesFiltro");
+        const estiloDisplay = window.getComputedStyle(filtro).display;
+
+        if (estiloDisplay === 'none')
+            filtro.style.display = "flex";
+
+        if (estiloDisplay === 'flex')
+            filtro.style.display = "none";
     }
 </script>
 

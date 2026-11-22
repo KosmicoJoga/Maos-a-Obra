@@ -180,7 +180,7 @@
 
         <!-- ABAS DO PERFIL -->
         <nav class="abas-perfil">
-            <span onclick=mostrarInformacoes()>Informações</span>
+            <span onclick=mostrarInformacoes()>Sobre Mim</span>
             <span onclick=mostrarExperiencias()>Experiências</span>
             <span onclick=mostrarAvaliacoes()>Avaliações</span>
             <span onclick=mostrarHistorico()>Histórico de pedidos</span>
@@ -194,44 +194,6 @@
             <p th:text="${perfil.sobreMim} ?: 'Esta pessoa ainda não escreveu nada sobre si.'">
             </p>
 
-            <div class="info-juntas">
-                <div class="detalhes">
-                    <div class="card-detalhes">
-                        <section>
-                            <h2>Serviços Oferecidos</h2>
-
-                            <ul>
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
-                            </ul>
-                        </section>
-                    </div>
-                </div>
-                <div class="card-detalhes">
-                    <section>
-                        <h2>Experiência</h2>
-
-                        <ul>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                        </ul>
-                    </section>
-                </div>
-
-                <div class="card-detalhes">
-                    <section>
-                        <h2>Horários disponíveis</h2>
-
-                        <ul>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                            <li>Lorem ipsum</li>
-                        </ul>
-                    </section>
-                </div>
-            </div>
 
         </section>
 
@@ -282,92 +244,105 @@
 
         </section>
 
-        <section class="Avaliações" id="avaliacoes" style="display: none">
-            O meu coração entra em campo
-            Com o Mirassol
-            É o verde, amarelo e branco
-            Raça e futebol
+        <section class="avaliacoes" id="avaliacoes" style="display: none">
 
-            Leão, o meu campeão rugindo
-            No país do futebol
-            Salve, salve o meu leão querido
-            Salve o Mirassol
+            <h2>Avaliações recebidas:</h2>
 
-            Salve, salve o meu leão querido
-            Salve o Mirassol
+            <p class="mensagem-vazia" th:if="${#lists.isEmpty(avaliacoesRecebidas)}">
+                Este trabalhador ainda não recebeu avaliações.
+            </p>
 
-            O meu coração entra em campo
-            Com o Mirassol
-            É o verde, amarelo e branco
-            Raça e futebol
+            <div class="lista-avaliacoes">
 
-            Leão, o meu campeão rugindo
-            No país do futebol
-            Salve, salve o meu leão querido
-            Salve o Mirassol
+                <article class="card-avaliacao" th:each="a : ${avaliacoesRecebidas}">
 
-            Salve, salve o meu leão querido
-            Salve o Mirassol
+                    <div class="pessoa-avaliada">
 
-            E bate forte a emoção
-            E eu grito: Gol, leão, leão
-            Eu quero ver você vencer
-            Leão, leão, leão
+                        <img th:src="${a.cliente.fotoPerfil != null
+                    ? '/perfil/foto/' + a.cliente.id
+                    : '/images/foto_perfil.png'}"
+                             alt="Foto do cliente">
 
-            O meu coração entra em campo
-            Com o Mirassol
-            É o verde, amarelo e branco
-            Raça e futebol
+                        <div>
+                            <span>Avaliação de:</span>
+                            <h4 th:text="${a.cliente.nome}">Nome do cliente</h4>
+                        </div>
 
-            Leão, o meu campeão rugindo
-            No país do futebol
-            Salve, salve o meu leão querido
-            Salve o Mirassol
+                        <div class="nota">
+                            <strong th:text="'Nota: ' + ${a.nota} + ',0'">Nota</strong>
+                        </div>
 
-            Salve, salve o meu leão querido
-            Salve o Mirassol
+                    </div>
+
+                    <div class="estrelas">
+                        <img src="/images/estrela_amarela.png"
+                             alt="Estrela"
+                             th:each="i : ${#numbers.sequence(1, a.nota)}"
+                             class="estrela">
+                    </div>
+
+                    <div class="descricao">
+                        <span>Descrição da avaliação:</span>
+
+                        <p th:if="${a.descricao != null}" th:text="${a.descricao}"></p>
+
+                        <p th:if="${a.descricao == null}">
+                            Nenhuma descrição foi informada.
+                        </p>
+                    </div>
+
+                    <div class="data">
+                        <span th:text="${#temporals.format(a.dataAvaliacao, 'dd/MM/yyyy - HH:mm')}"></span>
+                    </div>
+
+                </article>
+
+            </div>
+
         </section>
-        <section class="Histórico" id="historico" style="display: none">
-            Até a pé nós iremos
-            Para o que der e vier
-            Mas o certo é que nós estaremos
-            Com o Grêmio onde o Grêmio estiver
 
-            Até a pé nós iremos
-            Para o que der e vier
-            Mas o certo é que nós estaremos
-            Com o Grêmio onde o Grêmio estiver
+        <section class="historico" id="historico" style="display: none">
 
-            Cinquenta anos de glória
-            Tens imortal tricolor
-            Os feitos da tua história
-            Canta o Rio Grande com amor
+            <h2>Histórico de pedidos:</h2>
 
-            Até a pé nós iremos
-            Para o que der e vier
-            Mas o certo é que nós estaremos
-            Com o Grêmio onde o Grêmio estiver
+            <p class="mensagem-vazia" th:if="${#lists.isEmpty(historicoPrestador)}">
+                Este trabalhador ainda não possui demandas concluídas.
+            </p>
 
-            Até a pé nós iremos
-            Para o que der e vier
-            Mas o certo é que nós estaremos
-            Com o Grêmio onde o Grêmio estiver
+            <section class="lista-historico">
 
-            Nós somos bons torcedores
-            Sem hesitarmos sequer
-            Aplaudiremos o Grêmio
-            Aonde o Grêmio estiver
+                <article class="card-historico" th:each="d : ${historicoPrestador}">
 
-            Até a pé nós iremos
-            Para o que der e vier
-            Mas o certo é que nós estaremos
-            Com o Grêmio onde o Grêmio estiver
+                    <div class="pessoa-avaliada">
 
-            Até a pé nós iremos
-            Para o que der e vier
-            Mas o certo é que nós estaremos
-            Com o Grêmio onde o Grêmio estiver
+                        <img th:src="${d.cliente.fotoPerfil != null
+                    ? '/perfil/foto/' + d.cliente.id
+                    : '/images/foto_perfil.png'}"
+                             alt="Foto do cliente">
+
+                        <div>
+                            <span>Cliente:</span>
+                            <h4 th:text="${d.cliente.nome}">Nome do cliente</h4>
+                        </div>
+
+                    </div>
+
+                    <div class="dados-demanda">
+
+                        <h3 th:text="'Orçamento inicial: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">Orçamento</h3>
+
+                        <p th:text="'Descrição: ' + ${d.obra.descricao}">Descrição</p>
+
+
+
+                    </div>
+
+                </article>
+
+            </section>
+
         </section>
+
     </main>
 
 </div>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mãos à Obra</title>
+
+    <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/styleinicioCliente.css?v=10">
+
+    <link rel="icon" type="image/png" href="/images/logo_TCC.png">
+</head>
+
+<body>
+
+<!-- BARRA LATERAL ESQUERDA-->
+<aside class="sidebar-esquerda">
+
+    <button class="btn-voltar">
+        <img src="/images/botao_voltar.png" alt="Voltar" onclick="history.back()">
+    </button>
+
+</aside>
+
+<!-- ÁREA PRINCIPAL -->
+<div class="pagina">
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <a href="/index.html">
+                <img src="/images/logo_titulo_horizontal.png" alt="Mãos à Obra">
+            </a>
+        </div>
+
+        <!-- AÇÕES DO USUÁRIO -->
+        <div class="acoes">
+
+            <a href="/formCadastro.html" class="usuario">
+                <img src="/images/cadastrar.png" alt="">
+                <span>Cadastrar</span>
+            </a>
+
+            <a href="/formLogin.html" class="usuario">
+                <img src="/images/entrar.png" alt="">
+                <span>Entrar</span>
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+        <!-- PESQUISA -->
+        <section class="pesquisa">
+
+            <form th:action="@{/}" method="get" class="pesquisa-form">
+
+                <div class="area-filtro">
+                    <button class="btn-filtro" onclick="MostraFiltro()" type="button">
+                        <img src="/images/filtro.png" alt="Filtros">
+                    </button>
+
+                    <div id="opcoesFiltro" style="display: none">
+
+                        Serviços:
+
+                        <div class="servico">
+                            <label th:each="s : ${listaServicos}">
+                                <input type="checkbox" name="servicos" th:value="${s.tipo}"
+                                       th:checked="${#lists.contains(servicosSelecionados, s.tipo)}">
+                                <span th:text="${s.tipo}">Serviço</span>
+                            </label>
+                        </div>
+
+                        <div class="botao">
+                            <button class="botao-verde" id="btn-aplicarFiltros" type="submit">
+                                Aplicar
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <label for="pesquisa"></label>
+                <input id="pesquisa" name="pesquisa"
+                       class="campo-pesquisa"
+                       type="text"
+                       placeholder="Pesquise pelo nome do trabalhador..."
+                       th:value="${pesquisa}">
+
+                <button class="btn-pesquisar" type="submit">
+                    <img src="/images/lupa.png" alt="Pesquisar">
+                </button>
+
+            </form>
+
+        </section>
+
+        <div class="linha">
+
+            <span>Trabalhadores recomendados</span>
+
+        </div>
+
+        <!-- LISTA DE TRABALHADORES -->
+        <section class="lista-trabalhadores">
+
+            <!-- CARD DO TRABALHADOR -->
+            <article class="card-trabalhador" th:each="t : ${trabalhadores}">
+
+                <div class="foto-trabalhador">
+                    <img th:src="@{/publico/foto/{id}(id=${t.id})}"
+                         onerror="this.onerror=null; this.src='/images/foto_perfil.png'"
+                         alt="Foto do Trabalhador">
+                </div>
+
+                <div class="informacoes-trabalhador">
+
+                    <div class="dados-trabalhador">
+                        <h2 th:text="${t.nome}">Nome</h2>
+                        <p th:text="${t.idade} + ' anos'">Idade</p>
+                        <p th:text="${t.servico?.tipo} ?: 'Serviço não informado'">Tipo de serviço</p>
+                    </div>
+
+                    <div class="avaliacao">
+                        <th:block th:if="${t.avaliacao != null}">
+                            <span th:text="${#numbers.formatDecimal(t.avaliacao, 1, 1, 'COMMA')}">4,7</span>
+                            <span class="estrela">★</span>
+                        </th:block>
+                        <span th:if="${t.avaliacao == null}">Sem avaliações</span>
+                    </div>
+
+                    <a th:href="@{/trabalhador/{id}(id=${t.id})}" class="btn-perfil">VER PERFIL</a>
+
+                </div>
+
+            </article>
+
+            <p th:if="${#lists.isEmpty(trabalhadores)}">Nenhum trabalhador encontrado.</p>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- BARRA LATERAL DIREITA -->
+<aside class="sidebar-direita">
+
+</aside>
+
+<script>
+    function MostraFiltro() {
+        const filtro = document.getElementById("opcoesFiltro");
+        const estiloDisplay = window.getComputedStyle(filtro).display;
+
+        if (estiloDisplay === 'none')
+            filtro.style.display = "flex";
+
+        if (estiloDisplay === 'flex')
+            filtro.style.display = "none";
+    }
+</script>
+
+</body>
+
+</html>

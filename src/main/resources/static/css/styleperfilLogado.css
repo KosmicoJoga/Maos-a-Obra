@@ -5,7 +5,6 @@
     align-items: center;
 }
 
-
 .perfil {
     width: 100%;
     display: flex;
@@ -234,22 +233,6 @@
     color: #fff;
 }
 
-.certificados > .botao-verde,
-.experiencias > .botao-verde {
-    align-self: flex-start;
-    margin: 0 0 6px;
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 700;
-    text-align: center;
-}
-
-.certificados > .botao-verde:hover,
-.experiencias > .botao-verde:hover {
-    background: #009b35;
-}
-
 .certificados > h2,
 .experiencias > h2 {
     margin: 0 0 4px;
@@ -333,6 +316,129 @@
     text-align: center;
 }
 
+/* Áreas de avaliações e histórico */
+.avaliacoes,
+.historico {
+    width: 100%;
+    min-height: 260px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 18px;
+    padding: 28px 32px 40px;
+
+    color: #fff;
+}
+
+.avaliacoes > h2,
+.historico > h2 {
+    margin: 0 0 4px;
+    color: #ffbd00;
+    font-size: 25px;
+}
+
+.lista-avaliacoes,
+.lista-historico {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 18px;
+}
+
+.card-avaliacao,
+.card-historico {
+    width: 100%;
+    padding: 22px 24px;
+
+    border: 1px solid #3676b5;
+    border-left: 5px solid #ffb000;
+    border-radius: 12px;
+
+    background: #002650;
+    box-shadow: 0 5px 14px rgb(0 0 0 / 15%);
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.pessoa-avaliada {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.pessoa-avaliada img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.pessoa-avaliada h4 {
+    color: #ffbd00;
+    font-size: 18px;
+}
+
+.pessoa-avaliada span {
+    color: #a9c9e8;
+    font-size: 14px;
+}
+
+.nota {
+    margin-left: auto;
+    color: #ffbd00;
+    font-size: 17px;
+}
+
+.estrelas {
+    display: flex;
+    gap: 5px;
+}
+
+.estrela {
+    width: 30px;
+    height: 30x;
+    object-fit: contain;
+}
+
+.card-avaliacao .descricao {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #e3edf8;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.card-avaliacao .descricao span {
+    color: #a9c9e8;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.card-avaliacao .data {
+    color: #a9c9e8;
+    font-size: 13px;
+    text-align: right;
+}
+
+.dados-demanda {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    color: #e3edf8;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.dados-demanda h3 {
+    color: #ffbd00;
+    font-size: 20px;
+}
+
 /* Mantém os cards de informações existentes independentes destas abas */
 @media (max-width: 700px) {
     .abas-perfil {
@@ -353,5 +459,23 @@
     .item-certificado,
     .item-experiencia {
         padding: 18px;
+    }
+
+    .avaliacoes,
+    .historico {
+        padding: 20px 15px 30px;
+    }
+
+    .card-avaliacao,
+    .card-historico {
+        padding: 18px;
+    }
+
+    .pessoa-avaliada {
+        flex-wrap: wrap;
+    }
+
+    .nota {
+        margin-left: 0;
     }
 }

@@ -107,7 +107,8 @@
 
 .lista-historico {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
 
     gap: 28px;
 }
