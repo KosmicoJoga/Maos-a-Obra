@@ -124,7 +124,7 @@
             <article class="item-certificado" th:each="certificado : ${certificados}">
                 <h3 th:text="${certificado.curso}"></h3>
 
-<a href="/formLogin.html">
+                <a href="/formLogin.html">
                     Entre para visualizar o certificado
                 </a>
             </article>
@@ -239,10 +239,10 @@
 
                     <div class="dados-demanda">
 
-                        <h3 th:text="'Orçamento inicial: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">Orçamento</h3>
+                        <h3 th:text="'Orçamento inicial: R$ ' + ${#numbers.formatDecimal(d.obra.orcamento, 1, 'POINT', 2, 'COMMA')}">
+                            Orçamento</h3>
 
                         <p th:text="'Descrição: ' + ${d.obra.descricao}">Descrição</p>
-
 
 
                     </div>

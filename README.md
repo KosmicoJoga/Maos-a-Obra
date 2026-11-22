@@ -2,12 +2,9 @@
 
 1. Baixe o projeto em zip ou clone o repositorio.
 
+2. Abra o projeto no IntelliJ IDEA.
 
-2. Abra o projeto no intelij.
-
-
-3. Crie o banco no MYSQL a partir do bd.sql que está localizado [aqui](src/main/resources/bd.sql) (src/main/resources/bd.sql) 
-
+3. Crie o banco no MYSQL a partir do bd.sql que está localizado [aqui](src/main/resources/bd.sql) (src/main/resources/bd.sql)
 
 4. A partir do banco criado pelo bd.sql no MYSQL, confirme se as informações no [application.proprieties](src/main/resources/application.properties) estão coerentes com as informações do servidor onde o banco foi criado.
 
@@ -23,7 +20,7 @@ spring.datasource.username = nome do usuário (geralmente sendo "root" por padr�
 
 spring.datasource.password = senha (geralmente sendo "root" por padrão, mas se você usa senha diferente no MYSQL, usa a sua senha!)
 
-# Pré requisitos
+# Pré-requisitos
 
 - JDK 21
 
